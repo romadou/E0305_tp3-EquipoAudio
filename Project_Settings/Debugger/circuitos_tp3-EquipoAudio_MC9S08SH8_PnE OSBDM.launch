@@ -92,9 +92,9 @@
 <stringAttribute key="com.pemicro.mcu.debug.connections.pne.hcs08.STARTUP_interface_selection" value="1"/>
 <stringAttribute key="org.eclipse.cdt.launch.DEBUGGER_ID" value="com.freescale.cdt.debug.cw.hc08.HC08Debugger"/>
 <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="MC9S08SH8/circuitos_tp3-EquipoAudio.abs"/>
-<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="circuitos_tp3-EquipoAudio"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="gitConRo"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/circuitos_tp3-EquipoAudio"/>
+<listEntry value="/gitConRo"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
