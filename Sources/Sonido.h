@@ -9,6 +9,7 @@
 #define SONIDO_H_
 
 void SONIDO_init(void);
-void SONIDO_sound(unsigned int freq, unsigned int dur);
+unsigned int SONIDO_calcular_NC(unsigned int frec, unsigned int* NC);
+//void SONIDO_sound(unsigned int freq, unsigned int dur);
 
 #endif /* SONIDO_H_ */

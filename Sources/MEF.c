@@ -20,7 +20,8 @@ static unsigned char auxHora; /* Control durante la modificación de la hora/minu
 static unsigned char digito1, digito2; /* Almacenamiento temporal de caracteres durante la modificación de la hora/minutos/segundos */
 
 /* Variables externas */
-extern unsigned char flag_CP; /* Flag de parpadeo */
+extern unsigned int NC;
+extern unsigned int NC0;
 
 /* Variables globales */
 volatile unsigned char flag_PA=0;
@@ -179,6 +180,7 @@ void estado_pedir_t(unsigned char entrada){
 	/* Elección del modo 1 */
 	case '1':
 		actual=M2_ON;
+		
 		//MENSAJE_segundosBarrido(5);
 		break;
 		;
@@ -200,14 +202,23 @@ void estado_pedir_t(unsigned char entrada){
 }
 
 void estado_m2_on(unsigned char entrada){
+	static unsigned char aux=0;
 	//MENSAJE_analizar entrada (puede ser if =(ej)> 3 si reset, 2 si on, 1 si off, 0 si no terminó)
-	switch (entrada){
-	case 'O':
-		actual=PEDIR_F;
+	///aux=_MENSAJE_analizarEntrada(entrada,1); 1 indica que hay que analizar números para frecuencia (y mostrarlos)
+	switch (aux){
+	case '3':
+		MENSAJE_init();
+		actual=INIT;
 		break;
 		;
-	case '9':
-		actual=PEDIR_T;
+	case '2':
+		//SONIDO_prender();
+		actual=M1_ON;
+		break;
+		;
+	case '1':
+		//SONIDO_apagar();
+		actual=M1_OFF;
 		break;
 		;
 	/* Opción sin efecto */
@@ -217,14 +228,18 @@ void estado_m2_on(unsigned char entrada){
 }
 
 void estado_m2_off(void){
+	static unsigned char aux=0;
 	//MENSAJE_analizar entrada (puede ser if =(ej)> 3 si reset, 2 si on, 1 si off, 0 si no terminó)
-	switch (entrada){
-	case 'O':
-		actual=PEDIR_F;
+	///aux=_MENSAJE_analizarEntrada(entrada,1); 1 indica que hay que analizar números para frecuencia (y mostrarlos)
+	switch (aux){
+	case '3':
+		MENSAJE_init();
+		actual=INIT;
 		break;
 		;
-	case '9':
-		actual=PEDIR_T;
+	case '2':
+		//SONIDO_prender();
+		actual=M1_ON;
 		break;
 		;
 	/* Opción sin efecto */

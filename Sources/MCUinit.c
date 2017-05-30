@@ -51,6 +51,9 @@ typedef unsigned long int uint32_t;
 
 /* User declarations and definitions */
 /*   Code, declarations and definitions here will be preserved during code generation */
+volatile unsigned int NC;
+volatile unsigned int NC0;
+
 extern unsigned char rxchar;
 /* End of user declarations and definitions */
 
