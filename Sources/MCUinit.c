@@ -219,7 +219,7 @@ __interrupt void isrVscierr(void)
 __interrupt void isrVtpm1ovf(void)
 {
   /* Write your interrupt code here ... */
-
+	
 }
 /* end of isrVtpm1ovf */
 
@@ -236,7 +236,6 @@ __interrupt void isrVtpm1ovf(void)
 */
 __interrupt void isrVtpm1ch1(void)
 {
-  /* Write your interrupt code here ... */
 	TPM1C1V += NC; //calcular NC
 	TPM1C1SC_CH1F=0;
 }
@@ -255,8 +254,8 @@ __interrupt void isrVtpm1ch1(void)
 */
 __interrupt void isrVtpm1ch0(void)
 {
-  /* Write your interrupt code here ... */
-	
+	TPM1C0V += NC0;
+	SONIDO_siguiente_f();
 }
 /* end of isrVtpm1ch0 */
 

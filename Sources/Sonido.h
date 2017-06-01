@@ -9,8 +9,9 @@
 #define SONIDO_H_
 
 void SONIDO_init(void);
-unsigned int SONIDO_calcular_NC(unsigned int frec, unsigned int* NC);
-void SONIDO_prender(unsigned int NC);
+unsigned int SONIDO_prender_m1(unsigned int frec); /* Enciende el sonido en la frecuencia indicada; devuelve el error (Hz) existente entre la frecuencia del sonido real respecto del deseado. */
+void SONIDO_prender_m2(unsigned char T); /* Dispara el barrido de frecuencias, para que se realice en T segundos */
 void SONIDO_apagar(void);
+void SONIDO_siguiente_f(void); /* **Para uso en modo barrido** Efectúa el cambio de una frecuencia a la siguiente */
 
 #endif /* SONIDO_H_ */

@@ -10,7 +10,7 @@
 static unsigned char indexR=0;
 static unsigned char indexW=0;
 static unsigned char buffer_tx[32];
-static unsigned char buffer_rx[32];
+//static unsigned char buffer_rx[32];
 
 volatile unsigned char flag_r;
 unsigned char rxchar;
@@ -29,6 +29,7 @@ void SCI_send_char(void){
 
 void SCI_receive_char(void){
 	//dudo sobre si este if no va en el MCUinit
+	//no se usa el buffer_rx para nada?
 	if(SCIS1_RDRF==1){
 		rxchar=SCID;
 		flag_r=1;

@@ -107,12 +107,12 @@ void estado_pedir_f(unsigned char entrada){
 	switch (aux){
 	/* Opción de reset */
 	case '3':
-		MENSAJE_init();
+		MEF_init();
 		actual=INIT;
 		break;
 		;
 	case '2':
-		//SONIDO_prender();
+		//SONIDO_prender_m1(frecuencia recolectada);
 		actual=M1_ON;
 		break;
 		;
@@ -144,7 +144,7 @@ void estado_m1_on(unsigned char entrada){
 	///aux=_MENSAJE_analizarEntrada(entrada);
 	switch (aux){
 	case '3':
-		MENSAJE_init();
+		MEF_init();
 		actual=INIT;
 		break;
 		;
@@ -166,12 +166,12 @@ void estado_m1_off(unsigned char entrada){
 	///aux=_MENSAJE_analizarEntrada(entrada);
 	switch (aux){
 	case '3':
-		MENSAJE_init();
+		MEF_init();
 		actual=INIT;
 		break;
 		;
 	case '2':
-		//SONIDO_prender();
+		//SONIDO_reanudar();
 		actual=M1_ON;
 		break;
 		;
@@ -183,21 +183,25 @@ void estado_m1_off(unsigned char entrada){
 
 void estado_pedir_t(unsigned char entrada){
 	switch (entrada){
-	/* Elección del modo 1 */
+	/* Elección del barrido en 5 segundos */
 	case '1':
 		actual=M2_ON;
 		//MENSAJE_segundosBarrido(5);
+		SONIDO_prender_m2(5);
 		break;
 		;
-	/* Elección del modo 2 */
+	/* Elección del barrido en 10 segundos */
 	case '2':
 		actual=M2_ON;
 		//MENSAJE_segundosBarrido(10);
+		SONIDO_prender_m2(10);
 		break;
 		;
+	/* Elección del barrido en 15 segundos */
 	case '3':
 		actual=M2_ON;
 		//MENSAJE_segundosBarrido(15);
+		SONIDO_prender_m2(15);
 		break;
 		;
 	/* Opción sin efecto */
@@ -218,7 +222,7 @@ void estado_m2_on(unsigned char entrada){
 	///aux=_MENSAJE_analizarEntrada(entrada,1); 1 indica que hay que analizar números para frecuencia (y mostrarlos)
 	switch (aux){
 	case '3':
-		MENSAJE_init();
+		MEF_init();
 		actual=INIT;
 		break;
 		;
@@ -240,7 +244,7 @@ void estado_m2_off(unsigned char entrada){
 	///aux=_MENSAJE_analizarEntrada(entrada);
 	switch (aux){
 	case '3':
-		MENSAJE_init();
+		MEF_init();
 		actual=INIT;
 		break;
 		;

@@ -17,6 +17,7 @@ void main(void) {
   for(;;) {  
 	  if (flag_r){
 		  MEF_update(rxchar);
+		  flag_r=0;
 	  }
   } /* loop forever */
   
