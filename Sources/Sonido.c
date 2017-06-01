@@ -6,6 +6,8 @@
  */
 
 #include <math.h>
+#include "Sonido.h"
+#include <mc9s08sh8.h> 
 
 #ifndef PRESCALER
 #define PRESCALER 4
@@ -17,7 +19,7 @@ unsigned char sound_playing=0;
 extern unsigned int NC;
 extern unsigned int NC0;
 
-//void SONIDO_sound(unsigned int freq, unsigned int dur);
+
 
 void SONIDO_init(){
 	SONIDO_apagar();
@@ -26,7 +28,7 @@ void SONIDO_init(){
 unsigned int SONIDO_calcular_NC(unsigned int frec, unsigned int* NC){
 	unsigned long auxNC, auxFoc;
 	auxNC=8000000UL/(PRESCALER*2*frec); /* cálculo de NC */
-	*NC=(unsigned int)aux;
+	*NC=(unsigned int)auxNC;
 	auxFoc=8000000UL/(PRESCALER*2*auxNC);
 	return fabs((unsigned int)auxFoc-frec);
 }
@@ -36,7 +38,7 @@ void SONIDO_prender(unsigned int NC){
 	TPM1C1SC_CH1IE=1;
 }
 
-void SONIDO_apagar(){
+void SONIDO_apagar(void){
 	TPM1C1V = 0; /* apagar sonido */ //REVISAR
 	TPM1C1SC_CH1IE=0;
 }

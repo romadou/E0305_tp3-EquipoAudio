@@ -18,7 +18,6 @@ void main(void) {
 	  if (flag_r){
 		  MEF_update(rxchar);
 	  }
-	  
   } /* loop forever */
   
   /* please make sure that you never leave main */

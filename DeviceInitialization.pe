@@ -4,7 +4,7 @@
     <Name>DeviceInitialization</Name>
     <SavedBy>usuario</SavedBy>
     <ModificationStamp>3</ModificationStamp>
-    <Date>2017-05-29</Date>
+    <Date>2017-06-01</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>4.48.0.0</PEversion>
   </Header>
@@ -2979,7 +2979,7 @@
         <ReadOnly>false</ReadOnly>
         <ListItemCount>2</ListItemCount>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>Pins</ItemSymbol>

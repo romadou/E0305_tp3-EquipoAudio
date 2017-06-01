@@ -9,7 +9,7 @@
 **     Processor : MC9S08SH8CPJ
 **     Version   : Component 01.008, Driver 01.08, CPU db: 3.00.066
 **     Datasheet : MC9S08SH8 Rev. 3 6/2008
-**     Date/Time : 2017-05-29, 16:30, # CodeGen: 4
+**     Date/Time : 2017-06-01, 14:37, # CodeGen: 2
 **     Abstract  :
 **         This module contains device initialization code 
 **         for selected on-chip peripherals.
@@ -73,8 +73,8 @@ void MCU_init(void)
   /* Common initialization of the write once registers */
   /* SOPT1: COPT=0,STOPE=0,IICPS=0,BKGDPE=1,RSTPE=0 */
   SOPT1 = 0x02U;                                      
-  /* SOPT2: COPCLKS=0,COPW=0,ACIC=0,T1CH1PS=1,T1CH0PS=1 */
-  SOPT2 = 0x03U;                                      
+  /* SOPT2: COPCLKS=0,COPW=0,ACIC=0,T1CH1PS=1,T1CH0PS=0 */
+  SOPT2 = 0x02U;                                      
   /* SPMSC1: LVWF=0,LVWACK=0,LVWIE=0,LVDRE=1,LVDSE=1,LVDE=1,BGBE=0 */
   SPMSC1 = 0x1CU;                                      
   /* SPMSC2: LVDV=0,LVWV=0,PPDF=0,PPDACK=0,PPDC=0 */
@@ -95,8 +95,8 @@ void MCU_init(void)
   /* GNGC: GNGPS7=0,GNGPS6=0,GNGPS5=0,GNGPS4=0,GNGPS3=0,GNGPS2=0,GNGPS1=0,GNGEN=0 */
   GNGC = 0x00U;                                      
   /* Common initialization of the CPU registers */
-  /* PTCPE: PTCPE1=0,PTCPE0=0 */
-  PTCPE &= (unsigned char)~(unsigned char)0x03U;                     
+  /* PTCPE: PTCPE1=0 */
+  PTCPE &= (unsigned char)~(unsigned char)0x02U;                     
   /* PTASE: PTASE4=0,PTASE3=0,PTASE2=0,PTASE1=0,PTASE0=0 */
   PTASE &= (unsigned char)~(unsigned char)0x1FU;                     
   /* PTBSE: PTBSE7=0,PTBSE6=0,PTBSE5=0,PTBSE4=0,PTBSE3=0,PTBSE2=0,PTBSE1=0,PTBSE0=0 */
@@ -109,21 +109,6 @@ void MCU_init(void)
   PTBDS = 0x00U;                                      
   /* PTCDS: PTCDS3=0,PTCDS2=0,PTCDS1=0,PTCDS0=0 */
   PTCDS = 0x00U;                                      
-  /* ### Init_TPM init code */
-  (void)(TPM1C1SC == 0U);              /* Channel 0 int. flag clearing (first part) */
-  /* TPM1C1SC: CH1F=0,CH1IE=1,MS1B=0,MS1A=1,ELS1B=0,ELS1A=1 */
-  TPM1C1SC = 0x54U;                    /* Int. flag clearing (2nd part) and channel 0 contr. register setting */
-  TPM1C1V = 0x00U;                     /* Compare 0 value setting */
-  (void)(TPM1C0SC == 0U);              /* Channel 1 int. flag clearing (first part) */
-  /* TPM1C0SC: CH0F=0,CH0IE=1,MS0B=0,MS0A=1,ELS0B=1,ELS0A=1 */
-  TPM1C0SC = 0x5CU;                    /* Int. flag clearing (2nd part) and channel 1 contr. register setting */
-  TPM1C0V = 0x00U;                     /* Compare 1 value setting */
-  /* TPM1SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=0,PS2=0,PS1=0,PS0=0 */
-  TPM1SC = 0x00U;                      /* Stop and reset counter */
-  TPM1MOD = 0x00U;                     /* Period value setting */
-  (void)(TPM1SC == 0U);                /* Overflow int. flag clearing (first part) */
-  /* TPM1SC: TOF=0,TOIE=1,CPWMS=0,CLKSB=0,CLKSA=1,PS2=0,PS1=1,PS0=0 */
-  TPM1SC = 0x4AU;                      /* Int. flag clearing (2nd part) and timer control register setting */
   /* ### Init_SCI init code */
   /* SCIC2: TIE=0,TCIE=0,RIE=0,ILIE=0,TE=0,RE=0,RWU=0,SBK=0 */
   SCIC2 = 0x00U;                       /* Disable the SCI module */
@@ -141,6 +126,21 @@ void MCU_init(void)
   SCIC3 = 0x00U;                                      
   /* SCIC2: TIE=0,TCIE=0,RIE=0,ILIE=0,TE=1,RE=1,RWU=0,SBK=0 */
   SCIC2 = 0x0CU;                                      
+  /* ### Init_TPM init code */
+  (void)(TPM1C1SC == 0U);              /* Channel 0 int. flag clearing (first part) */
+  /* TPM1C1SC: CH1F=0,CH1IE=1,MS1B=0,MS1A=1,ELS1B=0,ELS1A=1 */
+  TPM1C1SC = 0x54U;                    /* Int. flag clearing (2nd part) and channel 0 contr. register setting */
+  TPM1C1V = 0x00U;                     /* Compare 0 value setting */
+  (void)(TPM1C0SC == 0U);              /* Channel 1 int. flag clearing (first part) */
+  /* TPM1C0SC: CH0F=0,CH0IE=1,MS0B=0,MS0A=1,ELS0B=0,ELS0A=0 */
+  TPM1C0SC = 0x50U;                    /* Int. flag clearing (2nd part) and channel 1 contr. register setting */
+  TPM1C0V = 0x00U;                     /* Compare 1 value setting */
+  /* TPM1SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=0,PS2=0,PS1=0,PS0=0 */
+  TPM1SC = 0x00U;                      /* Stop and reset counter */
+  TPM1MOD = 0x00U;                     /* Period value setting */
+  (void)(TPM1SC == 0U);                /* Overflow int. flag clearing (first part) */
+  /* TPM1SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=1,PS2=0,PS1=1,PS0=0 */
+  TPM1SC = 0x0AU;                      /* Int. flag clearing (2nd part) and timer control register setting */
   /* ### */
   /*lint -save  -e950 Disable MISRA rule (1.1) checking. */
   asm CLI;                             /* Enable interrupts */
@@ -164,7 +164,7 @@ __interrupt void isrVscitx(void)
 {
   /* Write your interrupt code here ... */
 	if(SCIS1_TDRE){
-		
+		SCI_send_char();
 	}
 }
 /* end of isrVscitx */
