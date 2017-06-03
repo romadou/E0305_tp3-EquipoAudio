@@ -8,7 +8,6 @@
 #include "MEF.h"
 #include "SCI.h"
 #include "Mensaje.h"
-#include "TPM.h"
 #include "Sonido.h"
 
 /* Variables privadas */
@@ -101,55 +100,44 @@ void estado_init(unsigned char entrada){
 
 void estado_pedir_f(unsigned char entrada){
 	static unsigned char aux=0;
-	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//MENSAJE/SCI_analizar entrada (puede ser if =(ej)> 3 si reset, 2 si on, 1 si ingresó toda la frecuencia (presionó tecla clave y la frecuencia es válida), 0 si no terminó)
-	///aux=_MENSAJE_analizarEntrada(entrada,1); 1 indica que hay que analizar números para frecuencia (y mostrarlos)
+	///aux=_MENSAJE_analizarEntrada(entrada);
+	// No lo tengo claro, pero creo que en la función analizarEntrada se debería mandar el carácter que entró (numérico) as SCI (ir mostrando la frecuencia)
+	// El análisis devuelve:
+	// -----'0' para resetear (frecuencia inválida o comando de reset, si válido)
+	// -----'1' si ya hay una frecuencia definida
+	// -----'2' si sigue esperando valores
 	switch (aux){
 	/* Opción de reset */
-	case '3':
+	case '0':
 		MEF_init();
 		actual=INIT;
 		break;
 		;
-	case '2':
-		//SONIDO_prender_m1(frecuencia recolectada);
-		actual=M1_ON;
-		break;
-		;
+	/* Modo de frecuencia fija activado y a la espera */
 	case '1':
-		//SONIDO_apagar();
+		//MENSAJE_(menú de opciones para reproducción)
 		actual=M1_OFF;
 		break;
 		;
-	/* Opción sin efecto */
 	default:
 		;
 	}
 }
 
-/*void estado_pedir_f(unsigned char entrada){
-	static unsigned char fin=0;
-	//Opciones especificadas en MENSAJE_pedirFrecuencia
-	fin=SCI o MENSAJE_analizarEntradaParaF(entrada); (1 si se terminó de ingresar la frecuencia)
-	if (fin){
-		//SONIDO_apagar();
-		actual=M1_OFF;
-	}
-}*/
-
 void estado_m1_on(unsigned char entrada){
 	static unsigned char aux=0;
 	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//MENSAJE_analizar entrada (puede ser if =(ej)> 3 si reset, 1 si off, 0 si no terminó)
-	///aux=_MENSAJE_analizarEntrada(entrada);
+	//MENSAJE_analizar entrada (puede ser if =(ej)> 0 si reset, 1 si off, 3 si no terminó)
+	//aux=_MENSAJE_analizarEntrada(entrada);
 	switch (aux){
-	case '3':
+	//switch (entrada){
+	case '0':
 		MEF_init();
 		actual=INIT;
 		break;
 		;
 	case '1':
-		//SONIDO_apagar();
+		SONIDO_apagar();
 		actual=M1_OFF;
 		break;
 		;
@@ -162,16 +150,17 @@ void estado_m1_on(unsigned char entrada){
 void estado_m1_off(unsigned char entrada){
 	static unsigned char aux=0;
 	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//MENSAJE_analizar entrada (puede ser if =(ej)> 3 si reset, 2 si on, 0 si no terminó)
+	//MENSAJE_analizar entrada (puede ser if =(ej)> 0 si reset, 2 si on, 3 si no terminó - ej, "OF" de "OFF")
 	///aux=_MENSAJE_analizarEntrada(entrada);
 	switch (aux){
-	case '3':
+	//switch (entrada){
+	case '0':
 		MEF_init();
 		actual=INIT;
 		break;
 		;
 	case '2':
-		//SONIDO_reanudar();
+		SONIDO_reanudar();
 		actual=M1_ON;
 		break;
 		;
@@ -185,6 +174,7 @@ void estado_pedir_t(unsigned char entrada){
 	switch (entrada){
 	/* Elección del barrido en 5 segundos */
 	case '1':
+		//MENSAJE_(menú de opciones para reproducción)
 		actual=M2_ON;
 		//MENSAJE_segundosBarrido(5);
 		SONIDO_prender_m2(5);
@@ -192,6 +182,7 @@ void estado_pedir_t(unsigned char entrada){
 		;
 	/* Elección del barrido en 10 segundos */
 	case '2':
+		//MENSAJE_(menú de opciones para reproducción)
 		actual=M2_ON;
 		//MENSAJE_segundosBarrido(10);
 		SONIDO_prender_m2(10);
@@ -204,13 +195,7 @@ void estado_pedir_t(unsigned char entrada){
 		SONIDO_prender_m2(15);
 		break;
 		;
-	/* Opción sin efecto */
 	default:
-		//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-		//MENSAJE/SCI_analizar entrada (3 si reset - coordinar con estado pedir_f)
-		//si análisis == 3
-		//MENSAJE_init();
-		//actual=INIT;
 		;
 	}
 }
@@ -218,10 +203,11 @@ void estado_pedir_t(unsigned char entrada){
 void estado_m2_on(unsigned char entrada){
 	static unsigned char aux=0;
 	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//MENSAJE_analizar entrada (puede ser if =(ej)> 3 si reset, 1 si off, 0 si no terminó)
+	//MENSAJE_analizar entrada (puede ser if =(ej)> 0 si reset, 1 si off, 3 si no terminó)
 	///aux=_MENSAJE_analizarEntrada(entrada,1); 1 indica que hay que analizar números para frecuencia (y mostrarlos)
 	switch (aux){
-	case '3':
+	//switch (entrada){
+	case '0':
 		MEF_init();
 		actual=INIT;
 		break;
@@ -240,16 +226,17 @@ void estado_m2_on(unsigned char entrada){
 void estado_m2_off(unsigned char entrada){
 	static unsigned char aux=0;
 	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//MENSAJE_analizar entrada (puede ser if =(ej)> 3 si reset, 2 si on, 0 si no terminó)
+	//MENSAJE_analizar entrada (puede ser if =(ej)> 0 si reset, 2 si on, 3 si no terminó)
 	///aux=_MENSAJE_analizarEntrada(entrada);
 	switch (aux){
-	case '3':
+	//switch (entrada){
+	case '0':
 		MEF_init();
 		actual=INIT;
 		break;
 		;
 	case '2':
-		//SONIDO_prender();
+		SONIDO_reanudar();
 		actual=M2_ON;
 		break;
 		;

@@ -11,7 +11,6 @@ C_SRCS_QUOTED += \
 "../Sources/Mensaje.c" \
 "../Sources/SCI.c" \
 "../Sources/Sonido.c" \
-"../Sources/TPM.c" \
 "../Sources/main.c" \
 
 C_SRCS += \
@@ -20,7 +19,6 @@ C_SRCS += \
 ../Sources/Mensaje.c \
 ../Sources/SCI.c \
 ../Sources/Sonido.c \
-../Sources/TPM.c \
 ../Sources/main.c \
 
 OBJS += \
@@ -29,7 +27,6 @@ OBJS += \
 ./Sources/Mensaje_c.obj \
 ./Sources/SCI_c.obj \
 ./Sources/Sonido_c.obj \
-./Sources/TPM_c.obj \
 ./Sources/main_c.obj \
 
 OBJS_QUOTED += \
@@ -38,7 +35,6 @@ OBJS_QUOTED += \
 "./Sources/Mensaje_c.obj" \
 "./Sources/SCI_c.obj" \
 "./Sources/Sonido_c.obj" \
-"./Sources/TPM_c.obj" \
 "./Sources/main_c.obj" \
 
 C_DEPS += \
@@ -47,7 +43,6 @@ C_DEPS += \
 ./Sources/Mensaje_c.d \
 ./Sources/SCI_c.d \
 ./Sources/Sonido_c.d \
-./Sources/TPM_c.d \
 ./Sources/main_c.d \
 
 OBJS_OS_FORMAT += \
@@ -56,7 +51,6 @@ OBJS_OS_FORMAT += \
 ./Sources/Mensaje_c.obj \
 ./Sources/SCI_c.obj \
 ./Sources/Sonido_c.obj \
-./Sources/TPM_c.obj \
 ./Sources/main_c.obj \
 
 
@@ -98,13 +92,6 @@ Sources/Sonido_c.obj: ../Sources/Sonido.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: HCS08 Compiler'
 	"$(HC08ToolsEnv)/chc08" -ArgFile"Sources/Sonido.args" -ObjN="Sources/Sonido_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
-	@echo 'Finished building: $<'
-	@echo ' '
-
-Sources/TPM_c.obj: ../Sources/TPM.c
-	@echo 'Building file: $<'
-	@echo 'Invoking: HCS08 Compiler'
-	"$(HC08ToolsEnv)/chc08" -ArgFile"Sources/TPM.args" -ObjN="Sources/TPM_c.obj" "$<" -Lm="$(@:%.obj=%.d)" -LmCfg=xilmou
 	@echo 'Finished building: $<'
 	@echo ' '
 
