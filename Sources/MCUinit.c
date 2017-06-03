@@ -27,6 +27,8 @@
 
 #include <mc9s08sh8.h>                 /* I/O map for MC9S08SH8CPJ */
 #include "MCUinit.h"
+#include "SCI.h"
+#include "Sonido.h"
 
 /* Standard ANSI C types */
 #ifndef int8_t
@@ -162,7 +164,6 @@ void MCU_init(void)
 */
 __interrupt void isrVscitx(void)
 {
-  /* Write your interrupt code here ... */
 	if(SCIS1_TDRE){
 		SCI_send_char();
 	}
@@ -182,7 +183,6 @@ __interrupt void isrVscitx(void)
 */
 __interrupt void isrVscirx(void)
 {
-  /* Write your interrupt code here ... */
 	SCI_receive_char();
 }
 /* end of isrVscirx */
@@ -200,8 +200,7 @@ __interrupt void isrVscirx(void)
 */
 __interrupt void isrVscierr(void)
 {
-  /* Write your interrupt code here ... */
-
+	
 }
 /* end of isrVscierr */
 
@@ -218,7 +217,6 @@ __interrupt void isrVscierr(void)
 */
 __interrupt void isrVtpm1ovf(void)
 {
-  /* Write your interrupt code here ... */
 	
 }
 /* end of isrVtpm1ovf */
@@ -236,7 +234,7 @@ __interrupt void isrVtpm1ovf(void)
 */
 __interrupt void isrVtpm1ch1(void)
 {
-	TPM1C1V += NC; //calcular NC
+	TPM1C1V += NC;
 	TPM1C1SC_CH1F=0;
 }
 /* end of isrVtpm1ch1 */

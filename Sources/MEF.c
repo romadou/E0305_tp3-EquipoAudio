@@ -17,9 +17,6 @@ static estado actual; /* Estado actual de la MEF */
 extern unsigned int NC;
 extern unsigned int NC0;
 
-/* Variables globales */
-
-
 /* Funciones privadas */
 /* Comportamiento de cada uno de los estados */
 void estado_init(unsigned char entrada);

@@ -21,7 +21,7 @@
 #define PASO 100
 #endif
 
-#include <math.h>
+#include <stdlib.h>
 #include "Sonido.h" 
 #include <mc9s08sh8.h> 
 
