@@ -1,5 +1,5 @@
 /*
- * Sonido.c
+ * sonido.c
  *
  *  Created on: 5/06/2017
  *      Author: Krasowski - Madou
@@ -22,7 +22,7 @@
 #endif
 
 #include <stdlib.h>
-#include "Sonido.h" 
+#include "sonido.h" 
 #include <mc9s08sh8.h> 
 
 extern unsigned int NC;
