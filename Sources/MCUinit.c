@@ -235,7 +235,7 @@ __interrupt void isrVtpm1ovf(void)
 __interrupt void isrVtpm1ch1(void)
 {
 	TPM1C1V += NC;
-	TPM1C1SC_CH1F=0;
+	TPM1C1SC_CH1F = 0;
 }
 /* end of isrVtpm1ch1 */
 
@@ -254,6 +254,7 @@ __interrupt void isrVtpm1ch0(void)
 {
 	TPM1C0V += NC0;
 	SONIDO_siguiente_f();
+	//TPM1C0SC_CH0F = 0;
 }
 /* end of isrVtpm1ch0 */
 
