@@ -6,7 +6,6 @@
  */
 
 #include "MEF.h"
-#include "SCI.h"
 #include "Mensaje.h"
 #include "Sonido.h"
 
