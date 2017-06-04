@@ -1,7 +1,6 @@
 #include <hidef.h> /* for EnableInterrupts macro */
 #include "derivative.h" /* include peripheral declarations */
-#include "SCI.h"
-#include "Mensaje.h"
+#include "MEF.h"
 
 extern unsigned char flag_r;
 extern unsigned char rxchar;

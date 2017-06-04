@@ -6,8 +6,9 @@
  */
 
 #include "MEF.h"
-#include "Mensaje.h"
-#include "Sonido.h"
+#include "SCI.h"
+#include "interaccion.h"
+#include "sonido.h"
 
 /* Variables privadas */
 static estado actual; /* Estado actual de la MEF */
@@ -30,7 +31,7 @@ void estado_m2_off(unsigned char entrada);
 
 void MEF_init(void){
 	actual=INIT;
-	MENSAJE_init();
+	INTERACCION_init();
 	SONIDO_init();
 }
 
@@ -79,13 +80,13 @@ void estado_init(unsigned char entrada){
 	/* Elección del modo 1 */
 	case '1':
 		actual=PEDIR_F;
-		//MENSAJE_pedirFrecuencia();
+		//INTERACCION_getFrecuencia();
 		break;
 		;
 	/* Elección del modo 2 */
 	case '2':
 		actual=PEDIR_T;
-		//MENSAJE_pedirTiempoBarrido();
+		//INTERACCION_getTiempoBarrido();
 		break;
 		;
 	/* Opción sin efecto */
@@ -96,7 +97,7 @@ void estado_init(unsigned char entrada){
 
 void estado_pedir_f(unsigned char entrada){
 	static unsigned char aux=0;
-	///aux=_MENSAJE_analizarEntrada(entrada);
+	///aux=_INTERACCION_analizarEntrada(entrada);
 	// No lo tengo claro, pero creo que en la función analizarEntrada se debería mandar el carácter que entró (numérico) as SCI (ir mostrando la frecuencia)
 	// El análisis devuelve:
 	// -----'0' para resetear (frecuencia inválida o comando de reset, si válido)
@@ -111,7 +112,7 @@ void estado_pedir_f(unsigned char entrada){
 		;
 	/* Modo de frecuencia fija activado y a la espera */
 	case '1':
-		//MENSAJE_(menú de opciones para reproducción)
+		//INTERACCION_(menú de opciones para reproducción)
 		actual=M1_OFF;
 		break;
 		;
@@ -123,8 +124,8 @@ void estado_pedir_f(unsigned char entrada){
 void estado_m1_on(unsigned char entrada){
 	static unsigned char aux=0;
 	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//MENSAJE_analizar entrada (puede ser if =(ej)> 0 si reset, 1 si off, 3 si no terminó)
-	//aux=_MENSAJE_analizarEntrada(entrada);
+	//INTERACCION_analizar entrada (puede ser if =(ej)> 0 si reset, 1 si off, 3 si no terminó)
+	//aux=_INTERACCION_analizarEntrada(entrada);
 	switch (aux){
 	//switch (entrada){
 	case '0':
@@ -146,8 +147,8 @@ void estado_m1_on(unsigned char entrada){
 void estado_m1_off(unsigned char entrada){
 	static unsigned char aux=0;
 	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//MENSAJE_analizar entrada (puede ser if =(ej)> 0 si reset, 2 si on, 3 si no terminó - ej, "OF" de "OFF")
-	///aux=_MENSAJE_analizarEntrada(entrada);
+	//INTERACCION_analizar entrada (puede ser if =(ej)> 0 si reset, 2 si on, 3 si no terminó - ej, "OF" de "OFF")
+	///aux=_INTERACCION_analizarEntrada(entrada);
 	switch (aux){
 	//switch (entrada){
 	case '0':
@@ -170,24 +171,24 @@ void estado_pedir_t(unsigned char entrada){
 	switch (entrada){
 	/* Elección del barrido en 5 segundos */
 	case '1':
-		//MENSAJE_(menú de opciones para reproducción)
+		//INTERACCION_(menú de opciones para reproducción)
 		actual=M2_ON;
-		//MENSAJE_segundosBarrido(5);
+		//INTERACCION_segundosBarrido(5);
 		SONIDO_prender_m2(5);
 		break;
 		;
 	/* Elección del barrido en 10 segundos */
 	case '2':
-		//MENSAJE_(menú de opciones para reproducción)
+		//INTERACCION_(menú de opciones para reproducción)
 		actual=M2_ON;
-		//MENSAJE_segundosBarrido(10);
+		//INTERACCION_segundosBarrido(10);
 		SONIDO_prender_m2(10);
 		break;
 		;
 	/* Elección del barrido en 15 segundos */
 	case '3':
 		actual=M2_ON;
-		//MENSAJE_segundosBarrido(15);
+		//INTERACCION_segundosBarrido(15);
 		SONIDO_prender_m2(15);
 		break;
 		;
@@ -199,8 +200,8 @@ void estado_pedir_t(unsigned char entrada){
 void estado_m2_on(unsigned char entrada){
 	static unsigned char aux=0;
 	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//MENSAJE_analizar entrada (puede ser if =(ej)> 0 si reset, 1 si off, 3 si no terminó)
-	///aux=_MENSAJE_analizarEntrada(entrada,1); 1 indica que hay que analizar números para frecuencia (y mostrarlos)
+	//INTERACCION_analizar entrada (puede ser if =(ej)> 0 si reset, 1 si off, 3 si no terminó)
+	///aux=_INTERACCION_analizarEntrada(entrada,1); 1 indica que hay que analizar números para frecuencia (y mostrarlos)
 	switch (aux){
 	//switch (entrada){
 	case '0':
@@ -222,8 +223,8 @@ void estado_m2_on(unsigned char entrada){
 void estado_m2_off(unsigned char entrada){
 	static unsigned char aux=0;
 	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//MENSAJE_analizar entrada (puede ser if =(ej)> 0 si reset, 2 si on, 3 si no terminó)
-	///aux=_MENSAJE_analizarEntrada(entrada);
+	//INTERACCION_analizar entrada (puede ser if =(ej)> 0 si reset, 2 si on, 3 si no terminó)
+	///aux=_INTERACCION_analizarEntrada(entrada);
 	switch (aux){
 	//switch (entrada){
 	case '0':
