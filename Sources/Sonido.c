@@ -29,11 +29,12 @@ extern unsigned int NC;
 extern unsigned int NC0;
 
 static unsigned int frecuenciaActual=0;
+static unsigned int errorDeReproduccion=0;
 static unsigned char modoActual=0;
 static unsigned int TPM1C1V_aux=0;
 
-/* Calcula el valor correspondiente a la frecuencia actual para NC y lo asigna a la variable externa de igual nombre; devuelve el error de frecuencia resultante */
-unsigned int SONIDO_calcular_NC(void);
+/* Calcula el valor correspondiente a la frecuencia actual para NC y lo asigna a la variable externa de igual nombre */
+void SONIDO_calcular_NC(void);
 /* Calcula el valor de NC0 para que en T segundos se oigan todas las frecuencias entre F_MIN y F_MAX, a una resolución de PASO */
 void SONIDO_calcular_NC0(unsigned char T);
 
@@ -51,12 +52,10 @@ void SONIDO_siguiente_f(void){
 	SONIDO_calcular_NC();
 }
 
-unsigned int SONIDO_prender_m1(void){
-	unsigned int error;
-	error = SONIDO_calcular_NC();
+void SONIDO_prender_m1(void){
+	SONIDO_calcular_NC();
 	modoActual=0;
 	TPM1C1V_aux = NC; /* primer NC */
-	return error;
 }
 
 void SONIDO_prender_m2(unsigned char T){
@@ -81,12 +80,12 @@ void SONIDO_reanudar(void){
 }
 
 
-unsigned int SONIDO_calcular_NC(void){
+void SONIDO_calcular_NC(void){
 	unsigned long auxNC, auxFoc;
 	auxNC=8000000UL/(PRESCALER*2*frecuenciaActual); /* cálculo de NC */
 	NC=(unsigned int)auxNC;
 	auxFoc=8000000UL/(PRESCALER*2*auxNC);
-	return abs((unsigned int)auxFoc-frecuenciaActual);
+	errorDeReproduccion = abs((unsigned int)auxFoc-frecuenciaActual);
 }
 
 void SONIDO_calcular_NC0(unsigned char T){

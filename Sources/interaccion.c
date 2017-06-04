@@ -7,6 +7,8 @@
 #include "interaccion.h"
 #include "SCI.h"
 
+extern unsigned int errorDeReproduccion;
+
 void INTERACCION_init(){
 	SCI_write_string_to_buffer("\r\nBIENVENIDOS AL PROGRAMA");
 	SCI_write_string_to_buffer("\r\nESCOGER MODO DE FUNCIONAMIENTO:");

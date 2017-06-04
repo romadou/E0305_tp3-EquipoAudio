@@ -78,15 +78,17 @@ void MEF_update(unsigned char entrada){
 void estado_init(unsigned char entrada){
 	switch (entrada){
 	/* Elección del modo 1 */
-	case '1':
+	case 'f':;
+	case 'F':
 		actual=PEDIR_F;
-		//INTERACCION_getFrecuencia();
+		INTERACCION_askF();
 		break;
 		;
 	/* Elección del modo 2 */
-	case '2':
+	case 'b':;
+	case 'B':
 		actual=PEDIR_T;
-		//INTERACCION_getTiempoBarrido();
+		INTERACCION_askB();
 		break;
 		;
 	/* Opción sin efecto */
@@ -112,7 +114,8 @@ void estado_pedir_f(unsigned char entrada){
 		;
 	/* Modo de frecuencia fija activado y a la espera */
 	case '1':
-		//INTERACCION_(menú de opciones para reproducción)
+		//INTERACCION_default(); (menú de opciones para reproducción)
+		SONIDO_prender_m1();
 		actual=M1_OFF;
 		break;
 		;
@@ -171,7 +174,7 @@ void estado_pedir_t(unsigned char entrada){
 	switch (entrada){
 	/* Elección del barrido en 5 segundos */
 	case '1':
-		//INTERACCION_(menú de opciones para reproducción)
+		//INTERACCION_default();(menú de opciones para reproducción)
 		actual=M2_ON;
 		//INTERACCION_segundosBarrido(5);
 		SONIDO_prender_m2(5);
@@ -179,7 +182,7 @@ void estado_pedir_t(unsigned char entrada){
 		;
 	/* Elección del barrido en 10 segundos */
 	case '2':
-		//INTERACCION_(menú de opciones para reproducción)
+		//INTERACCION_default();(menú de opciones para reproducción)
 		actual=M2_ON;
 		//INTERACCION_segundosBarrido(10);
 		SONIDO_prender_m2(10);
@@ -187,6 +190,7 @@ void estado_pedir_t(unsigned char entrada){
 		;
 	/* Elección del barrido en 15 segundos */
 	case '3':
+		//INTERACCION_default();(menú de opciones para reproducción)
 		actual=M2_ON;
 		//INTERACCION_segundosBarrido(15);
 		SONIDO_prender_m2(15);
