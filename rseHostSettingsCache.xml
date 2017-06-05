@@ -6,7 +6,6 @@
 <property key="propertySet.[cw.dbg.ct.targetConnLost].RetryConnectionOn" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].memConfigPath" value="${ProjDirPath}/Project_Settings/Debugger/MC9S08SH8.mem"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkDebuggerAddress" value="127.0.0.1"/>
-<property key="hidden.applicator.com.freescale.debugger.applicator.launchconfiguration.lc.tp3cdymc_MC9S08SH8_PnE OSBDM.proj.gitConRo" value="com.freescale.debugger.applicator.launchconfiguration.lc.tp3cdymc_MC9S08SH8_PnE OSBDM.proj.gitConRo"/>
 <property key="propertySet.[cw.dbg.ct].Connection Type" value="com.pemicro.mcu.debug.connections.pne.hcs08"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkMACAddress" value="**-**-**-**-**-**"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].useNetworkMACAddress" value="false"/>
@@ -14,9 +13,10 @@
 <property key="propertySet.[cw.dbg.ct.bareboard].enableStopTransferIOModelConfig" value="true"/>
 <property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.STARTUP_PORT" value="21"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkNetMask" value="255.255.255.255"/>
-<property key="propertySet.[cw.ide.settingscache].hidden.HostID" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.170529180754-0300"/>
+<property key="propertySet.[cw.ide.settingscache].hidden.HostID" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.170529183154-0300"/>
 <property key="host.defaultEncoding" value=""/>
 <property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.CommandLineArgs" value="hcs08_icd"/>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -32,6 +32,9 @@
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496630390257"/>
 >>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
 >>>>>>> master
+=======
+<property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496640655150"/>
+>>>>>>> f7f1cd6bf02e9f1d617fe4a9edf95d1cb6e81f5c
 <property key="propertySet.[cw.dbg.ct.bareboard].useNetworkUDPPort" value="false"/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].RetryTimeout" value="20"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].useMemoryConfigFile" value="true"/>
@@ -39,6 +42,7 @@
 <property key="host.description" value="Generated from pre-RSE Launch Configuration"/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].retryPromptUserActionOn" value="true"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkUDPPort" value="1234"/>
+<<<<<<< HEAD
 <property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.PEDEBUG_CURRENTDEVICE" value="MC9S08SH8"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -49,9 +53,11 @@
 =======
 >>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
 >>>>>>> master
+=======
+>>>>>>> f7f1cd6bf02e9f1d617fe4a9edf95d1cb6e81f5c
 <property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.Library" value="hcs08_pne_gdi"/>
+<property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.PEDEBUG_CURRENTDEVICE" value="MC9S08SH8"/>
 <property key="hidden.applicator.com.freescale.debugger.applicator.launchconfiguration.lc.circuitos_tp3-EquipoAudio_MC9S08SH8_PnE OSBDM.proj.circuitos_tp3-EquipoAudio" value="com.freescale.debugger.applicator.launchconfiguration.lc.circuitos_tp3-EquipoAudio_MC9S08SH8_PnE OSBDM.proj.circuitos_tp3-EquipoAudio"/>
->>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
 <property key="propertySet.[cw.dbg.ct.bareboard].ethernetController" value="UEC1"/>
 <property key="propertySet.[cw.dbg.main].systemType" value="com.freescale.cw.system.hcs08.HCS08SH.MC9S08SH8"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].initPath" value=""/>
@@ -63,14 +69,14 @@
 <property key="propertySet.[cw.dbg.ct.targetConnLost].TerminateConnectionOn" value="false"/>
 <property key="host.type" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkTargetAddress" value="127.0.0.1"/>
-<property key="host.defaultUser" value="usuario"/>
+<property key="host.defaultUser" value="Rocio"/>
 <property key="propertySet.[OptionalPropertySet].enableGenericHostPropertyPage" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard.gdi].logData" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].enableHSSTIOModelConfig" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].executeReset" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].noIOModelConfig" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkGateway" value="127.0.0.1"/>
-<property key="host.name" value="tp3cdymc_MC9S08SH8_PnE OSBDM"/>
+<property key="host.name" value="circuitos_tp3-EquipoAudio_MC9S08SH8_PnE OSBDM"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].enableNetworkIOModelConfig" value="false"/>
 <property key="host.address" value=""/>
 <property key="propertySet.[cw.dbg.ct.bareboard].runOutOfReset" value="false"/>
@@ -87,8 +93,9 @@
 <property key="propertySet.[cw.dbg.ct.bareboard].useNetworkMACAddress" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].enableStopTransferIOModelConfig" value="true"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkNetMask" value="255.255.255.255"/>
-<property key="propertySet.[cw.ide.settingscache].hidden.HostID" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.170529180755-0300"/>
+<property key="propertySet.[cw.ide.settingscache].hidden.HostID" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.170529183154-0300.1"/>
 <property key="host.defaultEncoding" value=""/>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496095698062"/>
@@ -103,6 +110,9 @@
 >>>>>>> master
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496630390259"/>
 >>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
+=======
+<property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496640655150"/>
+>>>>>>> f7f1cd6bf02e9f1d617fe4a9edf95d1cb6e81f5c
 <property key="propertySet.[cw.dbg.ct.targetConnLost].RetryTimeout" value="20"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].useNetworkUDPPort" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].useMemoryConfigFile" value="true"/>
@@ -117,14 +127,13 @@
 <property key="propertySet.[cw.dbg.main].systemType" value="com.freescale.cw.system.hcs08.HCS08SH.MC9S08SH8"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].initPath" value=""/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].RetryWithTimeoutOn" value="false"/>
-<property key="hidden.applicator.com.freescale.debugger.applicator.launchconfiguration.lc.tp3cdymc_MC9S08SH8_PnE Full Chip Simulator.proj.gitConRo" value="com.freescale.debugger.applicator.launchconfiguration.lc.tp3cdymc_MC9S08SH8_PnE Full Chip Simulator.proj.gitConRo"/>
 <property key="host.promptable" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].useInitFile" value="false"/>
 <property key="propertySet.[OptionalPropertySet].enableConnectorServicesPropertyPage" value="false"/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].TerminateConnectionOn" value="false"/>
 <property key="host.type" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkTargetAddress" value="127.0.0.1"/>
-<property key="host.defaultUser" value="usuario"/>
+<property key="host.defaultUser" value="Rocio"/>
 <property key="propertySet.[OptionalPropertySet].enableGenericHostPropertyPage" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard.gdi].logData" value="false"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].enableHSSTIOModelConfig" value="false"/>
@@ -132,7 +141,8 @@
 <property key="propertySet.[cw.dbg.ct.bareboard].noIOModelConfig" value="false"/>
 <property key="propertySet.[com.freescale.mcu.debug.connections.pnehcs08sim].com.freescale.mcu.debug.connections.pnehcs08sim.CommandLineArgs" value="[hcs08_fcs]"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkGateway" value="127.0.0.1"/>
-<property key="host.name" value="tp3cdymc_MC9S08SH8_PnE Full Chip Simulator"/>
+<property key="hidden.applicator.com.freescale.debugger.applicator.launchconfiguration.lc.circuitos_tp3-EquipoAudio_MC9S08SH8_PnE Full Chip Simulator.proj.circuitos_tp3-EquipoAudio" value="com.freescale.debugger.applicator.launchconfiguration.lc.circuitos_tp3-EquipoAudio_MC9S08SH8_PnE Full Chip Simulator.proj.circuitos_tp3-EquipoAudio"/>
+<property key="host.name" value="circuitos_tp3-EquipoAudio_MC9S08SH8_PnE Full Chip Simulator"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].enableNetworkIOModelConfig" value="false"/>
 <property key="host.address" value=""/>
 <property key="propertySet.[cw.dbg.ct.bareboard].runOutOfReset" value="false"/>
