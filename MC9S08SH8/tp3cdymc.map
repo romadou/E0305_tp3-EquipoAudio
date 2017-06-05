@@ -30,8 +30,8 @@ Entry point: 0xE07B (_Startup)
 _startupData is allocated at 0xE084 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x100     54
-  _Copy    *toCopyDownBeg 0xE814
+  _Range   pZeroOut       0x100     86
+  _Copy    *toCopyDownBeg 0xE825
 } _startupData;
 
 *********************************************************************************************
@@ -41,8 +41,8 @@ Section Name                    Size  Type     From       To       Segment
 .init                            132     R     0xE000     0xE083   ROM
 .startData                        14     R     0xE084     0xE091   ROM
 .rodata1                         454     R     0xE092     0xE257   ROM
-.text                           1468     R     0xE258     0xE813   ROM
-.copy                              2     R     0xE814     0xE815   ROM
+.text                           1485     R     0xE258     0xE824   ROM
+.copy                              2     R     0xE825     0xE826   ROM
 .abs_section_ffbd                  1     R     0xFFBD     0xFFBD   .absSeg0
 .abs_section_ffbf                  1     R     0xFFBF     0xFFBF   .absSeg1
 .abs_section_ffc0                 64     R     0xFFC0     0xFFFF   .absSeg2
@@ -139,13 +139,13 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_1810                  2   N/I     0x1810     0x1811   .absSeg93
 .abs_section_1812                  2   N/I     0x1812     0x1813   .absSeg94
 .abs_section_1814                  2   N/I     0x1814     0x1815   .absSeg95
-.bss                              48   R/W      0x100      0x12F   RAM
-.common                            6   R/W      0x130      0x135   RAM
-.stack                            64   R/W      0x136      0x175   RAM
+.bss                              80   R/W      0x100      0x14F   RAM
+.common                            6   R/W      0x150      0x155   RAM
+.stack                            64   R/W      0x156      0x195   RAM
 
 Summary of section sizes per section type:
-READ_ONLY (R):         858 (dec:     2136)
-READ_WRITE (R/W):       76 (dec:      118)
+READ_ONLY (R):         869 (dec:     2153)
+READ_WRITE (R/W):       96 (dec:      150)
 NO_INIT (N/I):          6C (dec:      108)
 
 *********************************************************************************************
@@ -170,8 +170,8 @@ MODULE:                 -- MCUinit_c.obj --
      NVPROT_INIT                               FFBD       1       1       0   .abs_section_ffbd
      NVOPT_INIT                                FFBF       1       1       0   .abs_section_ffbf
      _vect                                     FFC0      40      64       0   .abs_section_ffc0
-     NC                                         130       2       2       4   .common     
-     NC0                                        132       2       2       2   .common     
+     NC                                         150       2       2       4   .common     
+     NC0                                        152       2       2       2   .common     
 MODULE:                 -- MEF_c.obj --
 - PROCEDURES:
      MEF_init                                  E327       B      11       6   .text       
@@ -193,19 +193,20 @@ MODULE:                 -- MEF_c.obj --
 MODULE:                 -- SCI_c.obj --
 - PROCEDURES:
      SCI_send_char                             E44D      20      32       1   .text       
-     SCI_receive_char                          E46D       E      14       1   .text       
-     SCI_write_string_to_buffer                E47B      24      36      12   .text       
+     SCI_receive_char                          E46D      1F      31       1   .text       
+     SCI_write_string_to_buffer                E48C      24      36      12   .text       
 - VARIABLES:
      indexR                                     107       1       1       4   .bss        
-     indexW                                     108       1       1       4   .bss        
+     indexW                                     108       1       1       7   .bss        
      buffer_tx                                  109      20      32       2   .bss        
-     flag_r                                     134       1       1       3   .common     
-     rxchar                                     135       1       1       2   .common     
+     buffer_rx                                  129      20      32       1   .bss        
+     flag_r                                     154       1       1       2   .common     
+     rxchar                                     155       1       1       2   .common     
 MODULE:                 -- interaccion_c.obj --
 - PROCEDURES:
-     INTERACCION_init                          E49F      1E      30       1   .text       
-     INTERACCION_askF                          E4BD       C      12       1   .text       
-     INTERACCION_askB                          E4C9      1E      30       1   .text       
+     INTERACCION_init                          E4B0      1E      30       1   .text       
+     INTERACCION_askF                          E4CE       C      12       1   .text       
+     INTERACCION_askB                          E4DA      1E      30       1   .text       
 - VARIABLES:
      STRING...BIENVENIDOS.AL.PRO.1             E092      1A      26       1   .rodata1    
      STRING...ESCOGER.MODO.DE.FU.2             E0AC      22      34       1   .rodata1    
@@ -213,7 +214,7 @@ MODULE:                 -- interaccion_c.obj --
      STRING....Modo.B..Barrido.d.4             E0F3      22      34       1   .rodata1    
      STRING....ingresar.la.letra.5             E115      36      54       1   .rodata1    
      STRING...INGRESAR.LA.FRECUE.10            E14B      37      55       1   .rodata1    
-     STRING....Rango.de.frecienc.11            E182      4A      74       1   .rodata1    
+     STRING....Rango.de.frecuenc.11            E182      4A      74       1   .rodata1    
      STRING...INGRESE.EL.MODO.DE.12            E1CC      28      40       1   .rodata1    
      STRING....T1..5.seg.13                    E1F4       D      13       1   .rodata1    
      STRING....T2..10.seg.14                   E201       E      14       1   .rodata1    
@@ -221,23 +222,23 @@ MODULE:                 -- interaccion_c.obj --
      STRING....ingresar.el.numer.16            E21D      3B      59       1   .rodata1    
 MODULE:                 -- main_c.obj --
 - PROCEDURES:
-     main                                      E4E7      19      25       1   .text       
+     main                                      E4F8      19      25       1   .text       
 - VARIABLES:
 MODULE:                 -- sonido_c.obj --
 - PROCEDURES:
-     SONIDO_init                               E500       3       3       1   .text       
-     SONIDO_siguiente_f                        E503      15      21       1   .text       
-     SONIDO_prender_m1                         E518       E      14       1   .text       
-     SONIDO_prender_m2                         E526      1C      28       1   .text       
-     SONIDO_apagar                             E542       E      14       2   .text       
-     SONIDO_reanudar                           E550      14      20       2   .text       
-     SONIDO_calcular_NC                        E564      58      88       3   .text       
-     SONIDO_calcular_NC0                       E5BC      2E      46       1   .text       
+     SONIDO_init                               E511       3       3       1   .text       
+     SONIDO_siguiente_f                        E514      15      21       1   .text       
+     SONIDO_prender_m1                         E529       E      14       1   .text       
+     SONIDO_prender_m2                         E537      1C      28       1   .text       
+     SONIDO_apagar                             E553       E      14       2   .text       
+     SONIDO_reanudar                           E561      14      20       2   .text       
+     SONIDO_calcular_NC                        E575      58      88       3   .text       
+     SONIDO_calcular_NC0                       E5CD      2E      46       1   .text       
 - VARIABLES:
-     frecuenciaActual                           129       2       2       6   .bss        
-     errorDeReproduccion                        12B       2       2       1   .bss        
-     modoActual                                 12D       1       1       3   .bss        
-     TPM1C1V_aux                                12E       2       2       4   .bss        
+     frecuenciaActual                           149       2       2       6   .bss        
+     errorDeReproduccion                        14B       2       2       1   .bss        
+     modoActual                                 14D       1       1       3   .bss        
+     TPM1C1V_aux                                14E       2       2       4   .bss        
 MODULE:                 -- start08_c.obj --
 - PROCEDURES:
      loadByte                                  E000       E      14       5   .init       
@@ -246,7 +247,7 @@ MODULE:                 -- start08_c.obj --
 - VARIABLES:
      _startupData                              E084       6       6       4   .startData  
 - LABELS:
-     __SEG_END_SSTACK                           176       0       0       1               
+     __SEG_END_SSTACK                           196       0       0       1               
 MODULE:                 -- mc9s08sh8_c.obj --
 - PROCEDURES:
 - VARIABLES:
@@ -345,22 +346,22 @@ MODULE:                 -- mc9s08sh8_c.obj --
      _DBGF                                     1814       2       2       0   .abs_section_1814
 MODULE:                 -- rtshc08.o (ansiis.lib) --
 - PROCEDURES:
-     _PUSH_ARGS_L                              E5EA      20      32       1   .text       
-     _ENTER_UNARY_L                            E60A      29      41       1   .text       
-     _ENTER_BINARY_L_LC                        E633      1A      26       1   .text       
-     _IDIVMOD                                  E64D      69     105       1   .text       
-     _LDIVMOD                                  E6B6      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       E75A      17      23       1   .text       
-     _IMODU_STAR08                             E771      10      16       1   .text       
-     _LDIVU_LC                                 E781       6       6       3   .text       
-     _LLSL                                     E787      16      22       1   .text       
-     _POP32                                    E79D      1A      26       3   .text       
-     _Jump_Table_Header_Offset                 E7B7      24      36       2   .text       
-     _Search_Table_8_Offset                    E7DB      25      37       1   .text       
+     _PUSH_ARGS_L                              E5FB      20      32       1   .text       
+     _ENTER_UNARY_L                            E61B      29      41       1   .text       
+     _ENTER_BINARY_L_LC                        E644      1A      26       1   .text       
+     _IDIVMOD                                  E65E      69     105       1   .text       
+     _LDIVMOD                                  E6C7      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       E76B      17      23       1   .text       
+     _IMODU_STAR08                             E782      10      16       1   .text       
+     _LDIVU_LC                                 E792       6       6       3   .text       
+     _LLSL                                     E798      16      22       1   .text       
+     _POP32                                    E7AE      1A      26       3   .text       
+     _Jump_Table_Header_Offset                 E7C8      24      36       2   .text       
+     _Search_Table_8_Offset                    E7EC      25      37       1   .text       
 - VARIABLES:
 MODULE:                 -- stdlib.o (ansiis.lib) --
 - PROCEDURES:
-     abs                                       E800      14      20       1   .text       
+     abs                                       E811      14      20       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -369,7 +370,7 @@ MODULE STATISTIC
 ---------------------------------------------------------------------------------------------
   MCUinit_c.obj                                4    207     66
   MEF_c.obj                                    7    294      0
-  SCI_c.obj                                   36     82      0
+  SCI_c.obj                                   68     99      0
   interaccion_c.obj                            0     72    454
   main_c.obj                                   0     25      0
   sonido_c.obj                                 7    234      0
@@ -393,7 +394,7 @@ SECTION: ".text"
   _LDIVU_k_is_k_div_j _IMODU_STAR08 _LDIVU_LC _LLSL _POP32 
   _Jump_Table_Header_Offset _Search_Table_8_Offset abs 
 SECTION: ".bss"
-  aux.1 aux.2 aux.3 aux.4 aux.5 actual indexR indexW buffer_tx 
+  aux.1 aux.2 aux.3 aux.4 aux.5 actual indexR indexW buffer_tx buffer_rx 
   frecuenciaActual errorDeReproduccion modoActual TPM1C1V_aux 
 SECTION: ".init"
   loadByte Init _Startup 
@@ -401,7 +402,7 @@ SECTION: ".rodata1"
   STRING...BIENVENIDOS.AL.PRO.1 STRING...ESCOGER.MODO.DE.FU.2 
   STRING....Modo.F..Sonido.de.3 STRING....Modo.B..Barrido.d.4 
   STRING....ingresar.la.letra.5 STRING...INGRESAR.LA.FRECUE.10 
-  STRING....Rango.de.frecienc.11 STRING...INGRESE.EL.MODO.DE.12 
+  STRING....Rango.de.frecuenc.11 STRING...INGRESE.EL.MODO.DE.12 
   STRING....T1..5.seg.13 STRING....T2..10.seg.14 STRING....T3..15.seg.15 
   STRING....ingresar.el.numer.16 
 SECTION: ".abs_section_ffbd"
@@ -668,16 +669,17 @@ OBJECT LIST SORTED BY ADDRESS
      aux.5                                      104       1       1       1   .bss        
      actual                                     105       2       2      10   .bss        
      indexR                                     107       1       1       4   .bss        
-     indexW                                     108       1       1       4   .bss        
+     indexW                                     108       1       1       7   .bss        
      buffer_tx                                  109      20      32       2   .bss        
-     frecuenciaActual                           129       2       2       6   .bss        
-     errorDeReproduccion                        12B       2       2       1   .bss        
-     modoActual                                 12D       1       1       3   .bss        
-     TPM1C1V_aux                                12E       2       2       4   .bss        
-     NC                                         130       2       2       4   .common     
-     NC0                                        132       2       2       2   .common     
-     flag_r                                     134       1       1       3   .common     
-     rxchar                                     135       1       1       2   .common     
+     buffer_rx                                  129      20      32       1   .bss        
+     frecuenciaActual                           149       2       2       6   .bss        
+     errorDeReproduccion                        14B       2       2       1   .bss        
+     modoActual                                 14D       1       1       3   .bss        
+     TPM1C1V_aux                                14E       2       2       4   .bss        
+     NC                                         150       2       2       4   .common     
+     NC0                                        152       2       2       2   .common     
+     flag_r                                     154       1       1       2   .common     
+     rxchar                                     155       1       1       2   .common     
      _SRS                                      1800       1       1       0   .abs_section_1800
      _SBDFR                                    1801       1       1       0   .abs_section_1801
      _SOPT1                                    1802       1       1       1   .abs_section_1802
@@ -722,7 +724,7 @@ OBJECT LIST SORTED BY ADDRESS
      STRING....Modo.B..Barrido.d.4             E0F3      22      34       1   .rodata1    
      STRING....ingresar.la.letra.5             E115      36      54       1   .rodata1    
      STRING...INGRESAR.LA.FRECUE.10            E14B      37      55       1   .rodata1    
-     STRING....Rango.de.frecienc.11            E182      4A      74       1   .rodata1    
+     STRING....Rango.de.frecuenc.11            E182      4A      74       1   .rodata1    
      STRING...INGRESE.EL.MODO.DE.12            E1CC      28      40       1   .rodata1    
      STRING....T1..5.seg.13                    E1F4       D      13       1   .rodata1    
      STRING....T2..10.seg.14                   E201       E      14       1   .rodata1    
@@ -745,33 +747,33 @@ OBJECT LIST SORTED BY ADDRESS
      estado_m2_on                              E419      18      24       1   .text       
      estado_m2_off                             E431      1C      28       1   .text       
      SCI_send_char                             E44D      20      32       1   .text       
-     SCI_receive_char                          E46D       E      14       1   .text       
-     SCI_write_string_to_buffer                E47B      24      36      12   .text       
-     INTERACCION_init                          E49F      1E      30       1   .text       
-     INTERACCION_askF                          E4BD       C      12       1   .text       
-     INTERACCION_askB                          E4C9      1E      30       1   .text       
-     main                                      E4E7      19      25       1   .text       
-     SONIDO_init                               E500       3       3       1   .text       
-     SONIDO_siguiente_f                        E503      15      21       1   .text       
-     SONIDO_prender_m1                         E518       E      14       1   .text       
-     SONIDO_prender_m2                         E526      1C      28       1   .text       
-     SONIDO_apagar                             E542       E      14       2   .text       
-     SONIDO_reanudar                           E550      14      20       2   .text       
-     SONIDO_calcular_NC                        E564      58      88       3   .text       
-     SONIDO_calcular_NC0                       E5BC      2E      46       1   .text       
-     _PUSH_ARGS_L                              E5EA      20      32       1   .text       
-     _ENTER_UNARY_L                            E60A      29      41       1   .text       
-     _ENTER_BINARY_L_LC                        E633      1A      26       1   .text       
-     _IDIVMOD                                  E64D      69     105       1   .text       
-     _LDIVMOD                                  E6B6      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       E75A      17      23       1   .text       
-     _IMODU_STAR08                             E771      10      16       1   .text       
-     _LDIVU_LC                                 E781       6       6       3   .text       
-     _LLSL                                     E787      16      22       1   .text       
-     _POP32                                    E79D      1A      26       3   .text       
-     _Jump_Table_Header_Offset                 E7B7      24      36       2   .text       
-     _Search_Table_8_Offset                    E7DB      25      37       1   .text       
-     abs                                       E800      14      20       1   .text       
+     SCI_receive_char                          E46D      1F      31       1   .text       
+     SCI_write_string_to_buffer                E48C      24      36      12   .text       
+     INTERACCION_init                          E4B0      1E      30       1   .text       
+     INTERACCION_askF                          E4CE       C      12       1   .text       
+     INTERACCION_askB                          E4DA      1E      30       1   .text       
+     main                                      E4F8      19      25       1   .text       
+     SONIDO_init                               E511       3       3       1   .text       
+     SONIDO_siguiente_f                        E514      15      21       1   .text       
+     SONIDO_prender_m1                         E529       E      14       1   .text       
+     SONIDO_prender_m2                         E537      1C      28       1   .text       
+     SONIDO_apagar                             E553       E      14       2   .text       
+     SONIDO_reanudar                           E561      14      20       2   .text       
+     SONIDO_calcular_NC                        E575      58      88       3   .text       
+     SONIDO_calcular_NC0                       E5CD      2E      46       1   .text       
+     _PUSH_ARGS_L                              E5FB      20      32       1   .text       
+     _ENTER_UNARY_L                            E61B      29      41       1   .text       
+     _ENTER_BINARY_L_LC                        E644      1A      26       1   .text       
+     _IDIVMOD                                  E65E      69     105       1   .text       
+     _LDIVMOD                                  E6C7      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       E76B      17      23       1   .text       
+     _IMODU_STAR08                             E782      10      16       1   .text       
+     _LDIVU_LC                                 E792       6       6       3   .text       
+     _LLSL                                     E798      16      22       1   .text       
+     _POP32                                    E7AE      1A      26       3   .text       
+     _Jump_Table_Header_Offset                 E7C8      24      36       2   .text       
+     _Search_Table_8_Offset                    E7EC      25      37       1   .text       
+     abs                                       E811      14      20       1   .text       
      NVPROT_INIT                               FFBD       1       1       0   .abs_section_ffbd
      NVOPT_INIT                                FFBF       1       1       0   .abs_section_ffbf
      _vect                                     FFC0      40      64       0   .abs_section_ffc0
@@ -780,8 +782,11 @@ OBJECT LIST SORTED BY ADDRESS
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
+SCI_c.obj:
+  SCI_read_string_from_buffer 
 interaccion_c.obj:
   INTERACCION_default INTERACCION_showError INTERACCION_analiceInput 
+  INTERACCION_getInput numero letra 
 sonido_c.obj:
   setFrecuenciaActual 
 rtshc08.o (ansiis.lib):
@@ -806,12 +811,10 @@ stdlib.o (ansiis.lib):
   _strtoul strtoul _strtol strtol _itoa bsearch swap qsort div ldiv labs rand 
   srand 
 NOT USED VARIABLES
-SCI_c.obj:
-  buffer_rx 
 interaccion_c.obj:
   STRING...DESDE.ESTE.MOMENTO.6 STRING....ON..Iniciar.repro.7 
   STRING....OFF..Detener.repr.8 STRING....RESET..Reiniciar..9 
-  STRING....EL.ERROR.PRODUCID.17 buffer_rx 
+  STRING....EL.ERROR.PRODUCID.17 comandos.18 flag_n rxchar indexR buffer_rx 
 rtshc08.o (ansiis.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 stdlib.o (ansiis.lib):
@@ -820,7 +823,7 @@ stdlib.o (ansiis.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xE814 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xE825 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -852,14 +855,14 @@ estado_pedir_t            USES _Jump_Table_Header_Offset SONIDO_prender_m2
 estado_m2_on              USES aux.4 MEF_init actual 
 estado_m2_off             USES aux.5 MEF_init SONIDO_reanudar actual 
 SCI_send_char             USES indexW indexR buffer_tx _SCID _SCIC2 
-SCI_receive_char          USES _SCIS1 _SCID rxchar flag_r 
+SCI_receive_char          USES _SCIS1 _SCID rxchar indexW buffer_rx 
 SCI_write_string_to_buffer USES indexW buffer_tx _SCIC2 
 INTERACCION_init          USES STRING...BIENVENIDOS.AL.PRO.1 
                                 SCI_write_string_to_buffer STRING...ESCOGER.MODO.DE.FU.2 
                                 STRING....Modo.F..Sonido.de.3 STRING....Modo.B..Barrido.d.4 
                                 STRING....ingresar.la.letra.5 
 INTERACCION_askF          USES STRING...INGRESAR.LA.FRECUE.10 
-                                SCI_write_string_to_buffer STRING....Rango.de.frecienc.11 
+                                SCI_write_string_to_buffer STRING....Rango.de.frecuenc.11 
 INTERACCION_askB          USES STRING...INGRESE.EL.MODO.DE.12 
                                 SCI_write_string_to_buffer STRING....T1..5.seg.13 STRING....T2..10.seg.14 
                                 STRING....T3..15.seg.15 STRING....ingresar.el.numer.16 
@@ -1023,6 +1026,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 2136
+Number of blocks to be downloaded: 7
+Total size of all blocks to be downloaded: 2153
 

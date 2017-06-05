@@ -30,16 +30,16 @@ void SCI_send_char(void){
 unsigned char SCI_receive_char(void){
 	if(SCIS1_RDRF==1){
 		rxchar=SCID;
-		if (rxchar='\n'){
+		buffer_rx[indexW]=rxchar;
+		if (rxchar=='\n'){
 			indexW=0;
 			return 1;
 		}
 		else{
-			buffer_rx[indexW]=rxchar;
 			indexW++;
 			return 0;
-			flag_r=1; //para que se usa esto?;
 		}
+		flag_r=1;
 	}
 }
 
@@ -52,6 +52,6 @@ void SCI_write_string_to_buffer(char *cadena){
 	SCIC2_TIE=1;
 }
 
-char SCI_read_string_from_buffer(void){
+unsigned char SCI_read_string_from_buffer(void){
 	return *buffer_tx;
 }
