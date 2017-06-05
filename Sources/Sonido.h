@@ -25,7 +25,8 @@
 #endif
 
 void SONIDO_init(void);
-void setFrecuenciaActual(unsigned int fa);
+void SONIDO_setFrecuenciaActual(unsigned int fa);
+unsigned int SONIDO_getError(void);
 void SONIDO_prender_m1(void); /* Enciende el sonido en una frecuencia fija(se asume seteada previamente); devuelve el error (Hz) existente entre la frecuencia del sonido real respecto del deseado. */
 void SONIDO_prender_m2(unsigned char T); /* Dispara el barrido de frecuencias, para que se realice en T segundos */
 void SONIDO_apagar(void);

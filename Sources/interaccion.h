@@ -20,6 +20,6 @@ void INTERACCION_showEE(void);
 void INTERACCION_showEF(void);
 unsigned char INTERACCION_analizeInput (void);
 unsigned char INTERACCION_getInput (void);
-unsigned int INTERACCION_getFrec(void);
+unsigned int INTERACCION_getFreq(void);
 
 #endif /* INTERACCION_H_ */

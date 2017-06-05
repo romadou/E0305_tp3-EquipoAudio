@@ -1,8 +1,0 @@
-ERROR L1822: Symbol INTERACCION_showEBF in file ./Sources\main_c.obj is undefined
-WARNING L1823: External object buffer_rx in ./Sources\interaccion_c.obj created by default
-ERROR L1822: Symbol INTERACCION_getFreq in file ./Sources\MEF_c.obj is undefined
-ERROR L1822: Symbol SONIDO_setFrecuenciaActual in file ./Sources\MEF_c.obj is undefined
-ERROR L1822: Symbol SONIDO_getError in file ./Sources\MEF_c.obj is undefined
-ERROR L1822: Symbol INTERACCION_showF in file ./Sources\MEF_c.obj is undefined
-ERROR L1822: Symbol INTERACCION_showEF in file ./Sources\MEF_c.obj is undefined
-ERROR L1822: Symbol INTERACCION_showB in file ./Sources\MEF_c.obj is undefined

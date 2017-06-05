@@ -10,7 +10,7 @@
 static unsigned char indexR=0;
 static unsigned char indexW=0;
 static unsigned char buffer_tx[32];
-static unsigned char buffer_rx[32];
+static unsigned char buffer_rx[32]=0;
 static unsigned char cont=0;
 
 volatile unsigned char flag_r;

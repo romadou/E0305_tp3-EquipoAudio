@@ -8,7 +8,7 @@
 #include "MEF.h"
 #include "SCI.h"
 #include "interaccion.h"
-#include "sonido.h"
+#include "Sonido.h"
 
 /* Variables privadas */
 static estado actual; /* Estado actual de la MEF */

@@ -6,7 +6,7 @@
  */
 
 #include <stdlib.h>
-#include "sonido.h" 
+#include "Sonido.h" 
 #include <mc9s08sh8.h> 
 
 extern unsigned int NC;
@@ -26,11 +26,11 @@ void SONIDO_init(void){
 	SONIDO_apagar();
 }
 
-void setFrecuenciaActual(unsigned int fa){
+void SONIDO_setFrecuenciaActual(unsigned int fa){
 	frecuenciaActual=fa;
 }
 
-unsigned int getError(void){
+unsigned int SONIDO_getError(void){
 	return errorDeReproduccion;
 }
 

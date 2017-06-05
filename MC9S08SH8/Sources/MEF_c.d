@@ -4,5 +4,5 @@ Sources/MEF_c.obj: \
 	C:/Users/usuario/Dropbox/Facu\ PS2017/Circuitos\ Digitales\ y\ Microcontroladores/CW3/gitConRo/Sources/MEF.h \
 	C:/Users/usuario/Dropbox/Facu\ PS2017/Circuitos\ Digitales\ y\ Microcontroladores/CW3/gitConRo/Sources/SCI.h \
 	C:/Users/usuario/Dropbox/Facu\ PS2017/Circuitos\ Digitales\ y\ Microcontroladores/CW3/gitConRo/Sources/interaccion.h \
-	C:/Users/usuario/Dropbox/Facu\ PS2017/Circuitos\ Digitales\ y\ Microcontroladores/CW3/gitConRo/Sources/sonido.h 
+	C:/Users/usuario/Dropbox/Facu\ PS2017/Circuitos\ Digitales\ y\ Microcontroladores/CW3/gitConRo/Sources/Sonido.h 
 

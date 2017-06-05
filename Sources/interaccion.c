@@ -4,12 +4,13 @@
  *  Created on: 5/06/2017
  *      Author: Krasowski - Madou
  */
+
 #include "interaccion.h"
 #include "SCI.h"
 
 extern unsigned char buffer_rx[32];
 
-static unsigned rxc;
+static unsigned char rxc;
 static unsigned char indexR;
 static unsigned char flag_n=0;
 
@@ -50,12 +51,12 @@ void INTERACCION_askB(void){
 
 void INTERACCION_showB(unsigned char b){
 	SCI_write_string_to_buffer("\r\n OPCION GUARDADA");
-	SCI_write_string_to_buffer("\r\n SE REALIZARÁ UN BARRIDO CADA %ud SEGUNDOS", b);
+	//SCI_write_string_to_buffer("\r\n SE REALIZARÁ UN BARRIDO CADA ", b ," SEGUNDOS");
 }
 
 void INTERACCION_showF(unsigned int e){
 	SCI_write_string_to_buffer("\r\n FRECUENCIA GUARDADA");
-	SCI_write_string_to_buffer("\r\n EL ERROR PRODUCIDO POR LA FRECUENCIA SELECIONADA ES DE %ud HZ", e);
+	//SCI_write_string_to_buffer("\r\n EL ERROR PRODUCIDO POR LA FRECUENCIA SELECIONADA ES DE ", e ,"Hz");
 }
 
 void INTERACCION_showC(unsigned char b){
@@ -127,11 +128,11 @@ unsigned char INTERACCION_getInput (void){
 	}
 }
 
-unsigned int INTERACCION_getFrec(void){
+unsigned int INTERACCION_getFreq(void){
 	unsigned char i, num=0;
 	if (buffer_rx[0]!='\n' && numero(buffer_rx[0])){
 		for (i=0;i<indexR;i++){
-			sum+=(buffer_rx[i]-'0')*1^(indexR-i-1);
+			num+=(buffer_rx[i]-'0')*(10^(indexR-i-1));
 		}
 	}
 	return num;
