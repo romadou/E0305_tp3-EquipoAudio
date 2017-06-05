@@ -10,7 +10,7 @@
 static unsigned char indexR=0;
 static unsigned char indexW=0;
 static unsigned char buffer_tx[32];
-//static unsigned char buffer_rx[32];
+static unsigned char buffer_rx[32];
 
 volatile unsigned char flag_r;
 unsigned char rxchar;
@@ -27,12 +27,19 @@ void SCI_send_char(void){
 	}
 }
 
-void SCI_receive_char(void){
-	//dudo sobre si este if no va en el MCUinit
-	//no se usa el buffer_rx para nada?
+unsigned char SCI_receive_char(void){
 	if(SCIS1_RDRF==1){
 		rxchar=SCID;
-		flag_r=1;
+		if (rxchar='\n'){
+			indexW=0;
+			return 1;
+		}
+		else{
+			buffer_rx[indexW]=rxchar;
+			indexW++;
+			return 0;
+			flag_r=1; //para que se usa esto?;
+		}
 	}
 }
 
@@ -43,4 +50,8 @@ void SCI_write_string_to_buffer(char *cadena){
 		indexW++;
 	}
 	SCIC2_TIE=1;
+}
+
+char SCI_read_string_from_buffer(void){
+	return *buffer_tx;
 }
