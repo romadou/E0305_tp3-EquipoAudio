@@ -10,7 +10,7 @@
 
 
 void SCI_send_char(void);
-void SCI_receive_char(void);
+unsigned char SCI_receive_char(void);
 void SCI_write_string_to_buffer(char *cadena);
 
 #endif /* SCI_H_ */
