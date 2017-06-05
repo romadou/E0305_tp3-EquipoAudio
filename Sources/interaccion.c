@@ -99,7 +99,6 @@ unsigned char INTERACCION_getInput (void){
 	}
 }
 
-
 unsigned char numero(unsigned char input){
 	if ((input >= '0') && ('9' >= input)) return 1;
 	return 0;
