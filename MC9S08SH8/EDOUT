@@ -1,0 +1,22 @@
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:39:warning:C1140 This function is already declared and has a different prototype 
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:39:warning:C1020 Incompatible type to previous declaration (found 'void (*) ()', expected 'void (*) (unsigned char )')
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Sources\MEF.h:14:information:C1440 This is causing previous message 1020
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:43:warning:C1801 Implicit parameter-declaration for 'INTERACCION_getInput'
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:43:warning:C2705 Possible loss of data
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:54:warning:C2705 Possible loss of data
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:60:warning:C2705 Possible loss of data
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:66:warning:C2705 Possible loss of data
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:72:warning:C2705 Possible loss of data
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:78:warning:C2705 Possible loss of data
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:91:warning:C1801 Implicit parameter-declaration for 'INTERACCION_askF'
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:91:warning:C1420 Result of function-call is ignored
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:98:warning:C1801 Implicit parameter-declaration for 'INTERACCION_askB'
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:98:warning:C1420 Result of function-call is ignored
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:110:warning:C1801 Implicit parameter-declaration for 'INTERACCION_getFreq'
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:111:warning:C1801 Implicit parameter-declaration for 'verifyFreq'
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:111:warning:C2705 Possible loss of data
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:107:information:C5703 Parameter 'entrada' declared in function 'estado_pedir_f' but not referenced
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:134:information:C5703 Parameter 'entrada' declared in function 'estado_m1_on' but not referenced
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:157:information:C5703 Parameter 'entrada' declared in function 'estado_m1_off' but not referenced
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:211:information:C5703 Parameter 'entrada' declared in function 'estado_m2_on' but not referenced
+C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo/Project_Headers\../Sources\MEF.c:234:information:C5703 Parameter 'entrada' declared in function 'estado_m2_off' but not referenced

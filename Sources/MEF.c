@@ -12,6 +12,7 @@
 
 /* Variables privadas */
 static estado actual; /* Estado actual de la MEF */
+static unsigned char entrada;
 
 /* Variables externas */
 extern unsigned int NC;
@@ -35,10 +36,11 @@ void MEF_init(void){
 	SONIDO_init();
 }
 
-void MEF_update(unsigned char entrada){
+void MEF_update(void){
 	switch (actual){
 	/* Estado central; la hora corre, la cerradura está cerrada */
 	case INIT:
+		entrada = INTERACCION_getInput();
 		estado_init(entrada);
 		break;
 		;
@@ -49,26 +51,31 @@ void MEF_update(unsigned char entrada){
 		;
 	/* Modificación de los minutos */
 	case PEDIR_T:
+		entrada = INTERACCION_getInput();
 		estado_pedir_t(entrada);
 		break;
 		;
 	/* Modificando los segundos */
 	case M1_ON:
+		entrada = INTERACCION_getInput();
 		estado_m1_on(entrada);
 		break;
 		;
 	/* Solicitud de modificación de la clave (ingresando la clave existente) */
 	case M1_OFF:
+		entrada = INTERACCION_getInput();
 		estado_m1_off(entrada);
 		break;
 		;
 	/* Solicitud de desbloqueo de la cerradura (ingresando la clave existente) */
 	case M2_ON:
+		entrada = INTERACCION_getInput();
 		estado_m2_on(entrada);
 		break;
 		;
 	/* Desbloqueo de la cerradura */
 	case M2_OFF:
+		entrada = INTERACCION_getInput();
 		estado_m2_off(entrada);
 		break;
 		;
@@ -98,10 +105,10 @@ void estado_init(unsigned char entrada){
 }
 
 void estado_pedir_f(unsigned char entrada){
-	static unsigned char aux=0;
-	///aux=_INTERACCION_analizarEntrada(entrada);
-	// No lo tengo claro, pero creo que en la función analizarEntrada se debería mandar el carácter que entró (numérico) as SCI (ir mostrando la frecuencia)
-	// El análisis devuelve:
+	static unsigned int in;
+	static unsigned char aux;
+	in=INTERACCION_getFreq();
+	aux=verifyFreq(in);
 	// -----'0' para resetear (frecuencia inválida o comando de reset, si válido)
 	// -----'1' si ya hay una frecuencia definida
 	// -----'2' si sigue esperando valores
@@ -131,12 +138,12 @@ void estado_m1_on(unsigned char entrada){
 	//aux=_INTERACCION_analizarEntrada(entrada);
 	switch (aux){
 	//switch (entrada){
-	case '0':
+	case '*':
 		MEF_init();
 		actual=INIT;
 		break;
 		;
-	case '1':
+	case '-':
 		SONIDO_apagar();
 		actual=M1_OFF;
 		break;
@@ -154,12 +161,12 @@ void estado_m1_off(unsigned char entrada){
 	///aux=_INTERACCION_analizarEntrada(entrada);
 	switch (aux){
 	//switch (entrada){
-	case '0':
+	case '*':
 		MEF_init();
 		actual=INIT;
 		break;
 		;
-	case '2':
+	case '+':
 		SONIDO_reanudar();
 		actual=M1_ON;
 		break;
@@ -208,12 +215,12 @@ void estado_m2_on(unsigned char entrada){
 	///aux=_INTERACCION_analizarEntrada(entrada,1); 1 indica que hay que analizar números para frecuencia (y mostrarlos)
 	switch (aux){
 	//switch (entrada){
-	case '0':
+	case '*':
 		MEF_init();
 		actual=INIT;
 		break;
 		;
-	case '1':
+	case '-':
 		//SONIDO_apagar();
 		actual=M2_OFF;
 		break;
@@ -231,12 +238,12 @@ void estado_m2_off(unsigned char entrada){
 	///aux=_INTERACCION_analizarEntrada(entrada);
 	switch (aux){
 	//switch (entrada){
-	case '0':
+	case '*':
 		MEF_init();
 		actual=INIT;
 		break;
 		;
-	case '2':
+	case '+':
 		SONIDO_reanudar();
 		actual=M2_ON;
 		break;

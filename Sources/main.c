@@ -3,6 +3,7 @@
 #include "MEF.h"
 
 extern unsigned char flag_r;
+extern unsigned char flag_e;
 extern unsigned char rxchar;
 
 void MCU_init(void); /* Device initialization function declaration */
@@ -13,9 +14,14 @@ void main(void) {
 
   MEF_init();
 
-  for(;;) {  
+  for(;;) {
+	  if (flag_e){
+		  INTERACCION_showBL();
+	  }
 	  if (flag_r){
-		  MEF_update(rxchar);
+		  if (INTERACCION_analizeInput()){
+			  MEF_update();
+		  }
 		  flag_r=0;
 	  }
   } /* loop forever */
