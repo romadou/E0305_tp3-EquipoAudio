@@ -49,34 +49,33 @@ void INTERACCION_showError(unsigned char e){
 	SCI_write_string_to_buffer("\r\n EL ERROR PRODUCIDO POR LA FRECUENCIA SELESCIONADA ES MAYOR A" + e);
 }
 
-unsigned char INTERACCION_analiceInput (void){
-	if (SCI_receive_char()){
-		rxc=buffer_rx[0];
-		while(rxc!='\n'){
-			if (numero(rxc)){
-				if (!indexR & !flag_n)
-					flag_n=1;
-				else{
-					if (indexR & !flag_n)
-						return 2;
+unsigned char INTERACCION_analizeInput (void){
+	rxc=buffer_rx[0];
+	while(rxc!='\n'){
+		if (numero(rxc)){
+			if (!indexR)
+				flag_n=1;
+			else{
+				if (!flag_n){
+					return 0;
+				}
+			}
+		}
+		else{
+			if (letra (rxc)){
+				if (flag_n){
+					flag_n=0;
+					return 0;
 				}
 			}
 			else{
-				if (letra (rxc)){
-					if (flag_n){
-						return 2;
-					}
-				}
-				else{
-					return 2;
-				}
+				return 0;
 			}
-			indexR++;
-			rxc=buffer_rx[indexR];
 		}
-		return 1;
+		indexR++;
+		rxc=buffer_rx[indexR];
 	}
-	return 0;
+	return 1;
 }
 
 unsigned char INTERACCION_getInput (void){

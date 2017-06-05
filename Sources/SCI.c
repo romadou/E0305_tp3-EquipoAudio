@@ -13,6 +13,7 @@ static unsigned char buffer_tx[32];
 static unsigned char buffer_rx[32];
 
 volatile unsigned char flag_r;
+volatile unsigned char flag_e;
 unsigned char rxchar;
 
 void SCI_send_char(void){
@@ -27,18 +28,21 @@ void SCI_send_char(void){
 	}
 }
 
-unsigned char SCI_receive_char(void){
+void SCI_receive_char(void){
 	if(SCIS1_RDRF==1){
 		rxchar=SCID;
+		if (++cont==32){
+			flag_e=1;
+			indexW=0;
+			return;
+		}
 		buffer_rx[indexW]=rxchar;
-		flag_r=1;
 		if (rxchar=='\n'){
 			indexW=0;
-			return 1;
+			flag_r=1;
 		}
 		else{
 			indexW++;
-			return 0;
 		}
 	}
 }
