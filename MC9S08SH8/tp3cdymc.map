@@ -202,6 +202,7 @@ MODULE:                 -- SCI_c.obj --
      buffer_rx                                  129      20      32       1   .bss        
      flag_r                                     154       1       1       2   .common     
      rxchar                                     155       1       1       2   .common     
+<<<<<<< HEAD
 MODULE:                 -- Sonido_c.obj --
 - PROCEDURES:
      SONIDO_init                               E4B0       3       3       1   .text       
@@ -222,6 +223,13 @@ MODULE:                 -- interaccion_c.obj --
      INTERACCION_init                          E59A      1E      30       1   .text       
      INTERACCION_askF                          E5B8       C      12       1   .text       
      INTERACCION_askB                          E5C4      1E      30       1   .text       
+=======
+MODULE:                 -- interaccion_c.obj --
+- PROCEDURES:
+     INTERACCION_init                          E4B0      1E      30       1   .text       
+     INTERACCION_askF                          E4CE       C      12       1   .text       
+     INTERACCION_askB                          E4DA      1E      30       1   .text       
+>>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
 - VARIABLES:
      STRING...BIENVENIDOS.AL.PRO.1             E092      1A      26       1   .rodata1    
      STRING...ESCOGER.MODO.DE.FU.2             E0AC      22      34       1   .rodata1    
@@ -237,8 +245,28 @@ MODULE:                 -- interaccion_c.obj --
      STRING....ingresar.el.numer.16            E21D      3B      59       1   .rodata1    
 MODULE:                 -- main_c.obj --
 - PROCEDURES:
+<<<<<<< HEAD
      main                                      E5E2      19      25       1   .text       
 - VARIABLES:
+=======
+     main                                      E4F8      19      25       1   .text       
+- VARIABLES:
+MODULE:                 -- sonido_c.obj --
+- PROCEDURES:
+     SONIDO_init                               E511       3       3       1   .text       
+     SONIDO_siguiente_f                        E514      15      21       1   .text       
+     SONIDO_prender_m1                         E529       E      14       1   .text       
+     SONIDO_prender_m2                         E537      1C      28       1   .text       
+     SONIDO_apagar                             E553       E      14       2   .text       
+     SONIDO_reanudar                           E561      14      20       2   .text       
+     SONIDO_calcular_NC                        E575      58      88       3   .text       
+     SONIDO_calcular_NC0                       E5CD      2E      46       1   .text       
+- VARIABLES:
+     frecuenciaActual                           149       2       2       6   .bss        
+     errorDeReproduccion                        14B       2       2       1   .bss        
+     modoActual                                 14D       1       1       3   .bss        
+     TPM1C1V_aux                                14E       2       2       4   .bss        
+>>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
 MODULE:                 -- start08_c.obj --
 - PROCEDURES:
      loadByte                                  E000       E      14       5   .init       
@@ -371,7 +399,10 @@ MODULE STATISTIC
   MCUinit_c.obj                                4    207     66
   MEF_c.obj                                    7    294      0
   SCI_c.obj                                   68     99      0
+<<<<<<< HEAD
   Sonido_c.obj                                 7    234      0
+=======
+>>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
   interaccion_c.obj                            0     72    454
   main_c.obj                                   0     25      0
   start08_c.obj                                0    132      0
@@ -749,6 +780,7 @@ OBJECT LIST SORTED BY ADDRESS
      SCI_send_char                             E44D      20      32       1   .text       
      SCI_receive_char                          E46D      1F      31       1   .text       
      SCI_write_string_to_buffer                E48C      24      36      12   .text       
+<<<<<<< HEAD
      SONIDO_init                               E4B0       3       3       1   .text       
      SONIDO_siguiente_f                        E4B3      15      21       1   .text       
      SONIDO_prender_m1                         E4C8       E      14       1   .text       
@@ -761,6 +793,20 @@ OBJECT LIST SORTED BY ADDRESS
      INTERACCION_askF                          E5B8       C      12       1   .text       
      INTERACCION_askB                          E5C4      1E      30       1   .text       
      main                                      E5E2      19      25       1   .text       
+=======
+     INTERACCION_init                          E4B0      1E      30       1   .text       
+     INTERACCION_askF                          E4CE       C      12       1   .text       
+     INTERACCION_askB                          E4DA      1E      30       1   .text       
+     main                                      E4F8      19      25       1   .text       
+     SONIDO_init                               E511       3       3       1   .text       
+     SONIDO_siguiente_f                        E514      15      21       1   .text       
+     SONIDO_prender_m1                         E529       E      14       1   .text       
+     SONIDO_prender_m2                         E537      1C      28       1   .text       
+     SONIDO_apagar                             E553       E      14       2   .text       
+     SONIDO_reanudar                           E561      14      20       2   .text       
+     SONIDO_calcular_NC                        E575      58      88       3   .text       
+     SONIDO_calcular_NC0                       E5CD      2E      46       1   .text       
+>>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
      _PUSH_ARGS_L                              E5FB      20      32       1   .text       
      _ENTER_UNARY_L                            E61B      29      41       1   .text       
      _ENTER_BINARY_L_LC                        E644      1A      26       1   .text       
@@ -784,7 +830,14 @@ UNUSED-OBJECTS SECTION
 NOT USED PROCEDURES
 SCI_c.obj:
   SCI_read_string_from_buffer 
+<<<<<<< HEAD
 Sonido_c.obj:
+=======
+interaccion_c.obj:
+  INTERACCION_default INTERACCION_showError INTERACCION_analiceInput 
+  INTERACCION_getInput numero letra 
+sonido_c.obj:
+>>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
   setFrecuenciaActual 
 interaccion_c.obj:
   INTERACCION_default INTERACCION_showError INTERACCION_analiceInput 
@@ -857,6 +910,19 @@ estado_m2_off             USES aux.5 MEF_init SONIDO_reanudar actual
 SCI_send_char             USES indexW indexR buffer_tx _SCID _SCIC2 
 SCI_receive_char          USES _SCIS1 _SCID rxchar indexW buffer_rx 
 SCI_write_string_to_buffer USES indexW buffer_tx _SCIC2 
+<<<<<<< HEAD
+=======
+INTERACCION_init          USES STRING...BIENVENIDOS.AL.PRO.1 
+                                SCI_write_string_to_buffer STRING...ESCOGER.MODO.DE.FU.2 
+                                STRING....Modo.F..Sonido.de.3 STRING....Modo.B..Barrido.d.4 
+                                STRING....ingresar.la.letra.5 
+INTERACCION_askF          USES STRING...INGRESAR.LA.FRECUE.10 
+                                SCI_write_string_to_buffer STRING....Rango.de.frecuenc.11 
+INTERACCION_askB          USES STRING...INGRESE.EL.MODO.DE.12 
+                                SCI_write_string_to_buffer STRING....T1..5.seg.13 STRING....T2..10.seg.14 
+                                STRING....T3..15.seg.15 STRING....ingresar.el.numer.16 
+main                      USES MCU_init MEF_init flag_r rxchar MEF_update 
+>>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
 SONIDO_init               USES SONIDO_apagar 
 SONIDO_siguiente_f        USES frecuenciaActual _IMODU_STAR08 
                                 SONIDO_calcular_NC 

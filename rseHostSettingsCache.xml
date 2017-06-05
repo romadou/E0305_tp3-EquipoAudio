@@ -18,7 +18,11 @@
 <property key="host.defaultEncoding" value=""/>
 <property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.CommandLineArgs" value="hcs08_icd"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496095698062"/>
+=======
+<property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496630390257"/>
+>>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
 =======
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496630390257"/>
 >>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
@@ -31,7 +35,10 @@
 <property key="propertySet.[cw.dbg.ct.bareboard].networkUDPPort" value="1234"/>
 <property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.PEDEBUG_CURRENTDEVICE" value="MC9S08SH8"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
 <property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.Library" value="hcs08_pne_gdi"/>
 <property key="hidden.applicator.com.freescale.debugger.applicator.launchconfiguration.lc.circuitos_tp3-EquipoAudio_MC9S08SH8_PnE OSBDM.proj.circuitos_tp3-EquipoAudio" value="com.freescale.debugger.applicator.launchconfiguration.lc.circuitos_tp3-EquipoAudio_MC9S08SH8_PnE OSBDM.proj.circuitos_tp3-EquipoAudio"/>
 >>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
@@ -73,7 +80,11 @@
 <property key="propertySet.[cw.ide.settingscache].hidden.HostID" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.170529180755-0300"/>
 <property key="host.defaultEncoding" value=""/>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496095698062"/>
+=======
+<property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496630390259"/>
+>>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f
 =======
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496630390259"/>
 >>>>>>> b3cc5482e97f2b76d6989765b343a6110a597a2f

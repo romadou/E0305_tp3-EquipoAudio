@@ -76,7 +76,7 @@ unsigned char INTERACCION_analizeInput (void){
 		rxc=buffer_rx[indexR];
 	}
 	return 1;
-}
+
 
 unsigned char INTERACCION_getInput (void){
 	unsigned char i, num=0; 
@@ -98,7 +98,6 @@ unsigned char INTERACCION_getInput (void){
 			}
 	}
 }
-
 
 unsigned char numero(unsigned char input){
 	if ((input >= '0') && ('9' >= input)) return 1;
