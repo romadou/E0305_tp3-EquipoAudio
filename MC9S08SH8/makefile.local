@@ -6,6 +6,6 @@
 
 export Gnu_Make_Install_DirEnv=$(CWInstallLocationEnv)/gnu/bin
 export HC08ToolsEnv=$(CWInstallLocationEnv)/MCU/prog
-export ProjDirPath=C:/Users/rocio/Documents/CodeWarrior/workspace/circuitos_tp3-EquipoAudio
+export ProjDirPath=C:/Users/usuario/Dropbox/Facu PS2017/Circuitos Digitales y Microcontroladores/CW3/gitConRo
 export CWInstallLocationEnv=C:/Program Files (x86)/Freescale/CW MCU v10.1
 export MCUToolsBaseDirEnv=$(CWInstallLocationEnv)/MCU
