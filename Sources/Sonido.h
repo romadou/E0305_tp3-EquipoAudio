@@ -8,6 +8,22 @@
 #ifndef SONIDO_H_
 #define SONIDO_H_
 
+#ifndef PRESCALER
+#define PRESCALER 4
+#endif
+
+#ifndef F_MAX
+#define F_MAX 10000
+#endif
+
+#ifndef F_MIN
+#define F_MIN 200
+#endif
+
+#ifndef PASO
+#define PASO 100
+#endif
+
 void SONIDO_init(void);
 void setFrecuenciaActual(unsigned int fa);
 void SONIDO_prender_m1(void); /* Enciende el sonido en una frecuencia fija(se asume seteada previamente); devuelve el error (Hz) existente entre la frecuencia del sonido real respecto del deseado. */

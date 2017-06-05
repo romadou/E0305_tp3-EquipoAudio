@@ -11,6 +11,7 @@ static unsigned char indexR=0;
 static unsigned char indexW=0;
 static unsigned char buffer_tx[32];
 static unsigned char buffer_rx[32];
+static unsigned char cont=0;
 
 volatile unsigned char flag_r;
 volatile unsigned char flag_e;
@@ -34,6 +35,7 @@ void SCI_receive_char(void){
 		if (++cont==32){
 			flag_e=1;
 			indexW=0;
+			cont=0;
 			return;
 		}
 		buffer_rx[indexW]=rxchar;

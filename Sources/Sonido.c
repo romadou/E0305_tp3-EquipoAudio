@@ -5,22 +5,6 @@
  *      Author: Krasowski - Madou
  */
 
-#ifndef PRESCALER
-#define PRESCALER 4
-#endif
-
-#ifndef F_MAX
-#define F_MAX 10000
-#endif
-
-#ifndef F_MIN
-#define F_MIN 200
-#endif
-
-#ifndef PASO
-#define PASO 100
-#endif
-
 #include <stdlib.h>
 #include "sonido.h" 
 #include <mc9s08sh8.h> 
@@ -44,6 +28,10 @@ void SONIDO_init(void){
 
 void setFrecuenciaActual(unsigned int fa){
 	frecuenciaActual=fa;
+}
+
+unsigned int getError(void){
+	return errorDeReproduccion;
 }
 
 void SONIDO_siguiente_f(void){

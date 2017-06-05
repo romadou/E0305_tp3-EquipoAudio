@@ -16,7 +16,7 @@ void main(void) {
 
   for(;;) {
 	  if (flag_e){
-		  INTERACCION_showBL();
+		  INTERACCION_showEBF();
 	  }
 	  if (flag_r){
 		  if (INTERACCION_analizeInput()){

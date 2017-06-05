@@ -21,7 +21,7 @@ extern unsigned int NC0;
 /* Funciones privadas */
 /* Comportamiento de cada uno de los estados */
 void estado_init(unsigned char entrada);
-void estado_pedir_f(unsigned char entrada);
+void estado_pedir_f(void);
 void estado_pedir_t(unsigned char entrada);
 void estado_m1_on(unsigned char entrada);
 void estado_m1_off(unsigned char entrada);
@@ -29,6 +29,7 @@ void estado_m2_on(unsigned char entrada);
 void estado_m2_off(unsigned char entrada);
 
 /* FUNCIONES INTERNAS PARA FUNCIONAMIENTO */
+unsigned char verifyFreq(unsigned int freq);
 
 void MEF_init(void){
 	actual=INIT;
@@ -46,7 +47,7 @@ void MEF_update(void){
 		;
 	/* Modificación de la hora */
 	case PEDIR_F:
-		estado_pedir_f(entrada);
+		estado_pedir_f();
 		break;
 		;
 	/* Modificación de los minutos */
@@ -85,15 +86,13 @@ void MEF_update(void){
 void estado_init(unsigned char entrada){
 	switch (entrada){
 	/* Elección del modo 1 */
-	case 'f':;
-	case 'F':
+	case 'f':
 		actual=PEDIR_F;
 		INTERACCION_askF();
 		break;
 		;
 	/* Elección del modo 2 */
-	case 'b':;
-	case 'B':
+	case 'b':
 		actual=PEDIR_T;
 		INTERACCION_askB();
 		break;
@@ -104,40 +103,29 @@ void estado_init(unsigned char entrada){
 	}
 }
 
-void estado_pedir_f(unsigned char entrada){
+void estado_pedir_f(){
 	static unsigned int in;
 	static unsigned char aux;
 	in=INTERACCION_getFreq();
-	aux=verifyFreq(in);
-	// -----'0' para resetear (frecuencia inválida o comando de reset, si válido)
-	// -----'1' si ya hay una frecuencia definida
-	// -----'2' si sigue esperando valores
-	switch (aux){
-	/* Opción de reset */
-	case '0':
+	if (verifyFreq(in)){
+		/* Modo de frecuencia fija activado y a la espera */
+		SONIDO_setFrecuenciaActual(in);
+		SONIDO_prender_m1();
+		in = SONIDO_getError();
+		INTERACCION_showF(in);
+		INTERACCION_default(); /* Menú de opciones para reproducción */
+		actual=M1_OFF;
+	}
+	else{
+		/* Reset por frecuencia inválida */
+		INTERACCION_showEF();
 		MEF_init();
 		actual=INIT;
-		break;
-		;
-	/* Modo de frecuencia fija activado y a la espera */
-	case '1':
-		//INTERACCION_default(); (menú de opciones para reproducción)
-		SONIDO_prender_m1();
-		actual=M1_OFF;
-		break;
-		;
-	default:
-		;
 	}
 }
 
 void estado_m1_on(unsigned char entrada){
-	static unsigned char aux=0;
-	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//INTERACCION_analizar entrada (puede ser if =(ej)> 0 si reset, 1 si off, 3 si no terminó)
-	//aux=_INTERACCION_analizarEntrada(entrada);
-	switch (aux){
-	//switch (entrada){
+	switch (entrada){
 	case '*':
 		MEF_init();
 		actual=INIT;
@@ -155,12 +143,7 @@ void estado_m1_on(unsigned char entrada){
 }
 
 void estado_m1_off(unsigned char entrada){
-	static unsigned char aux=0;
-	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//INTERACCION_analizar entrada (puede ser if =(ej)> 0 si reset, 2 si on, 3 si no terminó - ej, "OF" de "OFF")
-	///aux=_INTERACCION_analizarEntrada(entrada);
-	switch (aux){
-	//switch (entrada){
+	switch (entrada){
 	case '*':
 		MEF_init();
 		actual=INIT;
@@ -181,25 +164,25 @@ void estado_pedir_t(unsigned char entrada){
 	switch (entrada){
 	/* Elección del barrido en 5 segundos */
 	case '1':
-		//INTERACCION_default();(menú de opciones para reproducción)
+		INTERACCION_default(); /* Menú de opciones para reproducción */
 		actual=M2_ON;
-		//INTERACCION_segundosBarrido(5);
+		INTERACCION_showB(5);
 		SONIDO_prender_m2(5);
 		break;
 		;
 	/* Elección del barrido en 10 segundos */
 	case '2':
-		//INTERACCION_default();(menú de opciones para reproducción)
+		INTERACCION_default(); /* Menú de opciones para reproducción */
 		actual=M2_ON;
-		//INTERACCION_segundosBarrido(10);
+		INTERACCION_showB(10);
 		SONIDO_prender_m2(10);
 		break;
 		;
 	/* Elección del barrido en 15 segundos */
 	case '3':
-		//INTERACCION_default();(menú de opciones para reproducción)
+		INTERACCION_default(); /* Menú de opciones para reproducción */
 		actual=M2_ON;
-		//INTERACCION_segundosBarrido(15);
+		INTERACCION_showB(15);
 		SONIDO_prender_m2(15);
 		break;
 		;
@@ -209,12 +192,7 @@ void estado_pedir_t(unsigned char entrada){
 }
 
 void estado_m2_on(unsigned char entrada){
-	static unsigned char aux=0;
-	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//INTERACCION_analizar entrada (puede ser if =(ej)> 0 si reset, 1 si off, 3 si no terminó)
-	///aux=_INTERACCION_analizarEntrada(entrada,1); 1 indica que hay que analizar números para frecuencia (y mostrarlos)
-	switch (aux){
-	//switch (entrada){
+	switch (entrada){
 	case '*':
 		MEF_init();
 		actual=INIT;
@@ -232,12 +210,7 @@ void estado_m2_on(unsigned char entrada){
 }
 
 void estado_m2_off(unsigned char entrada){
-	static unsigned char aux=0;
-	//O hacer un menú (asociando cada n a una opción) y tomar directamente la entrada
-	//INTERACCION_analizar entrada (puede ser if =(ej)> 0 si reset, 2 si on, 3 si no terminó)
-	///aux=_INTERACCION_analizarEntrada(entrada);
-	switch (aux){
-	//switch (entrada){
+	switch (entrada){
 	case '*':
 		MEF_init();
 		actual=INIT;
@@ -252,5 +225,9 @@ void estado_m2_off(unsigned char entrada){
 	default:
 		;
 	}
+}
+
+unsigned char verifyFreq(unsigned int freq){
+	return (freq>=F_MIN && freq<=F_MAX && freq%100==0);
 }
 
