@@ -10,7 +10,7 @@
 static unsigned char indexR=0;
 static unsigned char indexW=0;
 static unsigned char buffer_tx[32];
-static unsigned char buffer_rx[32]=0;
+static unsigned char buffer_rx[32];
 static unsigned char cont=0;
 
 volatile unsigned char flag_r;
@@ -39,8 +39,9 @@ void SCI_receive_char(void){
 			return;
 		}
 		buffer_rx[indexW]=rxchar;
-		if (rxchar=='\n'){
+		if (rxchar=='.'){
 			indexW=0;
+			cont=0;
 			flag_r=1;
 		}
 		else{
@@ -58,6 +59,6 @@ void SCI_write_string_to_buffer(char *cadena){
 	SCIC2_TIE=1;
 }
 
-unsigned char SCI_read_string_from_buffer(void){
-	return *buffer_tx;
+unsigned char SCI_read_from_buffer(unsigned char pos){
+	return buffer_rx[pos];
 }

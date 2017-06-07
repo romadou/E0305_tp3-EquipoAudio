@@ -8,7 +8,7 @@
 #include "MEF.h"
 #include "SCI.h"
 #include "interaccion.h"
-#include "Sonido.h"
+#include "sonido.h"
 
 /* Variables privadas */
 static estado actual; /* Estado actual de la MEF */
@@ -105,12 +105,10 @@ void estado_init(unsigned char entrada){
 
 void estado_pedir_f(){
 	static unsigned int in;
-	static unsigned char aux;
 	in=INTERACCION_getFreq();
 	if (verifyFreq(in)){
 		/* Modo de frecuencia fija activado y a la espera */
-		SONIDO_setFrecuenciaActual(in);
-		SONIDO_prender_m1();
+		SONIDO_prender_m1(in);
 		in = SONIDO_getError();
 		INTERACCION_showF(in);
 		INTERACCION_default(); /* Menú de opciones para reproducción */
@@ -127,17 +125,19 @@ void estado_pedir_f(){
 void estado_m1_on(unsigned char entrada){
 	switch (entrada){
 	case '*':
+		INTERACCION_showC();
 		MEF_init();
 		actual=INIT;
 		break;
 		;
 	case '-':
+		INTERACCION_showC();
 		SONIDO_apagar();
 		actual=M1_OFF;
 		break;
 		;
-	/* Opción sin efecto */
 	default:
+		INTERACCION_showEE();
 		;
 	}
 }
@@ -145,17 +145,19 @@ void estado_m1_on(unsigned char entrada){
 void estado_m1_off(unsigned char entrada){
 	switch (entrada){
 	case '*':
+		INTERACCION_showC();
 		MEF_init();
 		actual=INIT;
 		break;
 		;
 	case '+':
+		INTERACCION_showC();
 		SONIDO_reanudar();
 		actual=M1_ON;
 		break;
 		;
-	/* Opción sin efecto */
 	default:
+		INTERACCION_showEE();
 		;
 	}
 }
@@ -164,29 +166,30 @@ void estado_pedir_t(unsigned char entrada){
 	switch (entrada){
 	/* Elección del barrido en 5 segundos */
 	case '1':
-		INTERACCION_default(); /* Menú de opciones para reproducción */
-		actual=M2_ON;
+		actual=M2_OFF;
 		INTERACCION_showB(5);
+		INTERACCION_default(); /* Menú de opciones para reproducción */
 		SONIDO_prender_m2(5);
 		break;
 		;
 	/* Elección del barrido en 10 segundos */
 	case '2':
-		INTERACCION_default(); /* Menú de opciones para reproducción */
-		actual=M2_ON;
+		actual=M2_OFF;
 		INTERACCION_showB(10);
+		INTERACCION_default(); /* Menú de opciones para reproducción */
 		SONIDO_prender_m2(10);
 		break;
 		;
 	/* Elección del barrido en 15 segundos */
 	case '3':
-		INTERACCION_default(); /* Menú de opciones para reproducción */
-		actual=M2_ON;
+		actual=M2_OFF;
 		INTERACCION_showB(15);
+		INTERACCION_default(); /* Menú de opciones para reproducción */
 		SONIDO_prender_m2(15);
 		break;
 		;
 	default:
+		INTERACCION_showEE();
 		;
 	}
 }
@@ -194,17 +197,19 @@ void estado_pedir_t(unsigned char entrada){
 void estado_m2_on(unsigned char entrada){
 	switch (entrada){
 	case '*':
+		INTERACCION_showC();
 		MEF_init();
 		actual=INIT;
 		break;
 		;
 	case '-':
-		//SONIDO_apagar();
+		INTERACCION_showC();
+		SONIDO_apagar();
 		actual=M2_OFF;
 		break;
 		;
-	/* Opción sin efecto */
 	default:
+		INTERACCION_showEE();
 		;
 	}
 }
@@ -212,17 +217,19 @@ void estado_m2_on(unsigned char entrada){
 void estado_m2_off(unsigned char entrada){
 	switch (entrada){
 	case '*':
+		INTERACCION_showC();
 		MEF_init();
 		actual=INIT;
 		break;
 		;
 	case '+':
+		INTERACCION_showC();
 		SONIDO_reanudar();
 		actual=M2_ON;
 		break;
 		;
-	/* Opción sin efecto */
 	default:
+		INTERACCION_showEE();
 		;
 	}
 }

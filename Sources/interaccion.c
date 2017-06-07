@@ -8,79 +8,124 @@
 #include "interaccion.h"
 #include "SCI.h"
 
-extern unsigned char buffer_rx[32];
+/* Variables privadas */
+static unsigned char indexR; /* Cantidad de caracteres recibidos */
+static unsigned char flag_n=0; /* Flag indicador si el primer carácter recibido es un número */
+static unsigned short delay; /* Delay agregado con el fin de evitar sobrecargar en buffer de transmisión */
 
-static unsigned char rxc;
-static unsigned char indexR;
-static unsigned char flag_n=0;
-
+/* Funciones privadas */
+/* Corrobora que el carácter recibido sea un número */
 unsigned char numero (unsigned char input);
+/* Corrobora que el carácter recibido sea una letra perteneciente a alguna entrada válida */
 unsigned char letra (unsigned char input);
 
 void INTERACCION_init(void){
-	SCI_write_string_to_buffer("\r\nBIENVENIDOS AL PROGRAMA");
-	SCI_write_string_to_buffer("\r\nESCOGER MODO DE FUNCIONAMIENTO:");
+	SCI_write_string_to_buffer("\r\n***BIENVENIDOS AL GENERADOR DE SONIDOS***");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n\nESCOGER MODO DE FUNCIONAMIENTO:");
+	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n Modo F: Sonido de frecuencia fija");
+	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n Modo B: Barrido de frecuencias");
-	SCI_write_string_to_buffer("\r\n(ingresar la letra correspondiente al modo deseado,");
-	SCI_write_string_to_buffer("\r\n para confirmar presione ENTER)");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n(ingresar la letra correspondiente");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n al modo deseado,");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n para confirmar presione '.')\r\n");
 }
 
 void INTERACCION_default(void){
-	SCI_write_string_to_buffer("\r\nDESDE ESTE MOMENTO, EL PROGRAMA SE SIRVE DE LOS SIGUIENTES COMANDOS:");
-	SCI_write_string_to_buffer("\r\n ON: Iniciar reproducción de sonido");
-	SCI_write_string_to_buffer("\r\n OFF: Detener reproducción de sonido");
+	SCI_write_string_to_buffer("\r\n\nDESDE ESTE MOMENTO,");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\nEL PROGRAMA SE SIRVE DE LOS SIGUIENTES COMANDOS:");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n ON: Iniciar reproduccion de sonido");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n OFF: Detener reproduccion de sonido");
+	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n RESET: Reiniciar programa");
-	SCI_write_string_to_buffer("\r\n (para confirmar presione ENTER)");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n (para confirmar presione '.')\r\n\n");
 }
 
 void INTERACCION_askF(void){
-	SCI_write_string_to_buffer("\r\nINGRESAR LA FRECUENCIA DE SONIDO QUE DESEA ESCUCHAR:");
+	SCI_write_string_to_buffer("\r\n\nINGRESAR LA FRECUENCIA DE SONIDO QUE DESEA ESCUCHAR:");
+	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n Rango de frecuencias posibles: [200 Hz - 10 KHz] con un paso de 100 Hz");
-	SCI_write_string_to_buffer("\r\n (para confirmar presione ENTER)");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n (para confirmar presione '.')\r\n");
 }
 
 void INTERACCION_askB(void){
-	SCI_write_string_to_buffer("\r\nINGRESE EL MODO DE BARRIDO QUE DESEA:");
+	SCI_write_string_to_buffer("\r\n\nINGRESE EL MODO DE BARRIDO QUE DESEA:");
+	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n T1: 5 seg");
+	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n T2: 10 seg");
+	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n T3: 15 seg");
-	SCI_write_string_to_buffer("\r\n(ingresar el número correspondiente al barrido escogido,");
-	SCI_write_string_to_buffer("\r\n (para confirmar presione ENTER)");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n (ingresar el número correspondiente al barrido escogido, ");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("para confirmar presione '.')\r\n");
 } 
 
 void INTERACCION_showB(unsigned char b){
-	SCI_write_string_to_buffer("\r\n OPCION GUARDADA");
-	//SCI_write_string_to_buffer("\r\n SE REALIZARÁ UN BARRIDO CADA ", b ," SEGUNDOS");
+	SCI_write_string_to_buffer("\r\n\n OPCION GUARDADA");
+	for (delay=0; delay<0xFFFF; delay++);
+	switch (b){
+	case 5: SCI_write_string_to_buffer("\r\n\n SE REALIZARA UN BARRIDO CADA 5 SEGUNDOS");
+			break;
+	case 10: SCI_write_string_to_buffer("\r\n\n SE REALIZARA UN BARRIDO CADA 10 SEGUNDOS");
+			break;
+	case 15: SCI_write_string_to_buffer("\r\n\n SE REALIZARA UN BARRIDO CADA 15 SEGUNDOS");
+			break;
+	default:;
+	}
 }
 
-void INTERACCION_showF(unsigned int e){
-	SCI_write_string_to_buffer("\r\n FRECUENCIA GUARDADA");
-	//SCI_write_string_to_buffer("\r\n EL ERROR PRODUCIDO POR LA FRECUENCIA SELECIONADA ES DE ", e ,"Hz");
+void INTERACCION_showF(unsigned int error){
+	/* Conversión de error integer a string */
+	unsigned char e[2];
+	e[0]='0'+error/10;
+	e[1]='0'+error%10;
+	SCI_write_string_to_buffer("\r\n\n FRECUENCIA GUARDADA");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n\n EL ERROR PRODUCIDO POR LA");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer(" FRECUENCIA SELECIONADA ES DE ");
+	SCI_write_string_to_buffer(e);
+	SCI_write_string_to_buffer(" Hz");
 }
 
-void INTERACCION_showC(unsigned char b){
-	SCI_write_string_to_buffer("\r\n COMANDO ACEPTADO");
+void INTERACCION_showC(void){
+	SCI_write_string_to_buffer("\r\n\n COMANDO ACEPTADO\r\n\n");
 }
 
 void INTERACCION_showEBF(void){
-	SCI_write_string_to_buffer("\r\n ERROR: DEMASIADAS TECLAS PRESIONADAS");
-	SCI_write_string_to_buffer("\r\n Comience nuevamente");
+	SCI_write_string_to_buffer("\r\nERROR: DEMASIADAS TECLAS PRESIONADAS");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n Comience nuevamente\r\n");
 }
 
 void INTERACCION_showEE(void){
-	SCI_write_string_to_buffer("\r\n ERROR: ENTRADA INVÁLIDA");
-	SCI_write_string_to_buffer("\r\n Comience nuevamente");
+	SCI_write_string_to_buffer("\r\nERROR: ENTRADA INVALIDA");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n Comience nuevamente\r\n");
 }
 
 void INTERACCION_showEF(void){
-	SCI_write_string_to_buffer("\r\n ERROR: FRECUENCIA FUERA DE RANGO");
-	SCI_write_string_to_buffer("\r\n Comience nuevamente");
+	SCI_write_string_to_buffer("\r\nERROR: FRECUENCIA FUERA DE RANGO");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n Comience nuevamente\r\n");
 }
 
 unsigned char INTERACCION_analizeInput (void){
-	rxc=buffer_rx[0];
-	while(rxc!='\n'){
+	unsigned char rxc;
+	indexR=0;
+	rxc=SCI_read_from_buffer(indexR);
+	while(rxc!='.'){
 		if (numero(rxc)){
 			if (!indexR)
 				flag_n=1;
@@ -102,41 +147,48 @@ unsigned char INTERACCION_analizeInput (void){
 			}
 		}
 		indexR++;
-		rxc=buffer_rx[indexR];
+		rxc=SCI_read_from_buffer(indexR);
 	}
+	flag_n=0;
 	return 1;
 }
 
 unsigned char INTERACCION_getInput (void){
-	if (buffer_rx[0]!='\n'){
-			if (flag_n){
-				return buffer_rx[0];
-			}
-			else{
-				if ((buffer_rx[0]=='F'||buffer_rx[0]=='f')&&buffer_rx[1]=='\n')
-					return 'f';
-				if ((buffer_rx[0]=='B'||buffer_rx[0]=='b')&&buffer_rx[1]=='\n')
-					return 'b';
-				if ((buffer_rx[0]=='O'||buffer_rx[0]=='o')&&(buffer_rx[1]=='N'||buffer_rx[1]=='n')&&buffer_rx[2]=='\n')
-					return '+';
-				if ((buffer_rx[0]=='O'||buffer_rx[0]=='o')&&(buffer_rx[1]=='F'||buffer_rx[1]=='f')&&(buffer_rx[2]=='F'||buffer_rx[2]=='f')&&buffer_rx[3]=='\n')
-					return '-';
-				if ((buffer_rx[0]=='R'||buffer_rx[0]=='r')&&(buffer_rx[1]=='E'||buffer_rx[1]=='e')&&(buffer_rx[2]=='S'||buffer_rx[2]=='s')&&(buffer_rx[3]=='E'||buffer_rx[3]=='e')&&(buffer_rx[4]=='T'||buffer_rx[4]=='t')&&buffer_rx[5]=='\n')
-					return '*';
-				return 'e';
-			}
+	if (SCI_read_from_buffer(0)!='.'){
+		if (numero(SCI_read_from_buffer(0))){
+			return SCI_read_from_buffer(0);
+		}
+		else{
+			if ((SCI_read_from_buffer(0)=='F'||SCI_read_from_buffer(0)=='f')&& SCI_read_from_buffer(1)=='.')
+				return 'f';
+			if ((SCI_read_from_buffer(0)=='B'||SCI_read_from_buffer(0)=='b')&& SCI_read_from_buffer(1)=='.')
+				return 'b';
+			if ((SCI_read_from_buffer(0)=='O'||SCI_read_from_buffer(0)=='o')&&(SCI_read_from_buffer(1)=='N'||SCI_read_from_buffer(1)=='n')&&SCI_read_from_buffer(2)=='.')
+				return '+';
+			if ((SCI_read_from_buffer(0)=='O'||SCI_read_from_buffer(0)=='o')&&(SCI_read_from_buffer(1)=='F'||SCI_read_from_buffer(1)=='f')&&(SCI_read_from_buffer(2)=='F'||SCI_read_from_buffer(2)=='f')&&SCI_read_from_buffer(3)=='.')
+				return '-';
+			if ((SCI_read_from_buffer(0)=='R'||SCI_read_from_buffer(0)=='r')&&(SCI_read_from_buffer(1)=='E'||SCI_read_from_buffer(1)=='e')&&(SCI_read_from_buffer(2)=='S'||SCI_read_from_buffer(2)=='s')&&(SCI_read_from_buffer(3)=='E'||SCI_read_from_buffer(3)=='e')&&(SCI_read_from_buffer(4)=='T'||SCI_read_from_buffer(4)=='t')&&SCI_read_from_buffer(5)=='.')
+				return '*';
+			return 'e';
+		}
 	}
 }
 
 unsigned int INTERACCION_getFreq(void){
-	unsigned char i, num=0;
-	if (buffer_rx[0]!='\n' && numero(buffer_rx[0])){
+	unsigned char i, j;
+	unsigned int num=0, x;
+	if (SCI_read_from_buffer(0)!='.' && numero(SCI_read_from_buffer(0))){
 		for (i=0;i<indexR;i++){
-			num+=(buffer_rx[i]-'0')*(10^(indexR-i-1));
+			x=SCI_read_from_buffer(i)-'0';
+			for (j=0; j<indexR-i-1; j++){
+				x*=10;
+			}
+			num+=x;
 		}
 	}
 	return num;
 }
+
 
 unsigned char numero(unsigned char input){
 	if ((input >= '0') && ('9' >= input)) return 1;
@@ -144,9 +196,23 @@ unsigned char numero(unsigned char input){
 }
 
 unsigned char letra (unsigned char input){
-	static char comandos[] = 
-		{'O','o','N','n', 'F','f','B','b',
-		'R','r','E','e','S','s', 'T','t'
-		};
-	return comandos[input];
+	switch (input){ 
+	case 'O':;
+	case 'o':;
+	case 'N':;
+	case 'n':; 
+	case 'F':;
+	case 'f':;
+	case 'B':;
+	case 'b':;
+	case 'R':;
+	case 'r':;
+	case 'E':;
+	case 'e':;
+	case 'S':;
+	case 's':; 
+	case 'T':;
+	case 't': return 1;
+	default: return 0;
+	};
 }

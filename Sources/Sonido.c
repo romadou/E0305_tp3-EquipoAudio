@@ -6,7 +6,7 @@
  */
 
 #include <stdlib.h>
-#include "Sonido.h" 
+#include "sonido.h" 
 #include <mc9s08sh8.h> 
 
 extern unsigned int NC;
@@ -26,21 +26,20 @@ void SONIDO_init(void){
 	SONIDO_apagar();
 }
 
-void SONIDO_setFrecuenciaActual(unsigned int fa){
-	frecuenciaActual=fa;
-}
-
 unsigned int SONIDO_getError(void){
 	return errorDeReproduccion;
 }
 
 void SONIDO_siguiente_f(void){
 	frecuenciaActual+=PASO;
-	frecuenciaActual%=F_MAX;
+	if (frecuenciaActual > F_MAX){
+		frecuenciaActual=F_MIN;
+	}
 	SONIDO_calcular_NC();
 }
 
-void SONIDO_prender_m1(void){
+void SONIDO_prender_m1(unsigned int fa){
+	frecuenciaActual=fa;
 	SONIDO_calcular_NC();
 	modoActual=0;
 	TPM1C1V_aux = NC; /* primer NC */
@@ -56,29 +55,29 @@ void SONIDO_prender_m2(unsigned char T){
 
 void SONIDO_apagar(void){
 	TPM1C1V_aux = TPM1C1V;
-	TPM1C1V = 0; /* apagar sonido */ //REVISAR
+	TPM1C1V = 0; /* apagar sonido */
 	TPM1C1SC_CH1IE=0;
-	TPM1C0SC_CH0IE=0;
+	TPM2C0SC_CH0IE=0;
 }
 
 void SONIDO_reanudar(void){
 	TPM1C1V = TPM1C1V_aux;
 	TPM1C1SC_CH1IE=1;
-	TPM1C0SC_CH0IE=modoActual;
+	TPM2C0SC_CH0IE=modoActual;
 }
 
 
 void SONIDO_calcular_NC(void){
 	unsigned long auxNC, auxFoc;
-	auxNC=8000000UL/(PRESCALER*2*frecuenciaActual); /* cálculo de NC */
+	auxNC=8000000UL/(PRESCALER_1*2*frecuenciaActual); /* cálculo de NC */
 	NC=(unsigned int)auxNC;
-	auxFoc=8000000UL/(PRESCALER*2*auxNC);
+	auxFoc=8000000UL/(PRESCALER_1*2*auxNC);
 	errorDeReproduccion = abs((unsigned int)auxFoc-frecuenciaActual);
 }
 
 void SONIDO_calcular_NC0(unsigned char T){
 	unsigned long auxNC0;
-	unsigned int auxFrec = (T*PASO)/(F_MAX-F_MIN);
-	auxNC0=8000000UL/(PRESCALER*2*auxFrec); /* cálculo de NC0 */
+	unsigned int auxFrec = ((F_MAX-F_MIN)/PASO)/T;
+	auxNC0=8000000UL/(PRESCALER_2*auxFrec); /* cálculo de NC0 */
 	NC0=(unsigned int)auxNC0;
 }

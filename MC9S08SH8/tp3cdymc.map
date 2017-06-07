@@ -15,9 +15,9 @@ FILE SECTION
 MCUinit_c.obj                           Model: SMALL,         Lang: ANSI-C
 MEF_c.obj                               Model: SMALL,         Lang: ANSI-C
 SCI_c.obj                               Model: SMALL,         Lang: ANSI-C
-Sonido_c.obj                            Model: SMALL,         Lang: ANSI-C
 interaccion_c.obj                       Model: SMALL,         Lang: ANSI-C
 main_c.obj                              Model: SMALL,         Lang: ANSI-C
+sonido_c.obj                            Model: SMALL,         Lang: ANSI-C
 start08_c.obj                           Model: SMALL,         Lang: ANSI-C
 mc9s08sh8_c.obj                         Model: SMALL,         Lang: ANSI-C
 rtshc08.o (ansiis.lib)                  Model: SMALL,         Lang: ANSI-C
@@ -30,20 +30,19 @@ Entry point: 0xE07B (_Startup)
 _startupData is allocated at 0xE084 and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x100     137
-  _Copy    *toCopyDownBeg 0xEBEE
+  _Range   pZeroOut       0x100     90
+  _Copy    *toCopyDownBeg 0xF0BF
 } _startupData;
 
 *********************************************************************************************
 SECTION-ALLOCATION SECTION
 Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
-.data                             16   R/W      0x100      0x10F   RAM
 .init                            132     R     0xE000     0xE083   ROM
 .startData                        14     R     0xE084     0xE091   ROM
-.rodata1                         934     R     0xE092     0xE437   ROM
-.text                           1974     R     0xE438     0xEBED   ROM
-.copy                             22     R     0xEBEE     0xEC03   ROM
+.rodata1                        1238     R     0xE092     0xE567   ROM
+.text                           2903     R     0xE568     0xF0BE   ROM
+.copy                              2     R     0xF0BF     0xF0C0   ROM
 .abs_section_ffbd                  1     R     0xFFBD     0xFFBD   .absSeg0
 .abs_section_ffbf                  1     R     0xFFBF     0xFFBF   .absSeg1
 .abs_section_ffc0                 64     R     0xFFC0     0xFFFF   .absSeg2
@@ -140,13 +139,13 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_1810                  2   N/I     0x1810     0x1811   .absSeg93
 .abs_section_1812                  2   N/I     0x1812     0x1813   .absSeg94
 .abs_section_1814                  2   N/I     0x1814     0x1815   .absSeg95
-.bss                             114   R/W      0x110      0x181   RAM
-.common                            7   R/W      0x182      0x188   RAM
-.stack                            64   R/W      0x189      0x1C8   RAM
+.bss                              83   R/W      0x100      0x152   RAM
+.common                            7   R/W      0x153      0x159   RAM
+.stack                            64   R/W      0x15A      0x199   RAM
 
 Summary of section sizes per section type:
-READ_ONLY (R):         C46 (dec:     3142)
-READ_WRITE (R/W):       C9 (dec:      201)
+READ_ONLY (R):        1103 (dec:     4355)
+READ_WRITE (R/W):       9A (dec:      154)
 NO_INIT (N/I):          6C (dec:      108)
 
 *********************************************************************************************
@@ -160,117 +159,130 @@ OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 MODULE:                 -- MCUinit_c.obj --
 - PROCEDURES:
-     MCU_init                                  E438      81     129       1   .text       
-     isrVscitx                                 E4B9       9       9       1   .text       
-     isrVscirx                                 E4C2       6       6       1   .text       
-     isrVscierr                                E4C8       1       1       1   .text       
-     isrVtpm1ovf                               E4C9       1       1       1   .text       
-     isrVtpm1ch1                               E4CA      1E      30       1   .text       
-     isrVtpm1ch0                               E4E8      1F      31       1   .text       
+     MCU_init                                  E568      91     145       1   .text       
+     isrVscitx                                 E5F9       9       9       1   .text       
+     isrVscirx                                 E602       6       6       1   .text       
+     isrVscierr                                E608       1       1       1   .text       
+     isrVtpm2ovf                               E609       1       1       1   .text       
+     isrVtpm2ch0                               E60A      21      33       1   .text       
+     isrVtpm1ovf                               E62B       1       1       1   .text       
+     isrVtpm1ch1                               E62C      1E      30       1   .text       
+     isrVtpm1ch0                               E64A       1       1       1   .text       
 - VARIABLES:
      NVPROT_INIT                               FFBD       1       1       0   .abs_section_ffbd
      NVOPT_INIT                                FFBF       1       1       0   .abs_section_ffbf
      _vect                                     FFC0      40      64       0   .abs_section_ffc0
-     NC                                         182       2       2       4   .common     
-     NC0                                        184       2       2       2   .common     
+     NC                                         153       2       2       4   .common     
+     NC0                                        155       2       2       2   .common     
 MODULE:                 -- MEF_c.obj --
 - PROCEDURES:
-     MEF_init                                  E507       B      11       6   .text       
-     MEF_update                                E512      3A      58       1   .text       
-     estado_init                               E54C      1A      26       1   .text       
-     estado_pedir_f                            E566      31      49       1   .text       
-     estado_m1_on                              E597      19      25       1   .text       
-     estado_m1_off                             E5B0      19      25       1   .text       
-     estado_pedir_t                            E5C9      3C      60       1   .text       
-     estado_m2_on                              E605      15      21       1   .text       
-     estado_m2_off                             E61A      19      25       1   .text       
-     verifyFreq                                E633      25      37       1   .text       
+     MEF_init                                  E64B       B      11       6   .text       
+     MEF_update                                E656      3A      58       1   .text       
+     estado_init                               E690      1A      26       1   .text       
+     estado_pedir_f                            E6AA      2E      46       1   .text       
+     estado_m1_on                              E6D8      22      34       1   .text       
+     estado_m1_off                             E6FA      22      34       1   .text       
+     estado_pedir_t                            E71C      3F      63       1   .text       
+     estado_m2_on                              E75B      22      34       1   .text       
+     estado_m2_off                             E77D      22      34       1   .text       
+     verifyFreq                                E79F      25      37       1   .text       
 - VARIABLES:
-     actual                                     110       2       2      10   .bss        
-     entrada                                    112       1       1       1   .bss        
-     in.1                                       113       2       2       3   .bss        
+     actual                                     100       2       2      10   .bss        
+     entrada                                    102       1       1       1   .bss        
+     in.1                                       103       2       2       3   .bss        
 MODULE:                 -- SCI_c.obj --
 - PROCEDURES:
-     SCI_send_char                             E658      20      32       1   .text       
-     SCI_receive_char                          E678      3C      60       1   .text       
-     SCI_write_string_to_buffer                E6B4      24      36      26   .text       
+     SCI_send_char                             E7C4      20      32       1   .text       
+     SCI_receive_char                          E7E4      3F      63       1   .text       
+     SCI_write_string_to_buffer                E823      24      36      21   .text       
+     SCI_read_from_buffer                      E847       6       6      13   .text       
 - VARIABLES:
-     indexR                                     115       1       1       4   .bss        
-     indexW                                     116       1       1       8   .bss        
-     buffer_rx                                  117      20      32       1   .bss        
-     cont                                       137       1       1       3   .bss        
-     buffer_tx                                  138      20      32       2   .bss        
-     flag_r                                     186       1       1       3   .common     
-     flag_e                                     187       1       1       2   .common     
-     rxchar                                     188       1       1       2   .common     
-MODULE:                 -- Sonido_c.obj --
-- PROCEDURES:
-     SONIDO_init                               E6D8       3       3       1   .text       
-     SONIDO_setFrecuenciaActual                E6DB       4       4       1   .text       
-     SONIDO_getError                           E6DF       4       4       1   .text       
-     SONIDO_siguiente_f                        E6E3      15      21       1   .text       
-     SONIDO_prender_m1                         E6F8       E      14       1   .text       
-     SONIDO_prender_m2                         E706      1C      28       1   .text       
-     SONIDO_apagar                             E722       E      14       2   .text       
-     SONIDO_reanudar                           E730      14      20       2   .text       
-     SONIDO_calcular_NC                        E744      58      88       3   .text       
-     SONIDO_calcular_NC0                       E79C      2E      46       1   .text       
-- VARIABLES:
-     frecuenciaActual                           158       2       2       7   .bss        
-     errorDeReproduccion                        15A       2       2       2   .bss        
-     modoActual                                 15C       1       1       3   .bss        
-     TPM1C1V_aux                                15D       2       2       4   .bss        
+     indexR                                     105       1       1       4   .bss        
+     indexW                                     106       1       1       8   .bss        
+     cont                                       107       1       1       4   .bss        
+     buffer_tx                                  108      20      32       2   .bss        
+     buffer_rx                                  128      20      32       2   .bss        
+     flag_r                                     157       1       1       3   .common     
+     flag_e                                     158       1       1       2   .common     
+     rxchar                                     159       1       1       2   .common     
 MODULE:                 -- interaccion_c.obj --
 - PROCEDURES:
-     INTERACCION_init                          E7CA      24      36       1   .text       
-     INTERACCION_default                       E7EE      1E      30       2   .text       
-     INTERACCION_askF                          E80C      12      18       1   .text       
-     INTERACCION_askB                          E81E      24      36       1   .text       
-     INTERACCION_showB                         E842       6       6       3   .text       
-     INTERACCION_showF                         E848       6       6       1   .text       
-     INTERACCION_showEBF                       E84E       C      12       1   .text       
-     INTERACCION_showEF                        E85A       C      12       1   .text       
-     INTERACCION_analizeInput                  E866      49      73       1   .text       
-     INTERACCION_getInput                      E8AF      B6     182       1   .text       
-     INTERACCION_getFreq                       E965      3B      59       1   .text       
-     numero                                    E9A0       B      11       2   .text       
-     letra                                     E9AB       6       6       1   .text       
+     INTERACCION_init                          E84D      7C     124       1   .text       
+     INTERACCION_default                       E8C9      6B     107       2   .text       
+     INTERACCION_askF                          E934      39      57       1   .text       
+     INTERACCION_askB                          E96D      6B     107       1   .text       
+     INTERACCION_showB                         E9D8      40      64       1   .text       
+     INTERACCION_showF                         EA18      66     102       1   .text       
+     INTERACCION_showC                         EA7E       6       6       8   .text       
+     INTERACCION_showEBF                       EA84      21      33       1   .text       
+     INTERACCION_showEE                        EAA5      21      33       6   .text       
+     INTERACCION_showEF                        EAC6      21      33       1   .text       
+     INTERACCION_analizeInput                  EAE7      4B      75       1   .text       
+     INTERACCION_getInput                      EB32      F3     243      16   .text       
+     INTERACCION_getFreq                       EC25      77     119       1   .text       
+     numero                                    EC9C       B      11       3   .text       
+     letra                                     ECA7      4F      79       1   .text       
 - VARIABLES:
-     STRING...BIENVENIDOS.AL.PRO.1             E092      1A      26       1   .rodata1    
-     STRING...ESCOGER.MODO.DE.FU.2             E0AC      22      34       1   .rodata1    
-     STRING....Modo.F..Sonido.de.3             E0CE      25      37       1   .rodata1    
-     STRING....Modo.B..Barrido.d.4             E0F3      22      34       1   .rodata1    
-     STRING....ingresar.la.letra.5             E115      36      54       1   .rodata1    
-     STRING....para.confirmar.pr.6             E14B      22      34       1   .rodata1    
-     STRING...DESDE.ESTE.MOMENTO.7             E16D      47      71       1   .rodata1    
-     STRING....ON..Iniciar.repro.8             E1B4      26      38       1   .rodata1    
-     STRING....OFF..Detener.repr.9             E1DA      27      39       1   .rodata1    
-     STRING....RESET..Reiniciar..10            E201      1D      29       1   .rodata1    
-     STRING.....para.confirmar.p.11            E21E      23      35       1   .rodata1    
-     STRING...INGRESAR.LA.FRECUE.12            E241      37      55       1   .rodata1    
-     STRING....Rango.de.frecuenc.13            E278      4A      74       1   .rodata1    
-     STRING.....para.confirmar.p.14            E2C2      23      35       1   .rodata1    
-     STRING...INGRESE.EL.MODO.DE.15            E2E5      28      40       1   .rodata1    
-     STRING....T1..5.seg.16                    E30D       D      13       1   .rodata1    
-     STRING....T2..10.seg.17                   E31A       E      14       1   .rodata1    
-     STRING....T3..15.seg.18                   E328       E      14       1   .rodata1    
-     STRING....ingresar.el.n.mer.19            E336      3B      59       1   .rodata1    
-     STRING.....para.confirmar.p.20            E371      23      35       1   .rodata1    
-     STRING....OPCION.GUARDADA.21              E394      13      19       1   .rodata1    
-     STRING....FRECUENCIA.GUARDA.22            E3A7      17      23       1   .rodata1    
-     STRING....ERROR..DEMASIADAS.24            E3BE      28      40       1   .rodata1    
-     STRING....Comience.nuevamen.25            E3E6      17      23       1   .rodata1    
-     STRING....ERROR..FRECUENCIA.28            E3FD      24      36       1   .rodata1    
-     STRING....Comience.nuevamen.29            E421      17      23       1   .rodata1    
-     comandos.30                                100      10      16       1   .data       
-     flag_n                                     15F       1       1       5   .bss        
-     rxc                                        160       1       1       3   .bss        
-     indexR                                     161       1       1       5   .bss        
-     buffer_rx                                  162      20      32      21   .bss        
+     STRING......BIENVENIDOS.AL..1             E092      2C      44       1   .rodata1    
+     STRING....ESCOGER.MODO.DE.F.2             E0BE      23      35       1   .rodata1    
+     STRING....Modo.F..Sonido.de.3             E0E1      25      37       1   .rodata1    
+     STRING....Modo.B..Barrido.d.4             E106      22      34       1   .rodata1    
+     STRING....ingresar.la.letra.5             E128      25      37       1   .rodata1    
+     STRING....al.modo.deseado..6              E14D      14      20       1   .rodata1    
+     STRING....para.confirmar.pr.7             E161      22      34       1   .rodata1    
+     STRING....DESDE.ESTE.MOMENT.8             E183      17      23       1   .rodata1    
+     STRING...EL.PROGRAMA.SE.SIR.9             E19A      33      51       1   .rodata1    
+     STRING....ON..Iniciar.repro.10            E1CD      26      38       1   .rodata1    
+     STRING....OFF..Detener.repr.11            E1F3      27      39       1   .rodata1    
+     STRING....RESET..Reiniciar..12            E21A      1D      29       1   .rodata1    
+     STRING.....para.confirmar.p.13            E237      24      36       1   .rodata1    
+     STRING....INGRESAR.LA.FRECU.14            E25B      38      56       1   .rodata1    
+     STRING....Rango.de.frecuenc.15            E293      4A      74       1   .rodata1    
+     STRING.....para.confirmar.p.16            E2DD      23      35       1   .rodata1    
+     STRING....INGRESE.EL.MODO.D.17            E300      29      41       1   .rodata1    
+     STRING....T1..5.seg.18                    E329       D      13       1   .rodata1    
+     STRING....T2..10.seg.19                   E336       E      14       1   .rodata1    
+     STRING....T3..15.seg.20                   E344       E      14       1   .rodata1    
+     STRING.....ingresar.el.n.me.21            E352      3D      61       1   .rodata1    
+     STRING.para.confirmar.presi.22            E38F      1F      31       1   .rodata1    
+     STRING.....OPCION.GUARDADA.23             E3AE      14      20       1   .rodata1    
+     STRING.....SE.REALIZARA.UN..24            E3C2      2C      44       1   .rodata1    
+     STRING.....SE.REALIZARA.UN..25            E3EE      2D      45       1   .rodata1    
+     STRING.....SE.REALIZARA.UN..26            E41B      2D      45       1   .rodata1    
+     STRING.....FRECUENCIA.GUARD.27            E448      18      24       1   .rodata1    
+     STRING.....EL.ERROR.PRODUCI.28            E460      1E      30       1   .rodata1    
+     STRING..FRECUENCIA.SELECION.29            E47E      1F      31       1   .rodata1    
+     STRING..Hz.30                             E49D       4       4       1   .rodata1    
+     STRING.....COMANDO.ACEPTADO.31            E4A1      18      24       1   .rodata1    
+     STRING...ERROR..DEMASIADAS..32            E4B9      27      39       1   .rodata1    
+     STRING....Comience.nuevamen.33            E4E0      19      25       1   .rodata1    
+     STRING...ERROR..ENTRADA.INV.34            E4F9      1A      26       1   .rodata1    
+     STRING....Comience.nuevamen.35            E513      19      25       1   .rodata1    
+     STRING...ERROR..FRECUENCIA..36            E52C      23      35       1   .rodata1    
+     STRING....Comience.nuevamen.37            E54F      19      25       1   .rodata1    
+     flag_n                                     148       1       1       5   .bss        
+     indexR                                     149       1       1       6   .bss        
+     delay                                      14A       2       2      44   .bss        
 MODULE:                 -- main_c.obj --
 - PROCEDURES:
-     main                                      E9B1      26      38       1   .text       
+     main                                      ECF6      29      41       1   .text       
 - VARIABLES:
+MODULE:                 -- sonido_c.obj --
+- PROCEDURES:
+     SONIDO_init                               ED1F       3       3       1   .text       
+     SONIDO_getError                           ED22       4       4       1   .text       
+     SONIDO_siguiente_f                        ED26      16      22       1   .text       
+     SONIDO_prender_m1                         ED3C      11      17       1   .text       
+     SONIDO_prender_m2                         ED4D      1C      28       1   .text       
+     SONIDO_apagar                             ED69       E      14       3   .text       
+     SONIDO_reanudar                           ED77      14      20       2   .text       
+     SONIDO_calcular_NC                        ED8B      4E      78       3   .text       
+     SONIDO_calcular_NC0                       EDD9      2D      45       1   .text       
+- VARIABLES:
+     frecuenciaActual                           14C       2       2       9   .bss        
+     errorDeReproduccion                        14E       2       2       2   .bss        
+     modoActual                                 150       1       1       3   .bss        
+     TPM1C1V_aux                                151       2       2       4   .bss        
 MODULE:                 -- start08_c.obj --
 - PROCEDURES:
      loadByte                                  E000       E      14       5   .init       
@@ -279,7 +291,7 @@ MODULE:                 -- start08_c.obj --
 - VARIABLES:
      _startupData                              E084       6       6       4   .startData  
 - LABELS:
-     __SEG_END_SSTACK                           1C9       0       0       1               
+     __SEG_END_SSTACK                           19A       0       0       1               
 MODULE:                 -- mc9s08sh8_c.obj --
 - PROCEDURES:
 - VARIABLES:
@@ -301,7 +313,7 @@ MODULE:                 -- mc9s08sh8_c.obj --
      _MTIMCNT                                    1E       1       1       0   .abs_section_1e
      _MTIMMOD                                    1F       1       1       0   .abs_section_1f
      _TPM1SC                                     20       1       1       3   .abs_section_20
-     _TPM1C0SC                                   25       1       1       5   .abs_section_25
+     _TPM1C0SC                                   25       1       1       2   .abs_section_25
      _TPM1C1SC                                   28       1       1       5   .abs_section_28
      _SCIC1                                      3A       1       1       1   .abs_section_3a
      _SCIC2                                      3B       1       1       4   .abs_section_3b
@@ -324,8 +336,8 @@ MODULE:                 -- mc9s08sh8_c.obj --
      _IICS                                       5B       1       1       0   .abs_section_5b
      _IICD                                       5C       1       1       0   .abs_section_5c
      _IICC2                                      5D       1       1       0   .abs_section_5d
-     _TPM2SC                                     60       1       1       0   .abs_section_60
-     _TPM2C0SC                                   65       1       1       0   .abs_section_65
+     _TPM2SC                                     60       1       1       3   .abs_section_60
+     _TPM2C0SC                                   65       1       1       6   .abs_section_65
      _TPM2C1SC                                   68       1       1       0   .abs_section_68
      _RTCSC                                      6C       1       1       0   .abs_section_6c
      _RTCCNT                                     6D       1       1       0   .abs_section_6d
@@ -365,12 +377,12 @@ MODULE:                 -- mc9s08sh8_c.obj --
      _ADCCV                                      14       2       2       0   .abs_section_14
      _TPM1CNT                                    21       2       2       0   .abs_section_21
      _TPM1MOD                                    23       2       2       1   .abs_section_23
-     _TPM1C0V                                    26       2       2       3   .abs_section_26
+     _TPM1C0V                                    26       2       2       1   .abs_section_26
      _TPM1C1V                                    29       2       2       6   .abs_section_29
      _SCIBD                                      38       2       2       2   .abs_section_38
      _TPM2CNT                                    61       2       2       0   .abs_section_61
-     _TPM2MOD                                    63       2       2       0   .abs_section_63
-     _TPM2C0V                                    66       2       2       0   .abs_section_66
+     _TPM2MOD                                    63       2       2       1   .abs_section_63
+     _TPM2C0V                                    66       2       2       3   .abs_section_66
      _TPM2C1V                                    69       2       2       0   .abs_section_69
      _SDID                                     1806       2       2       0   .abs_section_1806
      _DBGCA                                    1810       2       2       0   .abs_section_1810
@@ -378,77 +390,89 @@ MODULE:                 -- mc9s08sh8_c.obj --
      _DBGF                                     1814       2       2       0   .abs_section_1814
 MODULE:                 -- rtshc08.o (ansiis.lib) --
 - PROCEDURES:
-     _PUSH_ARGS_L                              E9D7      20      32       1   .text       
-     _ENTER_UNARY_L                            E9F7      29      41       1   .text       
-     _ENTER_BINARY_L_LC                        EA20      1A      26       1   .text       
-     _IDIVMOD                                  EA3A      69     105       1   .text       
-     _LDIVMOD                                  EAA3      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       EB47      17      23       1   .text       
-     _IMODU_STAR08                             EB5E      10      16       2   .text       
-     _IMODU_8                                  EB6E      12      18       1   .text       
-     _LDIVU_LC                                 EB80       6       6       3   .text       
-     _LLSL                                     EB86      16      22       1   .text       
-     _POP32                                    EB9C      1A      26       3   .text       
-     _Jump_Table_Header_Offset                 EBB6      24      36       2   .text       
+     _PUSH_ARGS_L                              EE06      20      32       1   .text       
+     _ENTER_UNARY_L                            EE26      29      41       1   .text       
+     _ENTER_BINARY_L_LC                        EE4F      1A      26       1   .text       
+     _IDIVMOD                                  EE69      69     105       2   .text       
+     _LDIVMOD                                  EED2      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       EF76      17      23       1   .text       
+     _IMUL_STAR08                              EF8D      27      39       1   .text       
+     _IDIVU_STAR08                             EFB4       D      13       1   .text       
+     _IMODU_STAR08                             EFC1      10      16       1   .text       
+     _IDIVU_8                                  EFD1       E      14       1   .text       
+     _IMODU_8                                  EFDF      12      18       2   .text       
+     _ILSL                                     EFF1       C      12       1   .text       
+     _ICMP                                     EFFD      16      22       1   .text       
+     _LDIVU_LC                                 F013       6       6       3   .text       
+     _LLSL                                     F019      16      22       1   .text       
+     _POP32                                    F02F      1A      26       3   .text       
+     _Jump_Table_Offset                        F049      19      25       2   .text       
+     _Jump_Table_Header_Offset                 F062      24      36       2   .text       
+     _Search_Table_8_Offset                    F086      25      37       1   .text       
 - VARIABLES:
 MODULE:                 -- stdlib.o (ansiis.lib) --
 - PROCEDURES:
-     abs                                       EBDA      14      20       1   .text       
+     abs                                       F0AB      14      20       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
-  MCUinit_c.obj                                4    207     66
-  MEF_c.obj                                    5    337      0
-  SCI_c.obj                                   70    128      0
-  Sonido_c.obj                                 7    242      0
-  interaccion_c.obj                           51    487    934
-  main_c.obj                                   0     38      0
+  MCUinit_c.obj                                4    227     66
+  MEF_c.obj                                    5    377      0
+  SCI_c.obj                                   70    137      0
+  interaccion_c.obj                            4   1193   1238
+  main_c.obj                                   0     41      0
+  sonido_c.obj                                 7    231      0
   start08_c.obj                                0    132      0
   mc9s08sh8_c.obj                            108      0      0
-  rtshc08.o (ansiis.lib)                       0    515      0
+  rtshc08.o (ansiis.lib)                       0    677      0
   stdlib.o (ansiis.lib)                        0     20      0
-  other                                       64     14     22
+  other                                       64     14      2
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  MCU_init isrVscitx isrVscirx isrVscierr isrVtpm1ovf isrVtpm1ch1 isrVtpm1ch0 
-  MEF_init MEF_update estado_init estado_pedir_f estado_m1_on estado_m1_off 
-  estado_pedir_t estado_m2_on estado_m2_off verifyFreq SCI_send_char 
-  SCI_receive_char SCI_write_string_to_buffer SONIDO_init 
-  SONIDO_setFrecuenciaActual SONIDO_getError SONIDO_siguiente_f 
-  SONIDO_prender_m1 SONIDO_prender_m2 SONIDO_apagar SONIDO_reanudar 
-  SONIDO_calcular_NC SONIDO_calcular_NC0 INTERACCION_init INTERACCION_default 
-  INTERACCION_askF INTERACCION_askB INTERACCION_showB INTERACCION_showF 
-  INTERACCION_showEBF INTERACCION_showEF INTERACCION_analizeInput 
-  INTERACCION_getInput INTERACCION_getFreq numero letra main _PUSH_ARGS_L 
-  _ENTER_UNARY_L _ENTER_BINARY_L_LC _IDIVMOD _LDIVMOD _LDIVU_k_is_k_div_j 
-  _IMODU_STAR08 _IMODU_8 _LDIVU_LC _LLSL _POP32 _Jump_Table_Header_Offset abs 
-SECTION: ".data"
-  comandos.30 
+  MCU_init isrVscitx isrVscirx isrVscierr isrVtpm2ovf isrVtpm2ch0 isrVtpm1ovf 
+  isrVtpm1ch1 isrVtpm1ch0 MEF_init MEF_update estado_init estado_pedir_f 
+  estado_m1_on estado_m1_off estado_pedir_t estado_m2_on estado_m2_off 
+  verifyFreq SCI_send_char SCI_receive_char SCI_write_string_to_buffer 
+  SCI_read_from_buffer INTERACCION_init INTERACCION_default INTERACCION_askF 
+  INTERACCION_askB INTERACCION_showB INTERACCION_showF INTERACCION_showC 
+  INTERACCION_showEBF INTERACCION_showEE INTERACCION_showEF 
+  INTERACCION_analizeInput INTERACCION_getInput INTERACCION_getFreq numero 
+  letra main SONIDO_init SONIDO_getError SONIDO_siguiente_f SONIDO_prender_m1 
+  SONIDO_prender_m2 SONIDO_apagar SONIDO_reanudar SONIDO_calcular_NC 
+  SONIDO_calcular_NC0 _PUSH_ARGS_L _ENTER_UNARY_L _ENTER_BINARY_L_LC _IDIVMOD 
+  _LDIVMOD _LDIVU_k_is_k_div_j _IMUL_STAR08 _IDIVU_STAR08 _IMODU_STAR08 
+  _IDIVU_8 _IMODU_8 _ILSL _ICMP _LDIVU_LC _LLSL _POP32 _Jump_Table_Offset 
+  _Jump_Table_Header_Offset _Search_Table_8_Offset abs 
 SECTION: ".bss"
-  actual entrada in.1 indexR indexW buffer_rx cont buffer_tx frecuenciaActual 
-  errorDeReproduccion modoActual TPM1C1V_aux flag_n rxc indexR buffer_rx 
+  actual entrada in.1 indexR indexW cont buffer_tx buffer_rx flag_n indexR 
+  delay frecuenciaActual errorDeReproduccion modoActual TPM1C1V_aux 
 SECTION: ".init"
   loadByte Init _Startup 
 SECTION: ".rodata1"
-  STRING...BIENVENIDOS.AL.PRO.1 STRING...ESCOGER.MODO.DE.FU.2 
+  STRING......BIENVENIDOS.AL..1 STRING....ESCOGER.MODO.DE.F.2 
   STRING....Modo.F..Sonido.de.3 STRING....Modo.B..Barrido.d.4 
-  STRING....ingresar.la.letra.5 STRING....para.confirmar.pr.6 
-  STRING...DESDE.ESTE.MOMENTO.7 STRING....ON..Iniciar.repro.8 
-  STRING....OFF..Detener.repr.9 STRING....RESET..Reiniciar..10 
-  STRING.....para.confirmar.p.11 STRING...INGRESAR.LA.FRECUE.12 
-  STRING....Rango.de.frecuenc.13 STRING.....para.confirmar.p.14 
-  STRING...INGRESE.EL.MODO.DE.15 STRING....T1..5.seg.16 STRING....T2..10.seg.17 
-  STRING....T3..15.seg.18 STRING....ingresar.el.n.mer.19 
-  STRING.....para.confirmar.p.20 STRING....OPCION.GUARDADA.21 
-  STRING....FRECUENCIA.GUARDA.22 STRING....ERROR..DEMASIADAS.24 
-  STRING....Comience.nuevamen.25 STRING....ERROR..FRECUENCIA.28 
-  STRING....Comience.nuevamen.29 
+  STRING....ingresar.la.letra.5 STRING....al.modo.deseado..6 
+  STRING....para.confirmar.pr.7 STRING....DESDE.ESTE.MOMENT.8 
+  STRING...EL.PROGRAMA.SE.SIR.9 STRING....ON..Iniciar.repro.10 
+  STRING....OFF..Detener.repr.11 STRING....RESET..Reiniciar..12 
+  STRING.....para.confirmar.p.13 STRING....INGRESAR.LA.FRECU.14 
+  STRING....Rango.de.frecuenc.15 STRING.....para.confirmar.p.16 
+  STRING....INGRESE.EL.MODO.D.17 STRING....T1..5.seg.18 STRING....T2..10.seg.19 
+  STRING....T3..15.seg.20 STRING.....ingresar.el.n.me.21 
+  STRING.para.confirmar.presi.22 STRING.....OPCION.GUARDADA.23 
+  STRING.....SE.REALIZARA.UN..24 STRING.....SE.REALIZARA.UN..25 
+  STRING.....SE.REALIZARA.UN..26 STRING.....FRECUENCIA.GUARD.27 
+  STRING.....EL.ERROR.PRODUCI.28 STRING..FRECUENCIA.SELECION.29 STRING..Hz.30 
+  STRING.....COMANDO.ACEPTADO.31 STRING...ERROR..DEMASIADAS..32 
+  STRING....Comience.nuevamen.33 STRING...ERROR..ENTRADA.INV.34 
+  STRING....Comience.nuevamen.35 STRING...ERROR..FRECUENCIA..36 
+  STRING....Comience.nuevamen.37 
 SECTION: ".abs_section_ffbd"
   NVPROT_INIT 
 SECTION: ".abs_section_ffbf"
@@ -670,8 +694,8 @@ OBJECT LIST SORTED BY ADDRESS
      _TPM1SC                                     20       1       1       3   .abs_section_20
      _TPM1CNT                                    21       2       2       0   .abs_section_21
      _TPM1MOD                                    23       2       2       1   .abs_section_23
-     _TPM1C0SC                                   25       1       1       5   .abs_section_25
-     _TPM1C0V                                    26       2       2       3   .abs_section_26
+     _TPM1C0SC                                   25       1       1       2   .abs_section_25
+     _TPM1C0V                                    26       2       2       1   .abs_section_26
      _TPM1C1SC                                   28       1       1       5   .abs_section_28
      _TPM1C1V                                    29       2       2       6   .abs_section_29
      _SCIBD                                      38       2       2       2   .abs_section_38
@@ -696,38 +720,36 @@ OBJECT LIST SORTED BY ADDRESS
      _IICS                                       5B       1       1       0   .abs_section_5b
      _IICD                                       5C       1       1       0   .abs_section_5c
      _IICC2                                      5D       1       1       0   .abs_section_5d
-     _TPM2SC                                     60       1       1       0   .abs_section_60
+     _TPM2SC                                     60       1       1       3   .abs_section_60
      _TPM2CNT                                    61       2       2       0   .abs_section_61
-     _TPM2MOD                                    63       2       2       0   .abs_section_63
-     _TPM2C0SC                                   65       1       1       0   .abs_section_65
-     _TPM2C0V                                    66       2       2       0   .abs_section_66
+     _TPM2MOD                                    63       2       2       1   .abs_section_63
+     _TPM2C0SC                                   65       1       1       6   .abs_section_65
+     _TPM2C0V                                    66       2       2       3   .abs_section_66
      _TPM2C1SC                                   68       1       1       0   .abs_section_68
      _TPM2C1V                                    69       2       2       0   .abs_section_69
      _RTCSC                                      6C       1       1       0   .abs_section_6c
      _RTCCNT                                     6D       1       1       0   .abs_section_6d
      _RTCMOD                                     6E       1       1       0   .abs_section_6e
-     comandos.30                                100      10      16       1   .data       
-     actual                                     110       2       2      10   .bss        
-     entrada                                    112       1       1       1   .bss        
-     in.1                                       113       2       2       3   .bss        
-     indexR                                     115       1       1       4   .bss        
-     indexW                                     116       1       1       8   .bss        
-     buffer_rx                                  117      20      32       1   .bss        
-     cont                                       137       1       1       3   .bss        
-     buffer_tx                                  138      20      32       2   .bss        
-     frecuenciaActual                           158       2       2       7   .bss        
-     errorDeReproduccion                        15A       2       2       2   .bss        
-     modoActual                                 15C       1       1       3   .bss        
-     TPM1C1V_aux                                15D       2       2       4   .bss        
-     flag_n                                     15F       1       1       5   .bss        
-     rxc                                        160       1       1       3   .bss        
-     indexR                                     161       1       1       5   .bss        
-     buffer_rx                                  162      20      32      21   .bss        
-     NC                                         182       2       2       4   .common     
-     NC0                                        184       2       2       2   .common     
-     flag_r                                     186       1       1       3   .common     
-     flag_e                                     187       1       1       2   .common     
-     rxchar                                     188       1       1       2   .common     
+     actual                                     100       2       2      10   .bss        
+     entrada                                    102       1       1       1   .bss        
+     in.1                                       103       2       2       3   .bss        
+     indexR                                     105       1       1       4   .bss        
+     indexW                                     106       1       1       8   .bss        
+     cont                                       107       1       1       4   .bss        
+     buffer_tx                                  108      20      32       2   .bss        
+     buffer_rx                                  128      20      32       2   .bss        
+     flag_n                                     148       1       1       5   .bss        
+     indexR                                     149       1       1       6   .bss        
+     delay                                      14A       2       2      44   .bss        
+     frecuenciaActual                           14C       2       2       9   .bss        
+     errorDeReproduccion                        14E       2       2       2   .bss        
+     modoActual                                 150       1       1       3   .bss        
+     TPM1C1V_aux                                151       2       2       4   .bss        
+     NC                                         153       2       2       4   .common     
+     NC0                                        155       2       2       2   .common     
+     flag_r                                     157       1       1       3   .common     
+     flag_e                                     158       1       1       2   .common     
+     rxchar                                     159       1       1       2   .common     
      _SRS                                      1800       1       1       0   .abs_section_1800
      _SBDFR                                    1801       1       1       0   .abs_section_1801
      _SOPT1                                    1802       1       1       1   .abs_section_1802
@@ -766,89 +788,111 @@ OBJECT LIST SORTED BY ADDRESS
      loadByte                                  E000       E      14       5   .init       
      Init                                      E00E      6D     109       1   .init       
      _Startup                                  E07B       9       9       1   .init       
-     STRING...BIENVENIDOS.AL.PRO.1             E092      1A      26       1   .rodata1    
-     STRING...ESCOGER.MODO.DE.FU.2             E0AC      22      34       1   .rodata1    
-     STRING....Modo.F..Sonido.de.3             E0CE      25      37       1   .rodata1    
-     STRING....Modo.B..Barrido.d.4             E0F3      22      34       1   .rodata1    
-     STRING....ingresar.la.letra.5             E115      36      54       1   .rodata1    
-     STRING....para.confirmar.pr.6             E14B      22      34       1   .rodata1    
-     STRING...DESDE.ESTE.MOMENTO.7             E16D      47      71       1   .rodata1    
-     STRING....ON..Iniciar.repro.8             E1B4      26      38       1   .rodata1    
-     STRING....OFF..Detener.repr.9             E1DA      27      39       1   .rodata1    
-     STRING....RESET..Reiniciar..10            E201      1D      29       1   .rodata1    
-     STRING.....para.confirmar.p.11            E21E      23      35       1   .rodata1    
-     STRING...INGRESAR.LA.FRECUE.12            E241      37      55       1   .rodata1    
-     STRING....Rango.de.frecuenc.13            E278      4A      74       1   .rodata1    
-     STRING.....para.confirmar.p.14            E2C2      23      35       1   .rodata1    
-     STRING...INGRESE.EL.MODO.DE.15            E2E5      28      40       1   .rodata1    
-     STRING....T1..5.seg.16                    E30D       D      13       1   .rodata1    
-     STRING....T2..10.seg.17                   E31A       E      14       1   .rodata1    
-     STRING....T3..15.seg.18                   E328       E      14       1   .rodata1    
-     STRING....ingresar.el.n.mer.19            E336      3B      59       1   .rodata1    
-     STRING.....para.confirmar.p.20            E371      23      35       1   .rodata1    
-     STRING....OPCION.GUARDADA.21              E394      13      19       1   .rodata1    
-     STRING....FRECUENCIA.GUARDA.22            E3A7      17      23       1   .rodata1    
-     STRING....ERROR..DEMASIADAS.24            E3BE      28      40       1   .rodata1    
-     STRING....Comience.nuevamen.25            E3E6      17      23       1   .rodata1    
-     STRING....ERROR..FRECUENCIA.28            E3FD      24      36       1   .rodata1    
-     STRING....Comience.nuevamen.29            E421      17      23       1   .rodata1    
-     MCU_init                                  E438      81     129       1   .text       
-     isrVscitx                                 E4B9       9       9       1   .text       
-     isrVscirx                                 E4C2       6       6       1   .text       
-     isrVscierr                                E4C8       1       1       1   .text       
-     isrVtpm1ovf                               E4C9       1       1       1   .text       
-     isrVtpm1ch1                               E4CA      1E      30       1   .text       
-     isrVtpm1ch0                               E4E8      1F      31       1   .text       
-     MEF_init                                  E507       B      11       6   .text       
-     MEF_update                                E512      3A      58       1   .text       
-     estado_init                               E54C      1A      26       1   .text       
-     estado_pedir_f                            E566      31      49       1   .text       
-     estado_m1_on                              E597      19      25       1   .text       
-     estado_m1_off                             E5B0      19      25       1   .text       
-     estado_pedir_t                            E5C9      3C      60       1   .text       
-     estado_m2_on                              E605      15      21       1   .text       
-     estado_m2_off                             E61A      19      25       1   .text       
-     verifyFreq                                E633      25      37       1   .text       
-     SCI_send_char                             E658      20      32       1   .text       
-     SCI_receive_char                          E678      3C      60       1   .text       
-     SCI_write_string_to_buffer                E6B4      24      36      26   .text       
-     SONIDO_init                               E6D8       3       3       1   .text       
-     SONIDO_setFrecuenciaActual                E6DB       4       4       1   .text       
-     SONIDO_getError                           E6DF       4       4       1   .text       
-     SONIDO_siguiente_f                        E6E3      15      21       1   .text       
-     SONIDO_prender_m1                         E6F8       E      14       1   .text       
-     SONIDO_prender_m2                         E706      1C      28       1   .text       
-     SONIDO_apagar                             E722       E      14       2   .text       
-     SONIDO_reanudar                           E730      14      20       2   .text       
-     SONIDO_calcular_NC                        E744      58      88       3   .text       
-     SONIDO_calcular_NC0                       E79C      2E      46       1   .text       
-     INTERACCION_init                          E7CA      24      36       1   .text       
-     INTERACCION_default                       E7EE      1E      30       2   .text       
-     INTERACCION_askF                          E80C      12      18       1   .text       
-     INTERACCION_askB                          E81E      24      36       1   .text       
-     INTERACCION_showB                         E842       6       6       3   .text       
-     INTERACCION_showF                         E848       6       6       1   .text       
-     INTERACCION_showEBF                       E84E       C      12       1   .text       
-     INTERACCION_showEF                        E85A       C      12       1   .text       
-     INTERACCION_analizeInput                  E866      49      73       1   .text       
-     INTERACCION_getInput                      E8AF      B6     182       1   .text       
-     INTERACCION_getFreq                       E965      3B      59       1   .text       
-     numero                                    E9A0       B      11       2   .text       
-     letra                                     E9AB       6       6       1   .text       
-     main                                      E9B1      26      38       1   .text       
-     _PUSH_ARGS_L                              E9D7      20      32       1   .text       
-     _ENTER_UNARY_L                            E9F7      29      41       1   .text       
-     _ENTER_BINARY_L_LC                        EA20      1A      26       1   .text       
-     _IDIVMOD                                  EA3A      69     105       1   .text       
-     _LDIVMOD                                  EAA3      A4     164       1   .text       
-     _LDIVU_k_is_k_div_j                       EB47      17      23       1   .text       
-     _IMODU_STAR08                             EB5E      10      16       2   .text       
-     _IMODU_8                                  EB6E      12      18       1   .text       
-     _LDIVU_LC                                 EB80       6       6       3   .text       
-     _LLSL                                     EB86      16      22       1   .text       
-     _POP32                                    EB9C      1A      26       3   .text       
-     _Jump_Table_Header_Offset                 EBB6      24      36       2   .text       
-     abs                                       EBDA      14      20       1   .text       
+     STRING......BIENVENIDOS.AL..1             E092      2C      44       1   .rodata1    
+     STRING....ESCOGER.MODO.DE.F.2             E0BE      23      35       1   .rodata1    
+     STRING....Modo.F..Sonido.de.3             E0E1      25      37       1   .rodata1    
+     STRING....Modo.B..Barrido.d.4             E106      22      34       1   .rodata1    
+     STRING....ingresar.la.letra.5             E128      25      37       1   .rodata1    
+     STRING....al.modo.deseado..6              E14D      14      20       1   .rodata1    
+     STRING....para.confirmar.pr.7             E161      22      34       1   .rodata1    
+     STRING....DESDE.ESTE.MOMENT.8             E183      17      23       1   .rodata1    
+     STRING...EL.PROGRAMA.SE.SIR.9             E19A      33      51       1   .rodata1    
+     STRING....ON..Iniciar.repro.10            E1CD      26      38       1   .rodata1    
+     STRING....OFF..Detener.repr.11            E1F3      27      39       1   .rodata1    
+     STRING....RESET..Reiniciar..12            E21A      1D      29       1   .rodata1    
+     STRING.....para.confirmar.p.13            E237      24      36       1   .rodata1    
+     STRING....INGRESAR.LA.FRECU.14            E25B      38      56       1   .rodata1    
+     STRING....Rango.de.frecuenc.15            E293      4A      74       1   .rodata1    
+     STRING.....para.confirmar.p.16            E2DD      23      35       1   .rodata1    
+     STRING....INGRESE.EL.MODO.D.17            E300      29      41       1   .rodata1    
+     STRING....T1..5.seg.18                    E329       D      13       1   .rodata1    
+     STRING....T2..10.seg.19                   E336       E      14       1   .rodata1    
+     STRING....T3..15.seg.20                   E344       E      14       1   .rodata1    
+     STRING.....ingresar.el.n.me.21            E352      3D      61       1   .rodata1    
+     STRING.para.confirmar.presi.22            E38F      1F      31       1   .rodata1    
+     STRING.....OPCION.GUARDADA.23             E3AE      14      20       1   .rodata1    
+     STRING.....SE.REALIZARA.UN..24            E3C2      2C      44       1   .rodata1    
+     STRING.....SE.REALIZARA.UN..25            E3EE      2D      45       1   .rodata1    
+     STRING.....SE.REALIZARA.UN..26            E41B      2D      45       1   .rodata1    
+     STRING.....FRECUENCIA.GUARD.27            E448      18      24       1   .rodata1    
+     STRING.....EL.ERROR.PRODUCI.28            E460      1E      30       1   .rodata1    
+     STRING..FRECUENCIA.SELECION.29            E47E      1F      31       1   .rodata1    
+     STRING..Hz.30                             E49D       4       4       1   .rodata1    
+     STRING.....COMANDO.ACEPTADO.31            E4A1      18      24       1   .rodata1    
+     STRING...ERROR..DEMASIADAS..32            E4B9      27      39       1   .rodata1    
+     STRING....Comience.nuevamen.33            E4E0      19      25       1   .rodata1    
+     STRING...ERROR..ENTRADA.INV.34            E4F9      1A      26       1   .rodata1    
+     STRING....Comience.nuevamen.35            E513      19      25       1   .rodata1    
+     STRING...ERROR..FRECUENCIA..36            E52C      23      35       1   .rodata1    
+     STRING....Comience.nuevamen.37            E54F      19      25       1   .rodata1    
+     MCU_init                                  E568      91     145       1   .text       
+     isrVscitx                                 E5F9       9       9       1   .text       
+     isrVscirx                                 E602       6       6       1   .text       
+     isrVscierr                                E608       1       1       1   .text       
+     isrVtpm2ovf                               E609       1       1       1   .text       
+     isrVtpm2ch0                               E60A      21      33       1   .text       
+     isrVtpm1ovf                               E62B       1       1       1   .text       
+     isrVtpm1ch1                               E62C      1E      30       1   .text       
+     isrVtpm1ch0                               E64A       1       1       1   .text       
+     MEF_init                                  E64B       B      11       6   .text       
+     MEF_update                                E656      3A      58       1   .text       
+     estado_init                               E690      1A      26       1   .text       
+     estado_pedir_f                            E6AA      2E      46       1   .text       
+     estado_m1_on                              E6D8      22      34       1   .text       
+     estado_m1_off                             E6FA      22      34       1   .text       
+     estado_pedir_t                            E71C      3F      63       1   .text       
+     estado_m2_on                              E75B      22      34       1   .text       
+     estado_m2_off                             E77D      22      34       1   .text       
+     verifyFreq                                E79F      25      37       1   .text       
+     SCI_send_char                             E7C4      20      32       1   .text       
+     SCI_receive_char                          E7E4      3F      63       1   .text       
+     SCI_write_string_to_buffer                E823      24      36      21   .text       
+     SCI_read_from_buffer                      E847       6       6      13   .text       
+     INTERACCION_init                          E84D      7C     124       1   .text       
+     INTERACCION_default                       E8C9      6B     107       2   .text       
+     INTERACCION_askF                          E934      39      57       1   .text       
+     INTERACCION_askB                          E96D      6B     107       1   .text       
+     INTERACCION_showB                         E9D8      40      64       1   .text       
+     INTERACCION_showF                         EA18      66     102       1   .text       
+     INTERACCION_showC                         EA7E       6       6       8   .text       
+     INTERACCION_showEBF                       EA84      21      33       1   .text       
+     INTERACCION_showEE                        EAA5      21      33       6   .text       
+     INTERACCION_showEF                        EAC6      21      33       1   .text       
+     INTERACCION_analizeInput                  EAE7      4B      75       1   .text       
+     INTERACCION_getInput                      EB32      F3     243      16   .text       
+     INTERACCION_getFreq                       EC25      77     119       1   .text       
+     numero                                    EC9C       B      11       3   .text       
+     letra                                     ECA7      4F      79       1   .text       
+     main                                      ECF6      29      41       1   .text       
+     SONIDO_init                               ED1F       3       3       1   .text       
+     SONIDO_getError                           ED22       4       4       1   .text       
+     SONIDO_siguiente_f                        ED26      16      22       1   .text       
+     SONIDO_prender_m1                         ED3C      11      17       1   .text       
+     SONIDO_prender_m2                         ED4D      1C      28       1   .text       
+     SONIDO_apagar                             ED69       E      14       3   .text       
+     SONIDO_reanudar                           ED77      14      20       2   .text       
+     SONIDO_calcular_NC                        ED8B      4E      78       3   .text       
+     SONIDO_calcular_NC0                       EDD9      2D      45       1   .text       
+     _PUSH_ARGS_L                              EE06      20      32       1   .text       
+     _ENTER_UNARY_L                            EE26      29      41       1   .text       
+     _ENTER_BINARY_L_LC                        EE4F      1A      26       1   .text       
+     _IDIVMOD                                  EE69      69     105       2   .text       
+     _LDIVMOD                                  EED2      A4     164       1   .text       
+     _LDIVU_k_is_k_div_j                       EF76      17      23       1   .text       
+     _IMUL_STAR08                              EF8D      27      39       1   .text       
+     _IDIVU_STAR08                             EFB4       D      13       1   .text       
+     _IMODU_STAR08                             EFC1      10      16       1   .text       
+     _IDIVU_8                                  EFD1       E      14       1   .text       
+     _IMODU_8                                  EFDF      12      18       2   .text       
+     _ILSL                                     EFF1       C      12       1   .text       
+     _ICMP                                     EFFD      16      22       1   .text       
+     _LDIVU_LC                                 F013       6       6       3   .text       
+     _LLSL                                     F019      16      22       1   .text       
+     _POP32                                    F02F      1A      26       3   .text       
+     _Jump_Table_Offset                        F049      19      25       2   .text       
+     _Jump_Table_Header_Offset                 F062      24      36       2   .text       
+     _Search_Table_8_Offset                    F086      25      37       1   .text       
+     abs                                       F0AB      14      20       1   .text       
      NVPROT_INIT                               FFBD       1       1       0   .abs_section_ffbd
      NVOPT_INIT                                FFBF       1       1       0   .abs_section_ffbf
      _vect                                     FFC0      40      64       0   .abs_section_ffc0
@@ -857,10 +901,6 @@ OBJECT LIST SORTED BY ADDRESS
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
-SCI_c.obj:
-  SCI_read_string_from_buffer 
-interaccion_c.obj:
-  INTERACCION_showC INTERACCION_showEE 
 rtshc08.o (ansiis.lib):
   _PUSH_ARGS_D _ENTER_UNARY_L64 _ENTER_UNARY_L64_4 _ENTER_BINARY_L 
   _ENTER_BINARY_L_RC _ENTER_BINARY_L64 _ENTER_BINARY_L64_LC 
@@ -868,27 +908,20 @@ rtshc08.o (ansiis.lib):
   _k_is_k_plus_j_i _LSUB_k_is_k_minus_j _LAND_k_is_k_and_j _LOR_k_is_k_or_j 
   _LXOR_k_is_k_xor_j _LMUL_k_is_k_mul_j _NEG_L_HX _ABS_L_HX _SPLITSIGN_L 
   _LMODU_k_is_k_mod_j _LMODS_k_is_k_mod_j _LDIVS_k_is_k_div_j _LCMP_k_rel_j 
-  _CMP24_k_rel_j _BMULS _BDIVS _BMODS _IMUL_STAR08 _IDIVS_STAR08 _IDIVU_STAR08 
-  _IMODS_STAR08 _IDIVU_8 _IASR _ILSR _ILSL _ICMP _LINC _LDEC _LNEG _LNOT _LADD 
-  _LADD_RC _LSUB _LSUB_LC _LSUB_RC _LAND _LAND_RC _LOR _LOR_RC _LXOR _LXOR_RC 
-  _LMUL _LMUL_RC _LDIVS _LDIVS_LC _LDIVS_RC _LDIVU _LDIVU_RC _LMODS _LMODS_LC 
-  _LMODS_RC _LMODU _LMODU_LC _LMODU_RC _LASR _LLSR _LCMP _LCMP_RC _PUSH_ARGS_24 
-  _ENTER_BINARY_24_RC _ENTER_BINARY_24 _CMP24 _CMP24_RC _COPY _COPY_L _POP64 
-  _STORE32 _STORE64 _SEXT8_32 _SEXT16_32 _CALL_STAR08 _CALL_STAR08_FAR 
-  _Jump_Table_Addr _Jump_Table_Offset _Jump_Table_Header_Addr 
-  _Search_Table_16_Addr _Search_Table_16_Offset _Search_Table_8_Addr 
-  _Search_Table_8_Offset _PUSH_CC _POP_CC _CONV_FAR_TO_NEAR _CONV_FAR_TO_LINEAR 
-  _CONV_LINEAR_TO_FAR 
+  _CMP24_k_rel_j _BMULS _BDIVS _BMODS _IDIVS_STAR08 _IMODS_STAR08 _IASR _ILSR 
+  _LINC _LDEC _LNEG _LNOT _LADD _LADD_RC _LSUB _LSUB_LC _LSUB_RC _LAND _LAND_RC 
+  _LOR _LOR_RC _LXOR _LXOR_RC _LMUL _LMUL_RC _LDIVS _LDIVS_LC _LDIVS_RC _LDIVU 
+  _LDIVU_RC _LMODS _LMODS_LC _LMODS_RC _LMODU _LMODU_LC _LMODU_RC _LASR _LLSR 
+  _LCMP _LCMP_RC _PUSH_ARGS_24 _ENTER_BINARY_24_RC _ENTER_BINARY_24 _CMP24 
+  _CMP24_RC _COPY _COPY_L _POP64 _STORE32 _STORE64 _SEXT8_32 _SEXT16_32 
+  _CALL_STAR08 _CALL_STAR08_FAR _Jump_Table_Addr _Jump_Table_Header_Addr 
+  _Search_Table_16_Addr _Search_Table_16_Offset _Search_Table_8_Addr _PUSH_CC 
+  _POP_CC _CONV_FAR_TO_NEAR _CONV_FAR_TO_LINEAR _CONV_LINEAR_TO_FAR 
 stdlib.o (ansiis.lib):
   atexit getenv system mblen mbtowc wctomb mbstowcs wcstombs CheckCharWithBase 
   _strtoul strtoul _strtol strtol _itoa bsearch swap qsort div ldiv labs rand 
   srand 
 NOT USED VARIABLES
-MEF_c.obj:
-  aux.2 
-interaccion_c.obj:
-  STRING....COMANDO.ACEPTADO.23 STRING....ERROR..ENTRADA.IN.26 
-  STRING....Comience.nuevamen.27 
 rtshc08.o (ansiis.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 stdlib.o (ansiis.lib):
@@ -897,14 +930,7 @@ stdlib.o (ansiis.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xEBEE ---- SIZE       4 ---
-Filling bytes inserted
- 00100100
-------- ROM-ADDRESS: 0xEBF2 ---- RAM-ADDRESS: 0x100 ---- SIZE      16 ---
-Name of initialized Object : comandos.30
- 4F6F4E6E46 6642625272 4565537354
- 74
-------- ROM-ADDRESS: 0xEC02 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xF0BF ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -917,82 +943,98 @@ MCU_init                  USES _SOPT1 _SOPT2 _SPMSC1 _SPMSC2 _ICSTRM _ICSSC
                                 _ICSC1 _ICSC2 _GNGC _PTCPE _PTASE _PTBSE _PTCSE 
                                 _PTADS _PTBDS _PTCDS _SCIC2 _SCIS1 _SCID _SCIS2 
                                 _SCIBD _SCIC1 _SCIC3 _TPM1C1SC _TPM1C1V _TPM1C0SC 
-                                _TPM1C0V _TPM1SC _TPM1MOD 
+                                _TPM1C0V _TPM1SC _TPM1MOD _TPM2C0SC _TPM2C0V _TPM2SC 
+                                _TPM2MOD 
 isrVscitx                 USES _SCIS1 SCI_send_char 
 isrVscirx                 USES SCI_receive_char 
+isrVtpm2ch0               USES NC0 _TPM2C0V SONIDO_siguiente_f _TPM2C0SC 
 isrVtpm1ch1               USES NC _TPM1C1V _TPM1C1SC 
-isrVtpm1ch0               USES NC0 _TPM1C0V SONIDO_siguiente_f 
 MEF_init                  USES actual INTERACCION_init SONIDO_init 
 MEF_update                USES actual _Jump_Table_Header_Offset estado_init 
                                 estado_pedir_f estado_pedir_t estado_m1_on estado_m1_off 
                                 estado_m2_on estado_m2_off INTERACCION_getInput entrada 
 estado_init               USES actual INTERACCION_askF INTERACCION_askB 
 estado_pedir_f            USES INTERACCION_getFreq in.1 verifyFreq 
-                                SONIDO_setFrecuenciaActual SONIDO_prender_m1 SONIDO_getError 
-                                INTERACCION_showF INTERACCION_default INTERACCION_showEF 
-                                MEF_init actual 
-estado_m1_on              USES MEF_init SONIDO_apagar actual 
-estado_m1_off             USES MEF_init SONIDO_reanudar actual 
-estado_pedir_t            USES _Jump_Table_Header_Offset INTERACCION_showB 
-                                SONIDO_prender_m2 INTERACCION_default actual 
-estado_m2_on              USES MEF_init actual 
-estado_m2_off             USES MEF_init SONIDO_reanudar actual 
+                                SONIDO_prender_m1 SONIDO_getError INTERACCION_showF 
+                                INTERACCION_default INTERACCION_showEF MEF_init actual 
+estado_m1_on              USES INTERACCION_showC MEF_init SONIDO_apagar actual 
+                                INTERACCION_showEE 
+estado_m1_off             USES INTERACCION_showC MEF_init SONIDO_reanudar 
+                                actual INTERACCION_showEE 
+estado_pedir_t            USES _Jump_Table_Header_Offset SONIDO_prender_m2 
+                                INTERACCION_showEE actual INTERACCION_showB INTERACCION_default 
+estado_m2_on              USES INTERACCION_showC MEF_init SONIDO_apagar actual 
+                                INTERACCION_showEE 
+estado_m2_off             USES INTERACCION_showC MEF_init SONIDO_reanudar 
+                                actual INTERACCION_showEE 
 verifyFreq                USES _IMODU_8 
 SCI_send_char             USES indexW indexR buffer_tx _SCID _SCIC2 
 SCI_receive_char          USES _SCIS1 _SCID rxchar cont flag_e indexW 
                                 buffer_rx flag_r 
 SCI_write_string_to_buffer USES indexW buffer_tx _SCIC2 
-SONIDO_init               USES SONIDO_apagar 
-SONIDO_setFrecuenciaActual USES frecuenciaActual 
-SONIDO_getError           USES errorDeReproduccion 
-SONIDO_siguiente_f        USES frecuenciaActual _IMODU_STAR08 
-                                SONIDO_calcular_NC 
-SONIDO_prender_m1         USES SONIDO_calcular_NC modoActual NC TPM1C1V_aux 
-SONIDO_prender_m2         USES frecuenciaActual SONIDO_calcular_NC modoActual 
-                                NC TPM1C1V_aux SONIDO_calcular_NC0 
-SONIDO_apagar             USES _TPM1C1V TPM1C1V_aux _TPM1C1SC _TPM1C0SC 
-SONIDO_reanudar           USES TPM1C1V_aux _TPM1C1V _TPM1C1SC modoActual 
-                                _TPM1C0SC 
-SONIDO_calcular_NC        USES frecuenciaActual _LDIVU_LC _POP32 NC _LLSL abs 
-                                errorDeReproduccion 
-SONIDO_calcular_NC0       USES _LDIVU_LC _POP32 NC0 
-INTERACCION_init          USES STRING...BIENVENIDOS.AL.PRO.1 
-                                SCI_write_string_to_buffer STRING...ESCOGER.MODO.DE.FU.2 
-                                STRING....Modo.F..Sonido.de.3 STRING....Modo.B..Barrido.d.4 
-                                STRING....ingresar.la.letra.5 STRING....para.confirmar.pr.6 
-INTERACCION_default       USES STRING...DESDE.ESTE.MOMENTO.7 
-                                SCI_write_string_to_buffer STRING....ON..Iniciar.repro.8 
-                                STRING....OFF..Detener.repr.9 STRING....RESET..Reiniciar..10 
-                                STRING.....para.confirmar.p.11 
-INTERACCION_askF          USES STRING...INGRESAR.LA.FRECUE.12 
-                                SCI_write_string_to_buffer STRING....Rango.de.frecuenc.13 
-                                STRING.....para.confirmar.p.14 
-INTERACCION_askB          USES STRING...INGRESE.EL.MODO.DE.15 
-                                SCI_write_string_to_buffer STRING....T1..5.seg.16 STRING....T2..10.seg.17 
-                                STRING....T3..15.seg.18 STRING....ingresar.el.n.mer.19 
-                                STRING.....para.confirmar.p.20 
-INTERACCION_showB         USES STRING....OPCION.GUARDADA.21 
+SCI_read_from_buffer      USES buffer_rx 
+INTERACCION_init          USES STRING......BIENVENIDOS.AL..1 delay 
+                                STRING....ESCOGER.MODO.DE.F.2 STRING....Modo.F..Sonido.de.3 
+                                STRING....Modo.B..Barrido.d.4 STRING....ingresar.la.letra.5 
+                                STRING....al.modo.deseado..6 STRING....para.confirmar.pr.7 
                                 SCI_write_string_to_buffer 
-INTERACCION_showF         USES STRING....FRECUENCIA.GUARDA.22 
+INTERACCION_default       USES STRING....DESDE.ESTE.MOMENT.8 delay 
+                                STRING...EL.PROGRAMA.SE.SIR.9 STRING....ON..Iniciar.repro.10 
+                                STRING....OFF..Detener.repr.11 STRING....RESET..Reiniciar..12 
+                                STRING.....para.confirmar.p.13 SCI_write_string_to_buffer 
+INTERACCION_askF          USES STRING....INGRESAR.LA.FRECU.14 delay 
+                                STRING....Rango.de.frecuenc.15 STRING.....para.confirmar.p.16 
                                 SCI_write_string_to_buffer 
-INTERACCION_showEBF       USES STRING....ERROR..DEMASIADAS.24 
-                                SCI_write_string_to_buffer STRING....Comience.nuevamen.25 
-INTERACCION_showEF        USES STRING....ERROR..FRECUENCIA.28 
-                                SCI_write_string_to_buffer STRING....Comience.nuevamen.29 
-INTERACCION_analizeInput  USES buffer_rx rxc numero indexR flag_n letra 
-INTERACCION_getInput      USES buffer_rx flag_n 
-INTERACCION_getFreq       USES buffer_rx numero indexR 
-letra                     USES comandos.30 
+INTERACCION_askB          USES STRING....INGRESE.EL.MODO.D.17 delay 
+                                STRING....T1..5.seg.18 STRING....T2..10.seg.19 
+                                STRING....T3..15.seg.20 STRING.....ingresar.el.n.me.21 
+                                STRING.para.confirmar.presi.22 SCI_write_string_to_buffer 
+INTERACCION_showB         USES STRING.....OPCION.GUARDADA.23 
+                                SCI_write_string_to_buffer delay STRING.....SE.REALIZARA.UN..24 
+                                STRING.....SE.REALIZARA.UN..25 STRING.....SE.REALIZARA.UN..26 
+INTERACCION_showF         USES _IDIVU_8 _IMODU_8 
+                                STRING.....FRECUENCIA.GUARD.27 delay STRING.....EL.ERROR.PRODUCI.28 
+                                STRING..FRECUENCIA.SELECION.29 SCI_write_string_to_buffer STRING..Hz.30 
+INTERACCION_showC         USES STRING.....COMANDO.ACEPTADO.31 
+                                SCI_write_string_to_buffer 
+INTERACCION_showEBF       USES STRING...ERROR..DEMASIADAS..32 
+                                SCI_write_string_to_buffer delay STRING....Comience.nuevamen.33 
+INTERACCION_showEE        USES STRING...ERROR..ENTRADA.INV.34 
+                                SCI_write_string_to_buffer delay STRING....Comience.nuevamen.35 
+INTERACCION_showEF        USES STRING...ERROR..FRECUENCIA..36 
+                                SCI_write_string_to_buffer delay STRING....Comience.nuevamen.37 
+INTERACCION_analizeInput  USES indexR numero flag_n letra SCI_read_from_buffer 
+INTERACCION_getInput      USES INTERACCION_getInput numero 
+                                SCI_read_from_buffer 
+INTERACCION_getFreq       USES SCI_read_from_buffer numero _IMUL_STAR08 indexR 
+                                _ICMP 
+letra                     USES _Jump_Table_Offset _Search_Table_8_Offset 
 main                      USES MCU_init MEF_init flag_e INTERACCION_showEBF 
                                 flag_r INTERACCION_analizeInput MEF_update 
+                                INTERACCION_showEE 
+SONIDO_init               USES SONIDO_apagar 
+SONIDO_getError           USES errorDeReproduccion 
+SONIDO_siguiente_f        USES frecuenciaActual SONIDO_calcular_NC 
+SONIDO_prender_m1         USES frecuenciaActual SONIDO_calcular_NC modoActual 
+                                NC TPM1C1V_aux 
+SONIDO_prender_m2         USES frecuenciaActual SONIDO_calcular_NC modoActual 
+                                NC TPM1C1V_aux SONIDO_calcular_NC0 
+SONIDO_apagar             USES _TPM1C1V TPM1C1V_aux _TPM1C1SC _TPM2C0SC 
+SONIDO_reanudar           USES TPM1C1V_aux _TPM1C1V _TPM1C1SC modoActual 
+                                _TPM2C0SC 
+SONIDO_calcular_NC        USES frecuenciaActual _LDIVU_LC _POP32 NC _LLSL abs 
+                                errorDeReproduccion 
+SONIDO_calcular_NC0       USES _ILSL _LDIVU_LC _POP32 NC0 
 _ENTER_BINARY_L_LC        USES _PUSH_ARGS_L 
 _LDIVU_k_is_k_div_j       USES _LDIVMOD 
+_IDIVU_STAR08             USES _IDIVMOD 
 _IMODU_STAR08             USES _IDIVMOD 
+_IDIVU_8                  USES _IDIVU_STAR08 
 _IMODU_8                  USES _IMODU_STAR08 
 _LDIVU_LC                 USES _ENTER_BINARY_L_LC _LDIVU_k_is_k_div_j 
 _LLSL                     USES _ENTER_UNARY_L 
-_vect                     USES isrVscitx isrVscirx isrVscierr isrVtpm1ovf 
-                                isrVtpm1ch1 isrVtpm1ch0 _Startup 
+_vect                     USES isrVscitx isrVscirx isrVscierr isrVtpm2ovf 
+                                isrVtpm2ch0 isrVtpm1ovf isrVtpm1ch1 isrVtpm1ch0 _Startup 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -1022,119 +1064,169 @@ DEPENDENCY TREE
  |  |  +- numero              
  |  |  |    
  |  |  +- letra               
+ |  |  |  | 
+ |  |  |  +- _Jump_Table_Offset  
+ |  |  |  |    
+ |  |  |  +- _Search_Table_8_Offset
+ |  |  |       
+ |  |  +- SCI_read_from_buffer
  |  |       
  |  +- MEF_update          
- |     | 
- |     +- _Jump_Table_Header_Offset
- |     |    
- |     +- estado_init         
- |     |  | 
- |     |  +- INTERACCION_askF    
- |     |  |  | 
- |     |  |  +- SCI_write_string_to_buffer (see above)
- |     |  |     
- |     |  +- INTERACCION_askB    
- |     |     | 
- |     |     +- SCI_write_string_to_buffer (see above)
- |     |        
- |     +- estado_pedir_f      
- |     |  | 
- |     |  +- INTERACCION_getFreq 
- |     |  |  | 
- |     |  |  +- numero               (see above)
- |     |  |     
- |     |  +- verifyFreq          
- |     |  |  | 
- |     |  |  +- _IMODU_8            
- |     |  |     | 
- |     |  |     +- _IMODU_STAR08       
- |     |  |        | 
- |     |  |        +- _IDIVMOD            
- |     |  |             
- |     |  +- SONIDO_setFrecuenciaActual
- |     |  |    
- |     |  +- SONIDO_prender_m1   
- |     |  |  | 
- |     |  |  +- SONIDO_calcular_NC  
- |     |  |     | 
- |     |  |     +- _LDIVU_LC           
- |     |  |     |  | 
- |     |  |     |  +- _ENTER_BINARY_L_LC  
- |     |  |     |  |  | 
- |     |  |     |  |  +- _PUSH_ARGS_L        
- |     |  |     |  |       
- |     |  |     |  +- _LDIVU_k_is_k_div_j 
- |     |  |     |     | 
- |     |  |     |     +- _LDIVMOD            
- |     |  |     |          
- |     |  |     +- _POP32              
- |     |  |     |    
- |     |  |     +- _LLSL               
- |     |  |     |  | 
- |     |  |     |  +- _ENTER_UNARY_L      
- |     |  |     |       
- |     |  |     +- abs                 
- |     |  |          
- |     |  +- SONIDO_getError     
- |     |  |    
- |     |  +- INTERACCION_showF   
- |     |  |  | 
- |     |  |  +- SCI_write_string_to_buffer (see above)
- |     |  |     
- |     |  +- INTERACCION_default 
- |     |  |  | 
- |     |  |  +- SCI_write_string_to_buffer (see above)
- |     |  |     
- |     |  +- INTERACCION_showEF  
- |     |  |  | 
- |     |  |  +- SCI_write_string_to_buffer (see above)
- |     |  |     
- |     |  +- MEF_init             (see above)
- |     |     
- |     +- estado_pedir_t      
- |     |  | 
- |     |  +- _Jump_Table_Header_Offset (see above)
- |     |  |  
- |     |  +- INTERACCION_showB   
- |     |  |  | 
- |     |  |  +- SCI_write_string_to_buffer (see above)
- |     |  |     
- |     |  +- SONIDO_prender_m2   
- |     |  |  | 
- |     |  |  +- SONIDO_calcular_NC   (see above)
- |     |  |  |  
- |     |  |  +- SONIDO_calcular_NC0 
- |     |  |     | 
- |     |  |     +- _LDIVU_LC            (see above)
- |     |  |     |  
- |     |  |     +- _POP32               (see above)
- |     |  |        
- |     |  +- INTERACCION_default  (see above)
- |     |     
- |     +- estado_m1_on        
- |     |  | 
- |     |  +- MEF_init             (see above)
- |     |  |  
- |     |  +- SONIDO_apagar        (see above)
- |     |     
- |     +- estado_m1_off       
- |     |  | 
- |     |  +- MEF_init             (see above)
- |     |  |  
- |     |  +- SONIDO_reanudar     
- |     |       
- |     +- estado_m2_on        
- |     |  | 
- |     |  +- MEF_init             (see above)
- |     |     
- |     +- estado_m2_off       
- |     |  | 
- |     |  +- MEF_init             (see above)
- |     |  |  
- |     |  +- SONIDO_reanudar      (see above)
- |     |     
- |     +- INTERACCION_getInput
- |          
+ |  |  | 
+ |  |  +- _Jump_Table_Header_Offset
+ |  |  |    
+ |  |  +- estado_init         
+ |  |  |  | 
+ |  |  |  +- INTERACCION_askF    
+ |  |  |  |  | 
+ |  |  |  |  +- SCI_write_string_to_buffer (see above)
+ |  |  |  |     
+ |  |  |  +- INTERACCION_askB    
+ |  |  |     | 
+ |  |  |     +- SCI_write_string_to_buffer (see above)
+ |  |  |        
+ |  |  +- estado_pedir_f      
+ |  |  |  | 
+ |  |  |  +- INTERACCION_getFreq 
+ |  |  |  |  | 
+ |  |  |  |  +- SCI_read_from_buffer (see above)
+ |  |  |  |  |  
+ |  |  |  |  +- numero               (see above)
+ |  |  |  |  |  
+ |  |  |  |  +- _IMUL_STAR08        
+ |  |  |  |  |    
+ |  |  |  |  +- _ICMP               
+ |  |  |  |       
+ |  |  |  +- verifyFreq          
+ |  |  |  |  | 
+ |  |  |  |  +- _IMODU_8            
+ |  |  |  |     | 
+ |  |  |  |     +- _IMODU_STAR08       
+ |  |  |  |        | 
+ |  |  |  |        +- _IDIVMOD            
+ |  |  |  |             
+ |  |  |  +- SONIDO_prender_m1   
+ |  |  |  |  | 
+ |  |  |  |  +- SONIDO_calcular_NC  
+ |  |  |  |     | 
+ |  |  |  |     +- _LDIVU_LC           
+ |  |  |  |     |  | 
+ |  |  |  |     |  +- _ENTER_BINARY_L_LC  
+ |  |  |  |     |  |  | 
+ |  |  |  |     |  |  +- _PUSH_ARGS_L        
+ |  |  |  |     |  |       
+ |  |  |  |     |  +- _LDIVU_k_is_k_div_j 
+ |  |  |  |     |     | 
+ |  |  |  |     |     +- _LDIVMOD            
+ |  |  |  |     |          
+ |  |  |  |     +- _POP32              
+ |  |  |  |     |    
+ |  |  |  |     +- _LLSL               
+ |  |  |  |     |  | 
+ |  |  |  |     |  +- _ENTER_UNARY_L      
+ |  |  |  |     |       
+ |  |  |  |     +- abs                 
+ |  |  |  |          
+ |  |  |  +- SONIDO_getError     
+ |  |  |  |    
+ |  |  |  +- INTERACCION_showF   
+ |  |  |  |  | 
+ |  |  |  |  +- _IDIVU_8            
+ |  |  |  |  |  | 
+ |  |  |  |  |  +- _IDIVU_STAR08       
+ |  |  |  |  |     | 
+ |  |  |  |  |     +- _IDIVMOD             (see above)
+ |  |  |  |  |        
+ |  |  |  |  +- _IMODU_8             (see above)
+ |  |  |  |  |  
+ |  |  |  |  +- SCI_write_string_to_buffer (see above)
+ |  |  |  |     
+ |  |  |  +- INTERACCION_default 
+ |  |  |  |  | 
+ |  |  |  |  +- SCI_write_string_to_buffer (see above)
+ |  |  |  |     
+ |  |  |  +- INTERACCION_showEF  
+ |  |  |  |  | 
+ |  |  |  |  +- SCI_write_string_to_buffer (see above)
+ |  |  |  |     
+ |  |  |  +- MEF_init             (see above)
+ |  |  |     
+ |  |  +- estado_pedir_t      
+ |  |  |  | 
+ |  |  |  +- _Jump_Table_Header_Offset (see above)
+ |  |  |  |  
+ |  |  |  +- SONIDO_prender_m2   
+ |  |  |  |  | 
+ |  |  |  |  +- SONIDO_calcular_NC   (see above)
+ |  |  |  |  |  
+ |  |  |  |  +- SONIDO_calcular_NC0 
+ |  |  |  |     | 
+ |  |  |  |     +- _ILSL               
+ |  |  |  |     |    
+ |  |  |  |     +- _LDIVU_LC            (see above)
+ |  |  |  |     |  
+ |  |  |  |     +- _POP32               (see above)
+ |  |  |  |        
+ |  |  |  +- INTERACCION_showEE  
+ |  |  |  |  | 
+ |  |  |  |  +- SCI_write_string_to_buffer (see above)
+ |  |  |  |     
+ |  |  |  +- INTERACCION_showB   
+ |  |  |  |  | 
+ |  |  |  |  +- SCI_write_string_to_buffer (see above)
+ |  |  |  |     
+ |  |  |  +- INTERACCION_default  (see above)
+ |  |  |     
+ |  |  +- estado_m1_on        
+ |  |  |  | 
+ |  |  |  +- INTERACCION_showC   
+ |  |  |  |  | 
+ |  |  |  |  +- SCI_write_string_to_buffer (see above)
+ |  |  |  |     
+ |  |  |  +- MEF_init             (see above)
+ |  |  |  |  
+ |  |  |  +- SONIDO_apagar        (see above)
+ |  |  |  |  
+ |  |  |  +- INTERACCION_showEE   (see above)
+ |  |  |     
+ |  |  +- estado_m1_off       
+ |  |  |  | 
+ |  |  |  +- INTERACCION_showC    (see above)
+ |  |  |  |  
+ |  |  |  +- MEF_init             (see above)
+ |  |  |  |  
+ |  |  |  +- SONIDO_reanudar     
+ |  |  |  |    
+ |  |  |  +- INTERACCION_showEE   (see above)
+ |  |  |     
+ |  |  +- estado_m2_on        
+ |  |  |  | 
+ |  |  |  +- INTERACCION_showC    (see above)
+ |  |  |  |  
+ |  |  |  +- MEF_init             (see above)
+ |  |  |  |  
+ |  |  |  +- SONIDO_apagar        (see above)
+ |  |  |  |  
+ |  |  |  +- INTERACCION_showEE   (see above)
+ |  |  |     
+ |  |  +- estado_m2_off       
+ |  |  |  | 
+ |  |  |  +- INTERACCION_showC    (see above)
+ |  |  |  |  
+ |  |  |  +- MEF_init             (see above)
+ |  |  |  |  
+ |  |  |  +- SONIDO_reanudar      (see above)
+ |  |  |  |  
+ |  |  |  +- INTERACCION_showEE   (see above)
+ |  |  |     
+ |  |  +- INTERACCION_getInput
+ |  |     | 
+ |  |     +- numero               (see above)
+ |  |     |  
+ |  |     +- SCI_read_from_buffer (see above)
+ |  |        
+ |  +- INTERACCION_showEE   (see above)
+ |     
  +- _Startup            
     | 
     +- Init                
@@ -1155,18 +1247,20 @@ DEPENDENCY TREE
  |       
  +- isrVscierr          
  |    
+ +- isrVtpm2ovf         
+ |    
+ +- isrVtpm2ch0         
+ |  | 
+ |  +- SONIDO_siguiente_f  
+ |     | 
+ |     +- SONIDO_calcular_NC   (see above)
+ |        
  +- isrVtpm1ovf         
  |    
  +- isrVtpm1ch1         
  |    
  +- isrVtpm1ch0         
- |  | 
- |  +- SONIDO_siguiente_f  
- |     | 
- |     +- _IMODU_STAR08        (see above)
- |     |  
- |     +- SONIDO_calcular_NC   (see above)
- |        
+ |    
  +- _Startup             (see above)
     
 *********************************************************************************************
@@ -1176,5 +1270,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 3142
+Total size of all blocks to be downloaded: 4355
 
