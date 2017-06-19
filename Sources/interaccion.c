@@ -10,8 +10,8 @@
 
 /* Variables privadas */
 static unsigned char indexR; /* Cantidad de caracteres recibidos */
-static unsigned char flag_n=0; /* Flag indicador si el primer carácter recibido es un número */
-static unsigned short delay; /* Delay agregado con el fin de evitar sobrecargar en buffer de transmisión */
+static unsigned char flag_n=0; /* Flag indicador de si el primer carácter recibido es un número */
+static unsigned short delay; /* Retardo agregado con el fin de evitar sobrecargar el buffer de transmisión */
 
 /* Funciones privadas */
 /* Corrobora que el carácter recibido sea un número */
@@ -123,7 +123,7 @@ void INTERACCION_showEF(void){
 	SCI_write_string_to_buffer("\r\n Ingrese una frecuencia valida\r\n\n");
 }
 
-unsigned char INTERACCION_analizeInput (void){
+unsigned char INTERACCION_analyzeInput (void){
 	unsigned char rxc;
 	indexR=0;
 	rxc=SCI_read_from_buffer(indexR);
@@ -173,6 +173,9 @@ unsigned char INTERACCION_getInput (void){
 				return '*';
 			return 'e';
 		}
+	}
+	else{
+		return 'e';
 	}
 }
 

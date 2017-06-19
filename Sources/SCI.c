@@ -19,10 +19,12 @@ unsigned char rxchar;
 
 void SCI_send_char(void){
 	if (indexR < indexW){
+		/* Hay caracteres para enviar al transmisor. Se envía uno */
 		SCID=buffer_tx[indexR];
 		indexR++;
 	}
 	else{
+		/* Buffer de transmisión completamente enviado. Se resetea */
 		indexR=0;
 		indexW=0;
 		SCIC2_TIE=0;
@@ -31,15 +33,19 @@ void SCI_send_char(void){
 
 void SCI_receive_char(void){
 	if(SCIS1_RDRF==1){
+		/* Hay un carácter disponible en el receptor */
 		rxchar=SCID;
 		if (++cont==31){
+			/* Buffer lleno. Avisa y se reinicia */
 			flag_ebf=1;
 			indexW=0;
 			cont=0;
 			return;
 		}
+		/* Se guarda el carácter en el buffer */
 		buffer_rx[indexW]=rxchar;
 		if (rxchar=='.'){
+			/* Fin de mensaje de entrada */
 			indexW=0;
 			cont=0;
 			flag_r=1;

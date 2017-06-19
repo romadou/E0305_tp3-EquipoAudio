@@ -16,12 +16,15 @@ void main(void) {
   MEF_init();
 
   for(;;) {
+	  /* Error de buffer lleno */
 	  if (flag_ebf){
 		  INTERACCION_showEBF();
 		  flag_ebf=0;
 	  }
+	  /* Mensaje listo para ser recibido */
 	  if (flag_r){
-		  if (INTERACCION_analizeInput()){
+		  /* El mensaje es una cadena de puras letras o de puros números */
+		  if (INTERACCION_analyzeInput()){
 			  MEF_update();
 		  }
 		  else{
@@ -30,6 +33,4 @@ void main(void) {
 		  flag_r=0;
 	  }
   } /* loop forever */
-  
-  /* please make sure that you never leave main */
 }

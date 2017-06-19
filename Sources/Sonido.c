@@ -56,7 +56,7 @@ void SONIDO_prender_mb(unsigned char T){
 
 void SONIDO_apagar(void){
 	TPM1C1V_aux = TPM1C1V;
-	TPM1C1V = 0; /* apagar sonido */
+	TPM1C1V = 0;
 	TPM1C1SC_CH1IE=0;
 	TPM2C0SC_CH0IE=0;
 }

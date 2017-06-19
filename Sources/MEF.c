@@ -38,42 +38,42 @@ void MEF_init(void){
 
 void MEF_update(void){
 	switch (actual){
-	/* Estado central; la hora corre, la cerradura está cerrada */
+	/* Estado inicial */
 	case INIT:
 		entrada = INTERACCION_getInput();
 		estado_init(entrada);
 		break;
 		;
-	/* Modificación de la hora */
+	/* Pedido de frecuencia para reproducción en frecuencia fija */
 	case PEDIR_F:
 		estado_pedir_f();
 		break;
 		;
-	/* Modificación de los minutos */
+	/* Pedido de modo para reproducción en barrido de frecuencias */
 	case PEDIR_T:
 		entrada = INTERACCION_getInput();
 		estado_pedir_t(entrada);
 		break;
 		;
-	/* Modificando los segundos */
+	/* Modo F; sonido encendido */
 	case MF_ON:
 		entrada = INTERACCION_getInput();
 		estado_mf_on(entrada);
 		break;
 		;
-	/* Solicitud de modificación de la clave (ingresando la clave existente) */
+	/* Modo F; sonido apagado */
 	case MF_OFF:
 		entrada = INTERACCION_getInput();
 		estado_mf_off(entrada);
 		break;
 		;
-	/* Solicitud de desbloqueo de la cerradura (ingresando la clave existente) */
+	/* Modo B; sonido encendido */
 	case MB_ON:
 		entrada = INTERACCION_getInput();
 		estado_mb_on(entrada);
 		break;
 		;
-	/* Desbloqueo de la cerradura */
+	/* Modo B; sonido apagado */
 	case MB_OFF:
 		entrada = INTERACCION_getInput();
 		estado_mb_off(entrada);
@@ -96,7 +96,7 @@ void estado_init(unsigned char entrada){
 		INTERACCION_askB();
 		break;
 		;
-	/* Opción sin efecto */
+	/* Entrada no válida */
 	default:
 		INTERACCION_showEE();
 	}
@@ -115,22 +115,25 @@ void estado_pedir_f(){
 			actual=MF_OFF;
 		}
 		else{
-			/* Reset por frecuencia inválida */ //--> ESTO NO ES MÁS VERDAD
+			/* Frecuencia no válida */
 			INTERACCION_showEF();
 		}
 	}
 	else 
+		/* Entrada no válida */
 		INTERACCION_showEE();
 }
 
 void estado_mf_on(unsigned char entrada){
 	switch (entrada){
+	/* Reset: apagar sonido y reiniciar el sistema */
 	case '*':
 		INTERACCION_showC();
 		MEF_init();
 		actual=INIT;
 		break;
 		;
+	/* Apagar sonido */	
 	case '-':
 		INTERACCION_showC();
 		SONIDO_apagar();
@@ -138,6 +141,7 @@ void estado_mf_on(unsigned char entrada){
 		break;
 		;
 	default:
+		/* Entrada no válida */
 		INTERACCION_showEE();
 		;
 	}
@@ -145,12 +149,14 @@ void estado_mf_on(unsigned char entrada){
 
 void estado_mf_off(unsigned char entrada){
 	switch (entrada){
+	/* Reset: apagar sonido y reiniciar el sistema */
 	case '*':
 		INTERACCION_showC();
 		MEF_init();
 		actual=INIT;
 		break;
 		;
+	/* Encender sonido de frecuencia fija */	
 	case '+':
 		INTERACCION_showC();
 		SONIDO_reanudar();
@@ -158,6 +164,7 @@ void estado_mf_off(unsigned char entrada){
 		break;
 		;
 	default:
+		/* Entrada no válida */
 		INTERACCION_showEE();
 		;
 	}
@@ -177,7 +184,7 @@ void estado_pedir_t(unsigned char entrada){
 	case '2':
 		actual=MB_OFF;
 		INTERACCION_showB(10);
-		INTERACCION_default(); /* Menú de opciones para reproducción */
+		INTERACCION_default();
 		SONIDO_prender_mb(10);
 		break;
 		;
@@ -185,11 +192,12 @@ void estado_pedir_t(unsigned char entrada){
 	case '3':
 		actual=MB_OFF;
 		INTERACCION_showB(15);
-		INTERACCION_default(); /* Menú de opciones para reproducción */
+		INTERACCION_default();
 		SONIDO_prender_mb(15);
 		break;
 		;
 	default:
+		/* Entrada no válida */
 		INTERACCION_showEE();
 		;
 	}
@@ -197,12 +205,14 @@ void estado_pedir_t(unsigned char entrada){
 
 void estado_mb_on(unsigned char entrada){
 	switch (entrada){
+	/* Reset: apagar sonido y reiniciar el sistema */
 	case '*':
 		INTERACCION_showC();
 		MEF_init();
 		actual=INIT;
 		break;
 		;
+	/* Apagar sonido */
 	case '-':
 		INTERACCION_showC();
 		SONIDO_apagar();
@@ -210,6 +220,7 @@ void estado_mb_on(unsigned char entrada){
 		break;
 		;
 	default:
+		/* Entrada no válida */
 		INTERACCION_showEE();
 		;
 	}
@@ -217,12 +228,14 @@ void estado_mb_on(unsigned char entrada){
 
 void estado_mb_off(unsigned char entrada){
 	switch (entrada){
+	/* Reset: apagar sonido y reiniciar el sistema */
 	case '*':
 		INTERACCION_showC();
 		MEF_init();
 		actual=INIT;
 		break;
 		;
+	/* Encender sonido en barrido de frecuencias */
 	case '+':
 		INTERACCION_showC();
 		SONIDO_reanudar();
@@ -230,6 +243,7 @@ void estado_mb_off(unsigned char entrada){
 		break;
 		;
 	default:
+		/* Entrada no válida */
 		INTERACCION_showEE();
 		;
 	}
