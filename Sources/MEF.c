@@ -27,7 +27,7 @@ void estado_mf_on(unsigned char entrada);
 void estado_mf_off(unsigned char entrada);
 void estado_mb_on(unsigned char entrada);
 void estado_mb_off(unsigned char entrada);
-/* Verificación de la entrada; perteneciente al rango de frecuencias permitidas */
+/* Verifica si la entrada pertenece al rango de frecuencias permitidas */
 unsigned char verifyFreq(unsigned int freq);
 
 void MEF_init(void){
@@ -84,13 +84,13 @@ void MEF_update(void){
 
 void estado_init(unsigned char entrada){
 	switch (entrada){
-	/* Elección del modo 1 */
+	/* Elección del modo f */
 	case 'f':
 		actual=PEDIR_F;
 		INTERACCION_askF();
 		break;
 		;
-	/* Elección del modo 2 */
+	/* Elección del modo b */
 	case 'b':
 		actual=PEDIR_T;
 		INTERACCION_askB();
@@ -98,7 +98,7 @@ void estado_init(unsigned char entrada){
 		;
 	/* Opción sin efecto */
 	default:
-		;
+		INTERACCION_showEE();
 	}
 }
 

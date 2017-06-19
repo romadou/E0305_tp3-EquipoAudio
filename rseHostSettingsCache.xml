@@ -16,7 +16,7 @@
 <property key="propertySet.[cw.dbg.ct.bareboard].networkNetMask" value="255.255.255.255"/>
 <property key="propertySet.[cw.ide.settingscache].hidden.HostID" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.170529180754-0300"/>
 <property key="host.defaultEncoding" value=""/>
-<property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.CommandLineArgs" value="hcs08_icd"/
+<property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.CommandLineArgs" value="hcs08_icd"/>
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496095698062"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].useNetworkUDPPort" value="false"/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].RetryTimeout" value="20"/>
@@ -25,8 +25,8 @@
 <property key="host.description" value="Generated from pre-RSE Launch Configuration"/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].retryPromptUserActionOn" value="true"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkUDPPort" value="1234"/>
-<property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.Library" value="hcs08_pne_gdi"/>
 <property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.PEDEBUG_CURRENTDEVICE" value="MC9S08SH8"/>
+<property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.Library" value="hcs08_pne_gdi"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].ethernetController" value="UEC1"/>
 <property key="propertySet.[cw.dbg.main].systemType" value="com.freescale.cw.system.hcs08.HCS08SH.MC9S08SH8"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].initPath" value=""/>
@@ -124,8 +124,8 @@
 <property key="host.description" value="Generated from pre-RSE Launch Configuration"/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].retryPromptUserActionOn" value="true"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].networkUDPPort" value="1234"/>
-<property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.PEDEBUG_CURRENTDEVICE" value="MC9S08SH8"/>
 <property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.Library" value="hcs08_pne_gdi"/>
+<property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.PEDEBUG_CURRENTDEVICE" value="MC9S08SH8"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].ethernetController" value="UEC1"/>
 <property key="hidden.applicator.com.freescale.debugger.applicator.launchconfiguration.lc.circuitos_tp3-EquipoAudio_MC9S08SH8_PnE OSBDM.proj.gitConRo" value="com.freescale.debugger.applicator.launchconfiguration.lc.circuitos_tp3-EquipoAudio_MC9S08SH8_PnE OSBDM.proj.gitConRo"/>
 <property key="propertySet.[cw.dbg.main].systemType" value="com.freescale.cw.system.hcs08.HCS08SH.MC9S08SH8"/>
@@ -164,12 +164,7 @@
 <property key="propertySet.[cw.dbg.ct.bareboard].networkNetMask" value="255.255.255.255"/>
 <property key="propertySet.[cw.ide.settingscache].hidden.HostID" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.170529183154-0300.1"/>
 <property key="host.defaultEncoding" value=""/>
-<<<<<<< HEAD
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1497726278020"/>
-=======
-<property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1497829961409"/>
-<property key="propertySet.[cw.dbg.ct.targetConnLost].RetryTimeout" value="20"/>
->>>>>>> 4bbbde0f4a9988ab16e85c7ccd8ee06fd932d284
 <property key="propertySet.[cw.dbg.ct.bareboard].useNetworkUDPPort" value="false"/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].RetryTimeout" value="20"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].useMemoryConfigFile" value="true"/>
