@@ -9,7 +9,7 @@
 **     Processor : MC9S08SH8CPJ
 **     Version   : Component 01.008, Driver 01.08, CPU db: 3.00.066
 **     Datasheet : MC9S08SH8 Rev. 3 6/2008
-**     Date/Time : 2017-06-05, 17:07, # CodeGen: 6
+**     Date/Time : 2017-06-12, 14:19, # CodeGen: 5
 **     Abstract  :
 **         This module contains device initialization code 
 **         for selected on-chip peripherals.
@@ -113,6 +113,28 @@ void MCU_init(void)
   PTBDS = 0x00U;                                      
   /* PTCDS: PTCDS3=0,PTCDS2=0,PTCDS1=0,PTCDS0=0 */
   PTCDS = 0x00U;                                      
+  /* ### Init_TPM init code */
+  (void)(TPM2C0SC == 0U);              /* Channel 0 int. flag clearing (first part) */
+  /* TPM2C0SC: CH0F=0,CH0IE=0,MS0B=0,MS0A=1,ELS0B=0,ELS0A=0 */
+  TPM2C0SC = 0x10U;                    /* Int. flag clearing (2nd part) and channel 0 contr. register setting */
+  TPM2C0V = 0x00U;                     /* Compare 0 value setting */
+  /* TPM2SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=0,PS2=0,PS1=0,PS0=0 */
+  TPM2SC = 0x00U;                      /* Stop and reset counter */
+  TPM2MOD = 0x00U;                     /* Period value setting */
+  (void)(TPM2SC == 0U);                /* Overflow int. flag clearing (first part) */
+  /* TPM2SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=1,PS2=1,PS1=0,PS0=1 */
+  TPM2SC = 0x0DU;                      /* Int. flag clearing (2nd part) and timer control register setting */
+  /* ### Init_TPM init code */
+  (void)(TPM1C1SC == 0U);              /* Channel 0 int. flag clearing (first part) */
+  /* TPM1C1SC: CH1F=0,CH1IE=0,MS1B=0,MS1A=1,ELS1B=0,ELS1A=1 */
+  TPM1C1SC = 0x14U;                    /* Int. flag clearing (2nd part) and channel 0 contr. register setting */
+  TPM1C1V = 0x00U;                     /* Compare 0 value setting */
+  /* TPM1SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=0,PS2=0,PS1=0,PS0=0 */
+  TPM1SC = 0x00U;                      /* Stop and reset counter */
+  TPM1MOD = 0x00U;                     /* Period value setting */
+  (void)(TPM1SC == 0U);                /* Overflow int. flag clearing (first part) */
+  /* TPM1SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=1,PS2=0,PS1=0,PS0=0 */
+  TPM1SC = 0x08U;                      /* Int. flag clearing (2nd part) and timer control register setting */
   /* ### Init_SCI init code */
   /* SCIC2: TIE=0,TCIE=0,RIE=0,ILIE=0,TE=0,RE=0,RWU=0,SBK=0 */
   SCIC2 = 0x00U;                       /* Disable the SCI module */
@@ -130,32 +152,6 @@ void MCU_init(void)
   SCIC3 = 0x00U;                                      
   /* SCIC2: TIE=1,TCIE=0,RIE=1,ILIE=0,TE=1,RE=1,RWU=0,SBK=0 */
   SCIC2 = 0xACU;                                      
-  /* ### Init_TPM init code */
-  (void)(TPM1C1SC == 0U);              /* Channel 0 int. flag clearing (first part) */
-  /* TPM1C1SC: CH1F=0,CH1IE=0,MS1B=0,MS1A=1,ELS1B=0,ELS1A=1 */
-  TPM1C1SC = 0x14U;                    /* Int. flag clearing (2nd part) and channel 0 contr. register setting */
-  TPM1C1V = 0x00U;                     /* Compare 0 value setting */
-  (void)(TPM1C0SC == 0U);              /* Channel 1 int. flag clearing (first part) */
-  /* TPM1C0SC: CH0F=0,CH0IE=0,MS0B=0,MS0A=1,ELS0B=0,ELS0A=0 */
-  TPM1C0SC = 0x10U;                    /* Int. flag clearing (2nd part) and channel 1 contr. register setting */
-  TPM1C0V = 0x00U;                     /* Compare 1 value setting */
-  /* TPM1SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=0,PS2=0,PS1=0,PS0=0 */
-  TPM1SC = 0x00U;                      /* Stop and reset counter */
-  TPM1MOD = 0x00U;                     /* Period value setting */
-  (void)(TPM1SC == 0U);                /* Overflow int. flag clearing (first part) */
-  /* TPM1SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=1,PS2=0,PS1=0,PS0=0 */
-  TPM1SC = 0x08U;                      /* Int. flag clearing (2nd part) and timer control register setting */
-  /* ### Init_TPM init code */
-  (void)(TPM2C0SC == 0U);              /* Channel 0 int. flag clearing (first part) */
-  /* TPM2C0SC: CH0F=0,CH0IE=0,MS0B=0,MS0A=1,ELS0B=0,ELS0A=0 */
-  TPM2C0SC = 0x10U;                    /* Int. flag clearing (2nd part) and channel 0 contr. register setting */
-  TPM2C0V = 0x00U;                     /* Compare 0 value setting */
-  /* TPM2SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=0,PS2=0,PS1=0,PS0=0 */
-  TPM2SC = 0x00U;                      /* Stop and reset counter */
-  TPM2MOD = 0x00U;                     /* Period value setting */
-  (void)(TPM2SC == 0U);                /* Overflow int. flag clearing (first part) */
-  /* TPM2SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=1,PS2=1,PS1=0,PS0=1 */
-  TPM2SC = 0x0DU;                      /* Int. flag clearing (2nd part) and timer control register setting */
   /* ### */
   /*lint -save  -e950 Disable MISRA rule (1.1) checking. */
   asm CLI;                             /* Enable interrupts */
@@ -211,7 +207,11 @@ __interrupt void isrVscirx(void)
 **     Returns     : Nothing
 ** ===================================================================
 */
-__interrupt void isrVscierr(void){ }
+__interrupt void isrVscierr(void)
+{
+  /* Write your interrupt code here ... */
+
+}
 /* end of isrVscierr */
 
 
@@ -225,7 +225,11 @@ __interrupt void isrVscierr(void){ }
 **     Returns     : Nothing
 ** ===================================================================
 */
-__interrupt void isrVtpm2ovf(void){ }
+__interrupt void isrVtpm2ovf(void)
+{
+  /* Write your interrupt code here ... */
+
+}
 /* end of isrVtpm2ovf */
 
 
@@ -258,7 +262,11 @@ __interrupt void isrVtpm2ch0(void)
 **     Returns     : Nothing
 ** ===================================================================
 */
-__interrupt void isrVtpm1ovf(void){ }
+__interrupt void isrVtpm1ovf(void)
+{
+  /* Write your interrupt code here ... */
+
+}
 /* end of isrVtpm1ovf */
 
 
@@ -278,20 +286,6 @@ __interrupt void isrVtpm1ch1(void)
 	TPM1C1SC_CH1F = 0;
 }
 /* end of isrVtpm1ch1 */
-
-
-/*
-** ===================================================================
-**     Interrupt handler : isrVtpm1ch0
-**
-**     Description :
-**         User interrupt service routine. 
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-__interrupt void isrVtpm1ch0(void){ }
-/* end of isrVtpm1ch0 */
 
 
 /*lint -restore Enable MISRA rule (8.10) checking. */
@@ -343,7 +337,7 @@ static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table *
          UNASSIGNED_ISR,               /* Int.no.  8 VReserved8 (at FFEE)            Unassigned */
          UNASSIGNED_ISR,               /* Int.no.  7 VReserved7 (at FFF0)            Unassigned */
          isrVtpm1ch1,                  /* Int.no.  6 Vtpm1ch1 (at FFF2)              Used */
-         isrVtpm1ch0,                  /* Int.no.  5 Vtpm1ch0 (at FFF4)              Used */
+         UNASSIGNED_ISR,               /* Int.no.  5 Vtpm1ch0 (at FFF4)              Unassigned */
          UNASSIGNED_ISR,               /* Int.no.  4 VReserved4 (at FFF6)            Unassigned */
          UNASSIGNED_ISR,               /* Int.no.  3 Vlvd (at FFF8)                  Unassigned */
          UNASSIGNED_ISR,               /* Int.no.  2 Virq (at FFFA)                  Unassigned */
@@ -354,6 +348,24 @@ static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table *
 
 
 
+
+
+/*
+** ===================================================================
+**     Interrupt handler : isrVtpm1ch0
+**
+**     Description :
+**         User interrupt service routine. 
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+__interrupt void isrVtpm1ch0(void)
+{
+  /* Write your interrupt code here ... */
+
+}
+/* end of isrVtpm1ch0 */
 
 /* END MCUinit */
 

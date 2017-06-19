@@ -16,7 +16,7 @@
 <property key="propertySet.[cw.dbg.ct.bareboard].networkNetMask" value="255.255.255.255"/>
 <property key="propertySet.[cw.ide.settingscache].hidden.HostID" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.170529180754-0300"/>
 <property key="host.defaultEncoding" value=""/>
-<property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.CommandLineArgs" value="hcs08_icd"/>
+<property key="propertySet.[com.pemicro.mcu.debug.connections.pne.hcs08].com.pemicro.mcu.debug.connections.pne.hcs08.CommandLineArgs" value="hcs08_icd"/
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1496095698062"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].useNetworkUDPPort" value="false"/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].RetryTimeout" value="20"/>
@@ -164,7 +164,12 @@
 <property key="propertySet.[cw.dbg.ct.bareboard].networkNetMask" value="255.255.255.255"/>
 <property key="propertySet.[cw.ide.settingscache].hidden.HostID" value="com.freescale.cdt.debug.cw.core.ui.rse.systemtype.bareboard.hardware.170529183154-0300.1"/>
 <property key="host.defaultEncoding" value=""/>
+<<<<<<< HEAD
 <property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1497726278020"/>
+=======
+<property key="propertySet.[cw.ide.settingscache].hidden.TimeStamp" value="1497829961409"/>
+<property key="propertySet.[cw.dbg.ct.targetConnLost].RetryTimeout" value="20"/>
+>>>>>>> 4bbbde0f4a9988ab16e85c7ccd8ee06fd932d284
 <property key="propertySet.[cw.dbg.ct.bareboard].useNetworkUDPPort" value="false"/>
 <property key="propertySet.[cw.dbg.ct.targetConnLost].RetryTimeout" value="20"/>
 <property key="propertySet.[cw.dbg.ct.bareboard].useMemoryConfigFile" value="true"/>
