@@ -2,9 +2,9 @@
 <PEproject>
   <Header>
     <Name>DeviceInitialization</Name>
-    <SavedBy>Rocio</SavedBy>
-    <ModificationStamp>3</ModificationStamp>
-    <Date>2017-06-05</Date>
+    <SavedBy>usuario</SavedBy>
+    <ModificationStamp>4</ModificationStamp>
+    <Date>2017-06-17</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>4.48.0.0</PEversion>
   </Header>
@@ -27,7 +27,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>5</ProjectCompNumb>
+    <ProjectCompNumb>6</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <UserInterface>MCU_INIT</UserInterface>
