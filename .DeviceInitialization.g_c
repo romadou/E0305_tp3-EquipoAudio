@@ -1,7 +1,7 @@
 <GenerationInfo_G_C>
   <Options>
     <ProjectName>DeviceInitialization</ProjectName>
-    <ProjectDirectory>C:\Users\usuario\Dropbox\Facu PS2017\Circuitos Digitales y Microcontroladores\CW3\gitConRo\</ProjectDirectory>
+    <ProjectDirectory>C:\Users\rocio\Documents\CodeWarrior\workspace\circuitos_tp3-EquipoAudio\</ProjectDirectory>
     <DestEventsDirectory>Sources\</DestEventsDirectory>
     <DestDriversSubDirectory />
     <DestDocumentationDirectory>Documentation\</DestDocumentationDirectory>
@@ -22,7 +22,7 @@
     </GenFiles>
     <SignalListFile />
     <DestinationCompiler>MetrowerksHCS08CC</DestinationCompiler>
-    <ProjectModificationStamp>3</ProjectModificationStamp>
+    <ProjectModificationStamp>4</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>true</Generated>
@@ -105,7 +105,6 @@
     <Init>false</Init>
     <GenNumEvents>0</GenNumEvents>
     <ISR_ChISRNameInt0>isrVtpm1ch1</ISR_ChISRNameInt0>
-    <ISR_ChISRNameInt1>isrVtpm1ch0</ISR_ChISRNameInt1>
     <ISR_ISRNameInt>isrVtpm1ovf</ISR_ISRNameInt>
     <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
     <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
