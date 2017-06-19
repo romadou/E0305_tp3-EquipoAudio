@@ -38,14 +38,14 @@ void SONIDO_siguiente_f(void){
 	SONIDO_calcular_NC();
 }
 
-void SONIDO_prender_m1(unsigned int fa){
+void SONIDO_prender_mf(unsigned int fa){
 	frecuenciaActual=fa;
 	SONIDO_calcular_NC();
 	modoActual=0;
 	TPM1C1V_aux = NC; /* primer NC */
 }
 
-void SONIDO_prender_m2(unsigned char T){
+void SONIDO_prender_mb(unsigned char T){
 	frecuenciaActual=200;
 	SONIDO_calcular_NC();
 	modoActual=1;

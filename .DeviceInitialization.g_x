@@ -1,9 +1,0 @@
-<CodeGenerationInfo>
-  <GeneratedFilesList>
-    <GeneratedByDI>
-      <File Name="Sources\MCUinit.h" FileDate="2017-05-29, 20:12:50" FileAge="1496099570541" FileType="130" />
-      <File Name="Sources\MCUinit.c" FileDate="2017-06-01, 14:37:23" FileAge="1496338643028" FileType="130" />
-    </GeneratedByDI>
-  </GeneratedFilesList>
-  <CodeGenReference>3</CodeGenReference>
-</CodeGenerationInfo>

@@ -2,9 +2,15 @@
 <PEproject>
   <Header>
     <Name>DeviceInitialization</Name>
+<<<<<<< HEAD
     <SavedBy>usuario</SavedBy>
     <ModificationStamp>4</ModificationStamp>
     <Date>2017-06-17</Date>
+=======
+    <SavedBy>Rocio</SavedBy>
+    <ModificationStamp>4</ModificationStamp>
+    <Date>2017-06-18</Date>
+>>>>>>> 9fa2fd723f94b70ebdaf75be81d5df9ac5a73f1a
     <IDE>Eclipse IDE</IDE>
     <PEversion>4.48.0.0</PEversion>
   </Header>
@@ -2977,7 +2983,7 @@
       <ItemState>
         <ItemSymbol>Channels</ItemSymbol>
         <ReadOnly>false</ReadOnly>
-        <ListItemCount>2</ListItemCount>
+        <ListItemCount>1</ListItemCount>
         <UserReadOnly>false</UserReadOnly>
         <Expanded>true</Expanded>
       </ItemState>
@@ -3087,7 +3093,7 @@
         <ItemSymbol>Channel0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>CptrCmprDev0</ItemSymbol>
@@ -3100,14 +3106,14 @@
         <ItemSymbol>ChSettings0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>Mode0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
         <Index>2</Index>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>InputControl0</ItemSymbol>
@@ -3144,7 +3150,7 @@
       <ItemState>
         <ItemSymbol>Pins0</ItemSymbol>
         <Value>true</Value>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>ChannelPin0</ItemSymbol>
@@ -3168,7 +3174,7 @@
         <ItemSymbol>Interrupts0</ItemSymbol>
         <ReadOnly>false</ReadOnly>
         <UserReadOnly>false</UserReadOnly>
-        <Expanded>false</Expanded>
+        <Expanded>true</Expanded>
       </ItemState>
       <ItemState>
         <ItemSymbol>ChannelInterrupt0</ItemSymbol>

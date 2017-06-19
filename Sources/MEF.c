@@ -23,10 +23,10 @@ extern unsigned int NC0;
 void estado_init(unsigned char entrada);
 void estado_pedir_f(void);
 void estado_pedir_t(unsigned char entrada);
-void estado_m1_on(unsigned char entrada);
-void estado_m1_off(unsigned char entrada);
-void estado_m2_on(unsigned char entrada);
-void estado_m2_off(unsigned char entrada);
+void estado_mf_on(unsigned char entrada);
+void estado_mf_off(unsigned char entrada);
+void estado_mb_on(unsigned char entrada);
+void estado_mb_off(unsigned char entrada);
 /* Verificación de la entrada; perteneciente al rango de frecuencias permitidas */
 unsigned char verifyFreq(unsigned int freq);
 
@@ -56,27 +56,27 @@ void MEF_update(void){
 		break;
 		;
 	/* Modificando los segundos */
-	case M1_ON:
+	case MF_ON:
 		entrada = INTERACCION_getInput();
-		estado_m1_on(entrada);
+		estado_mf_on(entrada);
 		break;
 		;
 	/* Solicitud de modificación de la clave (ingresando la clave existente) */
-	case M1_OFF:
+	case MF_OFF:
 		entrada = INTERACCION_getInput();
-		estado_m1_off(entrada);
+		estado_mf_off(entrada);
 		break;
 		;
 	/* Solicitud de desbloqueo de la cerradura (ingresando la clave existente) */
-	case M2_ON:
+	case MB_ON:
 		entrada = INTERACCION_getInput();
-		estado_m2_on(entrada);
+		estado_mb_on(entrada);
 		break;
 		;
 	/* Desbloqueo de la cerradura */
-	case M2_OFF:
+	case MB_OFF:
 		entrada = INTERACCION_getInput();
-		estado_m2_off(entrada);
+		estado_mb_off(entrada);
 		break;
 		;
 	}
@@ -108,11 +108,11 @@ void estado_pedir_f(){
 	if (in!='e'){
 		if (verifyFreq(in)){
 			/* Modo de frecuencia fija activado y a la espera */
-			SONIDO_prender_m1(in);
+			SONIDO_prender_mf(in);
 			in = SONIDO_getError();
 			INTERACCION_showF(in);
 			INTERACCION_default(); /* Menú de opciones para reproducción */
-			actual=M1_OFF;
+			actual=MF_OFF;
 		}
 		else{
 			/* Reset por frecuencia inválida */ //--> ESTO NO ES MÁS VERDAD
@@ -123,7 +123,7 @@ void estado_pedir_f(){
 		INTERACCION_showEE();
 }
 
-void estado_m1_on(unsigned char entrada){
+void estado_mf_on(unsigned char entrada){
 	switch (entrada){
 	case '*':
 		INTERACCION_showC();
@@ -134,7 +134,7 @@ void estado_m1_on(unsigned char entrada){
 	case '-':
 		INTERACCION_showC();
 		SONIDO_apagar();
-		actual=M1_OFF;
+		actual=MF_OFF;
 		break;
 		;
 	default:
@@ -143,7 +143,7 @@ void estado_m1_on(unsigned char entrada){
 	}
 }
 
-void estado_m1_off(unsigned char entrada){
+void estado_mf_off(unsigned char entrada){
 	switch (entrada){
 	case '*':
 		INTERACCION_showC();
@@ -154,7 +154,7 @@ void estado_m1_off(unsigned char entrada){
 	case '+':
 		INTERACCION_showC();
 		SONIDO_reanudar();
-		actual=M1_ON;
+		actual=MF_ON;
 		break;
 		;
 	default:
@@ -167,26 +167,26 @@ void estado_pedir_t(unsigned char entrada){
 	switch (entrada){
 	/* Elección del barrido en 5 segundos */
 	case '1':
-		actual=M2_OFF;
+		actual=MB_OFF;
 		INTERACCION_showB(5);
 		INTERACCION_default(); /* Menú de opciones para reproducción */
-		SONIDO_prender_m2(5);
+		SONIDO_prender_mb(5);
 		break;
 		;
 	/* Elección del barrido en 10 segundos */
 	case '2':
-		actual=M2_OFF;
+		actual=MB_OFF;
 		INTERACCION_showB(10);
 		INTERACCION_default(); /* Menú de opciones para reproducción */
-		SONIDO_prender_m2(10);
+		SONIDO_prender_mb(10);
 		break;
 		;
 	/* Elección del barrido en 15 segundos */
 	case '3':
-		actual=M2_OFF;
+		actual=MB_OFF;
 		INTERACCION_showB(15);
 		INTERACCION_default(); /* Menú de opciones para reproducción */
-		SONIDO_prender_m2(15);
+		SONIDO_prender_mb(15);
 		break;
 		;
 	default:
@@ -195,7 +195,7 @@ void estado_pedir_t(unsigned char entrada){
 	}
 }
 
-void estado_m2_on(unsigned char entrada){
+void estado_mb_on(unsigned char entrada){
 	switch (entrada){
 	case '*':
 		INTERACCION_showC();
@@ -206,7 +206,7 @@ void estado_m2_on(unsigned char entrada){
 	case '-':
 		INTERACCION_showC();
 		SONIDO_apagar();
-		actual=M2_OFF;
+		actual=MB_OFF;
 		break;
 		;
 	default:
@@ -215,7 +215,7 @@ void estado_m2_on(unsigned char entrada){
 	}
 }
 
-void estado_m2_off(unsigned char entrada){
+void estado_mb_off(unsigned char entrada){
 	switch (entrada){
 	case '*':
 		INTERACCION_showC();
@@ -226,7 +226,7 @@ void estado_m2_off(unsigned char entrada){
 	case '+':
 		INTERACCION_showC();
 		SONIDO_reanudar();
-		actual=M2_ON;
+		actual=MB_ON;
 		break;
 		;
 	default:
