@@ -8,7 +8,7 @@
 **     Processor : MC9S08SH8CPJ
 **     Version   : Component 01.008, Driver 01.08, CPU db: 3.00.066
 **     Datasheet : MC9S08SH8 Rev. 3 6/2008
-**     Date/Time : 2017-06-18, 22:00, # CodeGen: 4
+**     Date/Time : 2017-06-19, 03:00, # CodeGen: 5
 **     Abstract  :
 **         This module contains device initialization code 
 **         for selected on-chip peripherals.
@@ -83,6 +83,34 @@ __interrupt void isrVscierr(void);
 /*
 ** ===================================================================
 **     Interrupt handler : isrVscierr
+**
+**     Description :
+**         User interrupt service routine. 
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+
+
+__interrupt void isrVtpm2ovf(void);
+/*
+** ===================================================================
+**     Interrupt handler : isrVtpm2ovf
+**
+**     Description :
+**         User interrupt service routine. 
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+
+
+__interrupt void isrVtpm2ch0(void);
+/*
+** ===================================================================
+**     Interrupt handler : isrVtpm2ch0
 **
 **     Description :
 **         User interrupt service routine. 

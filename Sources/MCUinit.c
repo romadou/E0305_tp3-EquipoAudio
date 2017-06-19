@@ -9,7 +9,7 @@
 **     Processor : MC9S08SH8CPJ
 **     Version   : Component 01.008, Driver 01.08, CPU db: 3.00.066
 **     Datasheet : MC9S08SH8 Rev. 3 6/2008
-**     Date/Time : 2017-06-18, 22:00, # CodeGen: 4
+**     Date/Time : 2017-06-19, 03:00, # CodeGen: 5
 **     Abstract  :
 **         This module contains device initialization code 
 **         for selected on-chip peripherals.
@@ -128,8 +128,8 @@ void MCU_init(void)
   SCIC1 = 0x00U;                                      
   /* SCIC3: R8=0,T8=0,TXDIR=0,TXINV=0,ORIE=0,NEIE=0,FEIE=0,PEIE=0 */
   SCIC3 = 0x00U;                                      
-  /* SCIC2: TIE=0,TCIE=0,RIE=0,ILIE=0,TE=1,RE=1,RWU=0,SBK=0 */
-  SCIC2 = 0x0CU;                                      
+  /* SCIC2: TIE=1,TCIE=0,RIE=1,ILIE=0,TE=1,RE=1,RWU=0,SBK=0 */
+  SCIC2 = 0xACU;                                      
   /* ### Init_TPM init code */
   (void)(TPM1C1SC == 0U);              /* Channel 0 int. flag clearing (first part) */
   /* TPM1C1SC: CH1F=0,CH1IE=1,MS1B=0,MS1A=1,ELS1B=0,ELS1A=1 */
@@ -139,8 +139,19 @@ void MCU_init(void)
   TPM1SC = 0x00U;                      /* Stop and reset counter */
   TPM1MOD = 0x00U;                     /* Period value setting */
   (void)(TPM1SC == 0U);                /* Overflow int. flag clearing (first part) */
-  /* TPM1SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=1,PS2=0,PS1=1,PS0=0 */
-  TPM1SC = 0x0AU;                      /* Int. flag clearing (2nd part) and timer control register setting */
+  /* TPM1SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=1,PS2=0,PS1=0,PS0=0 */
+  TPM1SC = 0x08U;                      /* Int. flag clearing (2nd part) and timer control register setting */
+  /* ### Init_TPM init code */
+  (void)(TPM2C0SC == 0U);              /* Channel 0 int. flag clearing (first part) */
+  /* TPM2C0SC: CH0F=0,CH0IE=0,MS0B=0,MS0A=1,ELS0B=0,ELS0A=0 */
+  TPM2C0SC = 0x10U;                    /* Int. flag clearing (2nd part) and channel 0 contr. register setting */
+  TPM2C0V = 0x00U;                     /* Compare 0 value setting */
+  /* TPM2SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=0,PS2=0,PS1=0,PS0=0 */
+  TPM2SC = 0x00U;                      /* Stop and reset counter */
+  TPM2MOD = 0x00U;                     /* Period value setting */
+  (void)(TPM2SC == 0U);                /* Overflow int. flag clearing (first part) */
+  /* TPM2SC: TOF=0,TOIE=0,CPWMS=0,CLKSB=0,CLKSA=1,PS2=1,PS1=0,PS0=1 */
+  TPM2SC = 0x0DU;                      /* Int. flag clearing (2nd part) and timer control register setting */
   /* ### */
   /*lint -save  -e950 Disable MISRA rule (1.1) checking. */
   asm CLI;                             /* Enable interrupts */
@@ -202,6 +213,43 @@ __interrupt void isrVscierr(void)
 
 }
 /* end of isrVscierr */
+
+
+/*
+** ===================================================================
+**     Interrupt handler : isrVtpm2ovf
+**
+**     Description :
+**         User interrupt service routine. 
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+__interrupt void isrVtpm2ovf(void)
+{
+  /* Write your interrupt code here ... */
+
+}
+/* end of isrVtpm2ovf */
+
+
+/*
+** ===================================================================
+**     Interrupt handler : isrVtpm2ch0
+**
+**     Description :
+**         User interrupt service routine. 
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+__interrupt void isrVtpm2ch0(void)
+{
+	TPM2C0V += NC0;
+	SONIDO_siguiente_f();
+	TPM2C0SC_CH0F = 0;
+}
+/* end of isrVtpm2ch0 */
 
 
 /*
@@ -280,9 +328,9 @@ static void (* near const _vect[])(void) @0xFFC0 = { /* Interrupt vector table *
          isrVscirx,                    /* Int.no. 17 Vscirx (at FFDC)                Used */
          isrVscierr,                   /* Int.no. 16 Vscierr (at FFDE)               Used */
          UNASSIGNED_ISR,               /* Int.no. 15 Vspi (at FFE0)                  Unassigned */
-         UNASSIGNED_ISR,               /* Int.no. 14 Vtpm2ovf (at FFE2)              Unassigned */
+         isrVtpm2ovf,                  /* Int.no. 14 Vtpm2ovf (at FFE2)              Used */
          UNASSIGNED_ISR,               /* Int.no. 13 Vtpm2ch1 (at FFE4)              Unassigned */
-         UNASSIGNED_ISR,               /* Int.no. 12 Vtpm2ch0 (at FFE6)              Unassigned */
+         isrVtpm2ch0,                  /* Int.no. 12 Vtpm2ch0 (at FFE6)              Used */
          isrVtpm1ovf,                  /* Int.no. 11 Vtpm1ovf (at FFE8)              Used */
          UNASSIGNED_ISR,               /* Int.no. 10 VReserved10 (at FFEA)           Unassigned */
          UNASSIGNED_ISR,               /* Int.no.  9 VReserved9 (at FFEC)            Unassigned */
@@ -318,43 +366,6 @@ __interrupt void isrVtpm1ch0(void)
 
 }
 /* end of isrVtpm1ch0 */
-
-
-/*
-** ===================================================================
-**     Interrupt handler : isrVtpm2ch0
-**
-**     Description :
-**         User interrupt service routine. 
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-__interrupt void isrVtpm2ch0(void)
-{
-	TPM2C0V += NC0;
-	SONIDO_siguiente_f();
-	TPM2C0SC_CH0F = 0;
-}
-/* end of isrVtpm2ch0 */
-
-
-/*
-** ===================================================================
-**     Interrupt handler : isrVtpm2ovf
-**
-**     Description :
-**         User interrupt service routine. 
-**     Parameters  : None
-**     Returns     : Nothing
-** ===================================================================
-*/
-__interrupt void isrVtpm2ovf(void)
-{
-  /* Write your interrupt code here ... */
-
-}
-/* end of isrVtpm2ovf */
 
 /* END MCUinit */
 

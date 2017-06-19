@@ -22,7 +22,7 @@
     </GenFiles>
     <SignalListFile />
     <DestinationCompiler>MetrowerksHCS08CC</DestinationCompiler>
-    <ProjectModificationStamp>4</ProjectModificationStamp>
+    <ProjectModificationStamp>5</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>true</Generated>
@@ -112,6 +112,26 @@
     <GenMethodPos>0</GenMethodPos>
     <GenExtraFilesCount>0</GenExtraFilesCount>
   </ComponentID_4>
+  <ComponentID_7>
+    <Generated>true</Generated>
+    <GenCompName>TPM2</GenCompName>
+    <GenComponentVersion>01.080</GenComponentVersion>
+    <GenDriverVersion>01.20</GenDriverVersion>
+    <GenEventModule />
+    <HeaderAge>-1</HeaderAge>
+    <CodeAge>-1</CodeAge>
+    <AsemblAge>-1</AsemblAge>
+    <GenNumMethods>1</GenNumMethods>
+    <Init>false</Init>
+    <GenNumEvents>0</GenNumEvents>
+    <ISR_ChISRNameInt0>isrVtpm2ch0</ISR_ChISRNameInt0>
+    <ISR_ISRNameInt>isrVtpm2ovf</ISR_ISRNameInt>
+    <GenSmartUserChangesDetected_Header>false</GenSmartUserChangesDetected_Header>
+    <GenSmartUserChangesDetected_Code>false</GenSmartUserChangesDetected_Code>
+    <GenSmartUserChangesDetected_Asembl>false</GenSmartUserChangesDetected_Asembl>
+    <GenMethodPos>0</GenMethodPos>
+    <GenExtraFilesCount>0</GenExtraFilesCount>
+  </ComponentID_7>
   <UsedSrcFiles>
     <SrcFile0>Drivers\HC08\Common_HCx08\MC9x08_MCUinit_Implement_end.prg=1032416751</SrcFile0>
     <SrcFile1>Drivers\HCS08\MC9S08_InterruptVectorTableROM.prg=1032416747</SrcFile1>
