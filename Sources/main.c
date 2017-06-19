@@ -5,7 +5,7 @@
 
 /* Variables externas */
 extern unsigned char flag_r;
-extern unsigned char flag_e;
+extern unsigned char flag_ebf;
 
 void MCU_init(void); /* Device initialization function declaration */
 
@@ -16,8 +16,9 @@ void main(void) {
   MEF_init();
 
   for(;;) {
-	  if (flag_e){
+	  if (flag_ebf){
 		  INTERACCION_showEBF();
+		  flag_ebf=0;
 	  }
 	  if (flag_r){
 		  if (INTERACCION_analizeInput()){

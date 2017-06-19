@@ -14,7 +14,7 @@ static unsigned char buffer_rx[32];
 static unsigned char cont=0;
 
 volatile unsigned char flag_r;
-volatile unsigned char flag_e;
+volatile unsigned char flag_ebf;
 unsigned char rxchar;
 
 void SCI_send_char(void){
@@ -32,8 +32,8 @@ void SCI_send_char(void){
 void SCI_receive_char(void){
 	if(SCIS1_RDRF==1){
 		rxchar=SCID;
-		if (++cont==32){
-			flag_e=1;
+		if (++cont==31){
+			flag_ebf=1;
 			indexW=0;
 			cont=0;
 			return;

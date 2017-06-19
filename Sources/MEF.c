@@ -27,8 +27,7 @@ void estado_m1_on(unsigned char entrada);
 void estado_m1_off(unsigned char entrada);
 void estado_m2_on(unsigned char entrada);
 void estado_m2_off(unsigned char entrada);
-
-/* FUNCIONES INTERNAS PARA FUNCIONAMIENTO */
+/* Verificación de la entrada; perteneciente al rango de frecuencias permitidas */
 unsigned char verifyFreq(unsigned int freq);
 
 void MEF_init(void){
@@ -106,20 +105,22 @@ void estado_init(unsigned char entrada){
 void estado_pedir_f(){
 	static unsigned int in;
 	in=INTERACCION_getFreq();
-	if (verifyFreq(in)){
-		/* Modo de frecuencia fija activado y a la espera */
-		SONIDO_prender_m1(in);
-		in = SONIDO_getError();
-		INTERACCION_showF(in);
-		INTERACCION_default(); /* Menú de opciones para reproducción */
-		actual=M1_OFF;
+	if (in!='e'){
+		if (verifyFreq(in)){
+			/* Modo de frecuencia fija activado y a la espera */
+			SONIDO_prender_m1(in);
+			in = SONIDO_getError();
+			INTERACCION_showF(in);
+			INTERACCION_default(); /* Menú de opciones para reproducción */
+			actual=M1_OFF;
+		}
+		else{
+			/* Reset por frecuencia inválida */ //--> ESTO NO ES MÁS VERDAD
+			INTERACCION_showEF();
+		}
 	}
-	else{
-		/* Reset por frecuencia inválida */
-		INTERACCION_showEF();
-		MEF_init();
-		actual=INIT;
-	}
+	else 
+		INTERACCION_showEE();
 }
 
 void estado_m1_on(unsigned char entrada){

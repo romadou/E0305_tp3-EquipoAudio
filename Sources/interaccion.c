@@ -30,9 +30,9 @@ void INTERACCION_init(void){
 	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n(ingresar la letra correspondiente");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n al modo deseado,");
+	SCI_write_string_to_buffer(" al modo deseado,");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n para confirmar presione '.')\r\n");
+	SCI_write_string_to_buffer(" para confirmar presione '.')\r\n");
 }
 
 void INTERACCION_default(void){
@@ -46,15 +46,17 @@ void INTERACCION_default(void){
 	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n RESET: Reiniciar programa");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n (para confirmar presione '.')\r\n\n");
+	SCI_write_string_to_buffer("\r\n(para confirmar presione '.')\r\n\n");
 }
 
 void INTERACCION_askF(void){
 	SCI_write_string_to_buffer("\r\n\nINGRESAR LA FRECUENCIA DE SONIDO QUE DESEA ESCUCHAR:");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n Rango de frecuencias posibles: [200 Hz - 10 KHz] con un paso de 100 Hz");
+	SCI_write_string_to_buffer("\r\n Rango de frecuencias posibles: [200 Hz - 10 KHz]");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n (para confirmar presione '.')\r\n");
+	SCI_write_string_to_buffer(" con un paso de 100 Hz");
+	for (delay=0; delay<0xFFFF; delay++);
+	SCI_write_string_to_buffer("\r\n(para confirmar presione '.')\r\n\n");
 }
 
 void INTERACCION_askB(void){
@@ -66,20 +68,20 @@ void INTERACCION_askB(void){
 	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer("\r\n T3: 15 seg");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n (ingresar el número correspondiente al barrido escogido, ");
+	SCI_write_string_to_buffer("\r\n(ingresar el numero correspondiente al barrido escogido, ");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("para confirmar presione '.')\r\n");
+	SCI_write_string_to_buffer("para confirmar \r\npresione '.')\r\n\n");
 } 
 
 void INTERACCION_showB(unsigned char b){
-	SCI_write_string_to_buffer("\r\n\n OPCION GUARDADA");
+	SCI_write_string_to_buffer("\r\n\nOPCION GUARDADA");
 	for (delay=0; delay<0xFFFF; delay++);
 	switch (b){
-	case 5: SCI_write_string_to_buffer("\r\n\n SE REALIZARA UN BARRIDO CADA 5 SEGUNDOS");
+	case 5: SCI_write_string_to_buffer("\r\n\nSE REALIZARA UN BARRIDO CADA 5 SEGUNDOS");
 			break;
-	case 10: SCI_write_string_to_buffer("\r\n\n SE REALIZARA UN BARRIDO CADA 10 SEGUNDOS");
+	case 10: SCI_write_string_to_buffer("\r\n\nSE REALIZARA UN BARRIDO CADA 10 SEGUNDOS");
 			break;
-	case 15: SCI_write_string_to_buffer("\r\n\n SE REALIZARA UN BARRIDO CADA 15 SEGUNDOS");
+	case 15: SCI_write_string_to_buffer("\r\n\nSE REALIZARA UN BARRIDO CADA 15 SEGUNDOS");
 			break;
 	default:;
 	}
@@ -90,9 +92,9 @@ void INTERACCION_showF(unsigned int error){
 	unsigned char e[2];
 	e[0]='0'+error/10;
 	e[1]='0'+error%10;
-	SCI_write_string_to_buffer("\r\n\n FRECUENCIA GUARDADA");
+	SCI_write_string_to_buffer("\r\n\nFRECUENCIA GUARDADA");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n\n EL ERROR PRODUCIDO POR LA");
+	SCI_write_string_to_buffer("\r\n\nEL ERROR PRODUCIDO POR LA");
 	for (delay=0; delay<0xFFFF; delay++);
 	SCI_write_string_to_buffer(" FRECUENCIA SELECIONADA ES DE ");
 	SCI_write_string_to_buffer(e);
@@ -100,25 +102,25 @@ void INTERACCION_showF(unsigned int error){
 }
 
 void INTERACCION_showC(void){
-	SCI_write_string_to_buffer("\r\n\n COMANDO ACEPTADO\r\n\n");
+	SCI_write_string_to_buffer("\r\n\nCOMANDO ACEPTADO\r\n\n");
 }
 
 void INTERACCION_showEBF(void){
-	SCI_write_string_to_buffer("\r\nERROR: DEMASIADAS TECLAS PRESIONADAS");
+	SCI_write_string_to_buffer("\r\n\nERROR: DEMASIADAS TECLAS PRESIONADAS");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n Comience nuevamente\r\n");
+	SCI_write_string_to_buffer("\r\n Comience nuevamente\r\n\n");
 }
 
 void INTERACCION_showEE(void){
-	SCI_write_string_to_buffer("\r\nERROR: ENTRADA INVALIDA");
+	SCI_write_string_to_buffer("\r\n\nERROR: ENTRADA INVALIDA");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n Comience nuevamente\r\n");
+	SCI_write_string_to_buffer("\r\n Ingrese una entrada valida\r\n\n");
 }
 
 void INTERACCION_showEF(void){
-	SCI_write_string_to_buffer("\r\nERROR: FRECUENCIA FUERA DE RANGO");
+	SCI_write_string_to_buffer("\r\n\nERROR: FRECUENCIA FUERA DE RANGO");
 	for (delay=0; delay<0xFFFF; delay++);
-	SCI_write_string_to_buffer("\r\n Comience nuevamente\r\n");
+	SCI_write_string_to_buffer("\r\n Ingrese una frecuencia valida\r\n\n");
 }
 
 unsigned char INTERACCION_analizeInput (void){
@@ -186,6 +188,8 @@ unsigned int INTERACCION_getFreq(void){
 			num+=x;
 		}
 	}
+	else 
+		return 'e';
 	return num;
 }
 
